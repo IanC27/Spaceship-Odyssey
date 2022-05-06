@@ -13,6 +13,7 @@ const config = {
             debug: false,
         }
     },
+    pixelArt: true,
     scene: [NodeTwo]
 }
 
