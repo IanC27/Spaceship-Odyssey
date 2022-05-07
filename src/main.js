@@ -17,4 +17,6 @@ const config = {
     scene: [NodeTwo]
 }
 
+let controls = {}
+
 let game = new Phaser.Game(config);
