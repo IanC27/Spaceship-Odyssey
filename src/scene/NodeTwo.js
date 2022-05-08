@@ -12,6 +12,7 @@ class NodeTwo extends Phaser.Scene {
     create() {
         controls.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         controls.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT); 
+        controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.nate = this.physics.add.sprite(game.config.width / 2, game.config.height / 2, "astro");
         this.nate.setInteractive({draggable: true});
         //this.nate.setCollideWorldBounds(true);
@@ -42,6 +43,13 @@ class NodeTwo extends Phaser.Scene {
             this.nate.setVelocityY(vectorY);
             this.flingLine.destroy();
             firstFlingDrag = true;
+        })
+        // breaking
+        controls.space.on('down', () => {
+            this.nate.setDrag(50);
+        });
+        controls.space.on('up', () => {
+            this.nate.setDrag(0);
         })
 
         // walls
