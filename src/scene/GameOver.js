@@ -14,7 +14,7 @@ class GameOver extends Phaser.Scene {
         // menu text configuration
         let gameoverConfig = {
             fontFamily: 'Stencil Std, fantasy',
-            fontSize: '30px',
+            fontSize: '35px',
             color: '#FFFFFF',
             align: 'right',
             padding: {
@@ -22,7 +22,7 @@ class GameOver extends Phaser.Scene {
                 bottom: 5,
             },
         }
-        this.add.text(game.config.width / 2, 100, 'GAME OVER', gameoverConfig)
+        this.add.text(game.config.width / 2, 50, 'GAME OVER', gameoverConfig)
             .setOrigin(0.5)
             .setDepth(1);
         gameoverConfig.fontSize = '20px';
@@ -38,3 +38,4 @@ class GameOver extends Phaser.Scene {
             this.scene.start("NodeTwo");
         }
     }
+}

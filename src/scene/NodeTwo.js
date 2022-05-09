@@ -91,7 +91,7 @@ class NodeTwo extends Phaser.Scene {
         game.settings = {
             tired: true,
             minutes: 60,
-            hours: 24
+            hours: 1
         }
         this.clockInterval = setInterval(myTimer, 1000);
         function myTimer() {
