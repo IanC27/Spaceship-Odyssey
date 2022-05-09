@@ -73,11 +73,41 @@ class NodeTwo extends Phaser.Scene {
                 console.log("do something")
             }
         }, null, this);
-
-
+        //setting config
+        let timeConfig = {
+            fontFamily: 'Stencil Std, fantasy',
+            fontSize: '28px',
+            backgroundColor: '#9999FF',
+            color: '#000',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+        }
+        // timer 
+        game.settings = {
+            tired: true,
+            minutes: 60,
+            hours: 240000
+        }
+        this.clockInterval = setInterval(myTimer, 1000);
+        function myTimer() {
+            game.settings.hours -= 1000;
+            game.settings.minutes -= 10;
+        }
+        this.clockRight = this.add.text(0, 0, Math.floor(game.settings.hours/10000) + ':' + game.settings.minutes, timeConfig);
     }
 
     update() {
-        
+        if(game.settings.hours <= 0 &&  game.settings.minutes <= 0){
+            clearInterval(this.clockInterval);
+        }
+        if(game.settings.minutes == 0){
+            game.settings.minutes = 60;
+        }
+        this.minutes = Math.floor(game.settings.gameTimer/10000);
+        this.seconds = Math.floor(game.settings.gameTimer/4000);
+        this.clockRight.text = Math.floor(game.settings.hours/10000) + ':' + game.settings.minutes;
     }
 }
