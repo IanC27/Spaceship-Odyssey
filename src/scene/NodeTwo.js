@@ -6,14 +6,14 @@ class NodeTwo extends Phaser.Scene {
 
     preload() {
         this.load.image("astro", "assets/astronaut.png");
-
+        this.load.image("activity", "assets/activity.png")
     }
 
     create() {
-        controls.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        controls.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT); 
+        controls.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
         controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.nate = this.physics.add.sprite(game.config.width / 2, game.config.height / 2, "astro");
+        this.nate.setDepth(1)
         this.nate.setInteractive({draggable: true});
         //this.nate.setCollideWorldBounds(true);
         this.nate.setBounceX(0.8);
@@ -36,7 +36,7 @@ class NodeTwo extends Phaser.Scene {
             }
         })
         this.nate.on('dragend', (pointer, dragX, dragY, dropped) => {
-            console.log("end", dragX, dragY);
+            //console.log("end", dragX, dragY);
             let vectorX = flingEnd.x - flingStart.x;
             let vectorY = flingEnd.y - flingStart.y;
             this.nate.setVelocityX(vectorX);
@@ -58,11 +58,26 @@ class NodeTwo extends Phaser.Scene {
         this.walls.add(this.add.rectangle(0, game.config.height / 4 + 100, game.config.width, 20, 0xffffff).setOrigin(0, 0));
         this.physics.add.collider(this.nate, this.walls, null, null, this);
 
+        // camera follow
         this.cameras.main.startFollow(this.nate, true, 0.1, 0.1);
         this.cameras.main.setDeadzone(150, 150);
+
+        // the activity
+        this.thing_to_do = this.physics.add.sprite(160, 140, "activity");
+        // activity range
+        this.thing_to_do.setBodySize(60, 60);
+        // when within range
+        this.physics.add.overlap(this.nate, this.thing_to_do, () => {
+            //console.log("in range")
+            if (Phaser.Input.Keyboard.JustDown(controls.interact)) {
+                console.log("do something")
+            }
+        }, null, this);
+
+
     }
 
     update() {
-
+        
     }
 }
