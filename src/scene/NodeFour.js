@@ -1,7 +1,7 @@
 
-class NodeTwo extends Phaser.Scene {
+class NodeFour extends Phaser.Scene {
     constructor() {
-        super("NodeTwo");
+        super("NodeFour");
     }
 
     preload() {
@@ -10,7 +10,7 @@ class NodeTwo extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.setBackgroundColor('#000');
+        this.cameras.main.setBackgroundColor('#5550e5');
         controls.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
         controls.next = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
         controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);

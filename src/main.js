@@ -14,7 +14,7 @@ const config = {
         }
     },
     pixelArt: true,
-    scene: [Menu, NodeTwo]
+    scene: [Menu, GameOver, NodeTwo, NodeThree, NodeFour]
 }
 
 let controls = {}
