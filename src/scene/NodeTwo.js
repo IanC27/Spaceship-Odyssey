@@ -11,9 +11,12 @@ class NodeTwo extends Phaser.Scene {
 
     create() {
         this.cameras.main.setBackgroundColor('#000');
-        controls.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
+        controls.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         controls.next = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
         controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        controls.quit = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+
+
         this.nate = this.physics.add.sprite(game.config.width / 2, game.config.height / 2, "astro");
         this.nate.setDepth(1)
         this.nate.setInteractive({draggable: true});
@@ -63,18 +66,12 @@ class NodeTwo extends Phaser.Scene {
         // camera follow
         this.cameras.main.startFollow(this.nate, true, 0.1, 0.1);
         this.cameras.main.setDeadzone(150, 150);
-
-        // the activity
-        this.thing_to_do = this.physics.add.sprite(160, 140, "activity");
-        // activity range
-        this.thing_to_do.setBodySize(60, 60);
-        // when within range
-        this.physics.add.overlap(this.nate, this.thing_to_do, () => {
-            //console.log("in range")
-            if (Phaser.Input.Keyboard.JustDown(controls.interact)) {
-                console.log("do something")
-            }
-        }, null, this);
+        
+        this.activities = this.physics.add.group({runChildUpdate: true});
+        for (let i = 0; i < 8; i++) {
+            this.activities.add(new SampleActivity(this, (70  * i), 140, 'activity', 0, this.nate));
+        }
+        
         //setting config
         let timeConfig = {
             fontFamily: 'Stencil Std, fantasy',
@@ -112,6 +109,7 @@ class NodeTwo extends Phaser.Scene {
             game.settings.hours -= 1;
         }
         this.clockRight.text = Math.floor(game.settings.hours) + ':' + game.settings.minutes;
+
         if(this.gameover){
             this.clockRight.text = "0:00";
             this.scene.start("gameoverScene");
