@@ -145,7 +145,7 @@ class NodeTwo extends Phaser.Scene {
         if (playerStatus.lastSlept - game.clock.minutes > 60 * 10) {
             playerStatus.tired = true;
             playerStatus.wellRested = false;
-            console.log("yawn!")
+            console.log("yawn!");
         }
         
         this.clockRight.text = Math.floor(game.clock.minutes / 60).toString().padStart(2, "0") + ':' + (game.clock.minutes % 60).toString().padStart(2, "0");

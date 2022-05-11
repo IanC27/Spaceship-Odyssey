@@ -42,6 +42,6 @@ class SleepingBag extends Activity {
         if (playerStatus.wellRested) {
             console.log("rested well!");
         }
-        this.sleepIndicator.destroy()
+        this.sleepIndicator.destroy();
     }
 }

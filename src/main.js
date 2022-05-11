@@ -17,7 +17,7 @@ const config = {
     scene: [Menu, GameOver, NodeTwo, NodeThree, NodeFour]
 }
 
-let controls = {}
+let controls = {};
 let playerStatus;
 
 let game = new Phaser.Game(config);
