@@ -27,7 +27,11 @@ class MessageHome extends Activity {
         this.scene.input.keyboard.on('keydown', (event) => {
             this.textEntry.text += event.key;
         });
-        this.play(this.activeAnim);
+        // play animation if there is one
+        if (this.activeAnim){
+            this.play(this.activeAnim);
+        }
+        
     }
 
     end(player) {
@@ -35,6 +39,6 @@ class MessageHome extends Activity {
             tex.destroy()
         }
         this.setFrame(0)
-        this.text.destroy()
+        this.textEntry.destroy();
     }
 }
