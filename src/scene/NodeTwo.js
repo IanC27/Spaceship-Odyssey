@@ -23,6 +23,22 @@ class NodeTwo extends Phaser.Scene {
         //this.nate.setCollideWorldBounds(true);
         this.nate.setBounceX(0.8);
         this.nate.setBounceY(0.8);
+        // score and status variables
+        this.nate.status = {
+            lastWake: game.clock.minutes,
+            tired: false,
+            wellRested: false,
+            stress: 0,
+            homeSickness: 0,
+
+            fitness: 0,
+            research: 0,
+            family: 0,
+            knowledge: 0,
+            inventionProgress: 0,
+            inventions: 0,
+            spaceWalk: false
+        }
     
         // flinging controls
         let firstFlingDrag = true;
@@ -49,6 +65,7 @@ class NodeTwo extends Phaser.Scene {
             this.flingLine.destroy();
             firstFlingDrag = true;
         })
+
         // breaking
         controls.space.on('down', () => {
             this.nate.setDrag(50);
@@ -85,26 +102,26 @@ class NodeTwo extends Phaser.Scene {
             },
         }
         // timer
-        this.clockInterval = setInterval(myTimer, 1000);
+        this.clockInterval = setInterval(myTimer, 100);
         function myTimer() {
-            game.settings.minutes -= 10;
+            game.clock.minutes -= 1;
         }
         this.clockRight = this.add.text(0, 0, '24:00', timeConfig);
-        // set game over var
-        this.gameover = false;
     }
 
+
     update() {
-        if(game.settings.hours <= 0 &&  game.settings.minutes <= 0){
+        if (game.clock.minutes <= 0){
             clearInterval(this.clockInterval);
-            this.gameover = true;
+            this.gameOver();
         }
         
-        this.clockRight.text = Math.floor(game.settings.minutes / 60) + ':' + game.settings.minutes % 60;
+        this.clockRight.text = Math.floor(game.clock.minutes / 60) + ':' + game.clock.minutes % 60;
 
-        if(this.gameover){
-            this.clockRight.text = "0:00";
-            this.scene.start("gameoverScene");
-        }
+    }
+    
+    gameOver() {
+        this.clockRight.text = "0:00";
+        this.scene.start("gameoverScene");
     }
 }

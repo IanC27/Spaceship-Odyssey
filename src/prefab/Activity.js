@@ -36,7 +36,7 @@ class Activity extends Phaser.GameObjects.Sprite {
             player.disableBody(true, true);
         }
         console.log("interacted");
-        this.onInteract(player)
+        this.onInteract(player);
     }
 
     preEnd(player) {
@@ -47,7 +47,7 @@ class Activity extends Phaser.GameObjects.Sprite {
         }
         
         console.log("end");
-        this.end(player)
+        this.end(player);
     }
 
     onInteract(player) {

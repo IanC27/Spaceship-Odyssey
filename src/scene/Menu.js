@@ -37,11 +37,9 @@ class Menu extends Phaser.Scene {
         //Space key
         controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        //game settings
-        game.settings = {
-            tired: true,
+        //game clock
+        game.clock = {
             minutes: 1440,
-            
         }
     }
 

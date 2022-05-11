@@ -35,6 +35,7 @@ class GameOver extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(controls.restart)) {
+            game.clock.minutes = 1440;
             this.scene.start("NodeTwo");
         }
     }
