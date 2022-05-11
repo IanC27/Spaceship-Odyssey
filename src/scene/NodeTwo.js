@@ -116,7 +116,7 @@ class NodeTwo extends Phaser.Scene {
             this.gameOver();
         }
         
-        this.clockRight.text = Math.floor(game.clock.minutes / 60) + ':' + game.clock.minutes % 60;
+        this.clockRight.text = Math.floor(game.clock.minutes / 60).toString().padStart(2, "0") + ':' + (game.clock.minutes % 60).toString().padStart(2, "0");
 
     }
     
