@@ -5,7 +5,7 @@ class NodeThree extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("astro", "assets/astronaut.png");
+        this.load.image("astro", "assets/astronautV1.png");
         this.load.image("activity", "assets/activity.png")
     }
 
