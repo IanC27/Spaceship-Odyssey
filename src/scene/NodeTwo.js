@@ -7,6 +7,10 @@ class NodeTwo extends Phaser.Scene {
     preload() {
         this.load.image("astro", "assets/astronaut.png");
         this.load.image("activity", "assets/activity.png")
+        this.load.spritesheet("sleep", "assets/sleepsheet.png", {
+            frameWidth: 16,
+            frameHeight: 32
+        });
     }
 
     create() {
@@ -24,8 +28,8 @@ class NodeTwo extends Phaser.Scene {
         this.nate.setBounceX(0.8);
         this.nate.setBounceY(0.8);
         // score and status variables
-        this.nate.status = {
-            lastWake: game.clock.minutes,
+        playerStatus = {
+            lastSlept: game.clock.minutes,
             tired: false,
             wellRested: false,
             stress: 0,
@@ -84,10 +88,19 @@ class NodeTwo extends Phaser.Scene {
         this.cameras.main.startFollow(this.nate, true, 0.1, 0.1);
         this.cameras.main.setDeadzone(150, 150);
         
+        // activity anims
+        this.anims.create({
+            key: "sleepAnim",
+            frames: this.anims.generateFrameNumbers("sleep", {start: 1, end: 1, first: 1}),
+            frameRate: 1,
+            repeat: 0
+        })
+
         this.activities = this.physics.add.group({runChildUpdate: true});
-        for (let i = 0; i < 8; i++) {
-            this.activities.add(new SampleActivity(this, (70  * i), 140, 'activity', 0, this.nate));
-        }
+        
+        this.activities.add(new SampleActivity(this, 170, 140, "activity", 0, this.nate));
+        
+        this.activities.add(new SleepingBag(this, 100, 140, "sleep", 0, this.nate, 60, "sleepAnim"))
         
         //setting config
         let timeConfig = {
@@ -115,13 +128,18 @@ class NodeTwo extends Phaser.Scene {
             clearInterval(this.clockInterval);
             this.gameOver();
         }
+        if (playerStatus.lastSlept - game.clock.minutes > 60 * 10) {
+            playerStatus.tired = true;
+            playerStatus.wellRested = false;
+            console.log("yawn!")
+        }
         
         this.clockRight.text = Math.floor(game.clock.minutes / 60).toString().padStart(2, "0") + ':' + (game.clock.minutes % 60).toString().padStart(2, "0");
 
     }
     
     gameOver() {
-        this.clockRight.text = "0:00";
+        this.clockRight.text = "00:00";
         this.scene.start("gameoverScene");
     }
 }

@@ -18,5 +18,6 @@ const config = {
 }
 
 let controls = {}
+let playerStatus;
 
 let game = new Phaser.Game(config);

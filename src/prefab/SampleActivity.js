@@ -14,7 +14,7 @@ class SampleActivity extends Activity {
     }
 
     onInteract(player) {
-        this.text = this.scene.add.text(this.x, this.y - 50, 'press e 5 times!', {fontSize: '10px',});
+        this.text = this.scene.add.text(this.x, this.y - 50, 'press e 5 times!', {fontSize: '10px',}).setOrigin(0.5, 0.5);
         this.count = 0;
     }
 
