@@ -11,6 +11,10 @@ class NodeTwo extends Phaser.Scene {
             frameWidth: 16,
             frameHeight: 32
         });
+        this.load.spritesheet("messagehome", "assets/SampleMessageHomeSheet.png", {
+            frameWidth: 30,
+            frameHeight: 30
+        });
     }
 
     create() {
@@ -96,12 +100,22 @@ class NodeTwo extends Phaser.Scene {
             repeat: 0
         })
 
+        this.anims.create({
+            key: "messagehomeAnim",
+            frames: this.anims.generateFrameNumbers("messagehome", {start: 1, end: 1, first: 1}),
+            frameRate: 1,
+            repeat: 0
+        })
+
+
         this.activities = this.physics.add.group({runChildUpdate: true});
         
         this.activities.add(new SampleActivity(this, 170, 140, "activity", 0, this.nate));
         
         this.activities.add(new SleepingBag(this, 100, 140, "sleep", 0, this.nate, 60, "sleepAnim"))
         
+        this.activities.add(new MessageHome(this, 40, 140, "messagehome", 0, this.nate, 60, "messagehomeAnim"))
+
         //setting config
         let timeConfig = {
             fontFamily: 'Stencil Std, fantasy',

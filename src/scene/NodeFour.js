@@ -88,28 +88,30 @@ class NodeFour extends Phaser.Scene {
             },
         }
         // timer 
-        this.clockInterval = setInterval(myTimer, 1000);
+        this.clockInterval = setInterval(myTimer, 100);
         function myTimer() {
-            game.settings.minutes -= 10;
+            game.clock.minutes -= 1;
         }
-        this.clockRight = this.add.text(0, 0, Math.floor(game.settings.hours) + ':' + game.settings.minutes, timeConfig);
-        // set game over var
-        this.gameover = false;
+        this.clockRight = this.add.text(0, 0, '24:00', timeConfig);
     }
 
     update() {
-        if(game.settings.hours <= 0 &&  game.settings.minutes <= 0){
+        if (game.clock.minutes <= 0){
             clearInterval(this.clockInterval);
-            this.gameover = true;
+            this.gameOver();
         }
-        if(game.settings.minutes == 0){
-            game.settings.minutes = 60;
-            game.settings.hours -= 1;
+        if (playerStatus.lastSlept - game.clock.minutes > 60 * 10) {
+            playerStatus.tired = true;
+            playerStatus.wellRested = false;
+            console.log("yawn!")
         }
-        this.clockRight.text = Math.floor(game.settings.hours) + ':' + game.settings.minutes;
-        if(this.gameover){
-            this.clockRight.text = "0:00";
-            this.scene.start("gameoverScene");
-        }
+        
+        this.clockRight.text = Math.floor(game.clock.minutes / 60).toString().padStart(2, "0") + ':' + (game.clock.minutes % 60).toString().padStart(2, "0");
+
+    }
+    
+    gameOver() {
+        this.clockRight.text = "00:00";
+        this.scene.start("gameoverScene");
     }
 }
