@@ -79,6 +79,11 @@ class NodeTwo extends Phaser.Scene {
             this.nate.setDrag(0);
         })
 
+        // skip to end debug
+        controls.next.on('down', () => {
+            this.gameOver();
+        })
+
         // walls
         this.walls = this.physics.add.staticGroup();
         this.walls.add(this.add.rectangle(0, game.config.height / 4, game.config.width, 20, 0xffffff).setOrigin(0, 0));
@@ -132,6 +137,7 @@ class NodeTwo extends Phaser.Scene {
             game.clock.minutes -= 1;
         }
         this.clockRight = this.add.text(0, 0, '24:00', timeConfig);
+        this.clockRight.setScrollFactor(0, 0);
     }
 
 

@@ -22,12 +22,19 @@ class GameOver extends Phaser.Scene {
                 bottom: 5,
             },
         }
-        this.add.text(game.config.width / 2 - 100, 50, 'GAME OVER', gameoverConfig)
+        this.add.text(game.config.width / 2, 50, 'GAME OVER', gameoverConfig)
             .setOrigin(0.5);
         gameoverConfig.fontSize = '20px';
-        this.add.text(game.config.width / 2, game.config.height /2, 'Press (R) to Restart', gameoverConfig)
+        this.add.text(game.config.width / 2, game.config.height - 30, 'Press (R) to Restart', gameoverConfig)
             .setOrigin(0.5);
-        this.add.text(game.config.width / 2, game.config.height /2, `Fitness: ${playerStatus.fitness}`, gameoverConfig)
+        gameoverConfig.fontFamily = 'Gill Sans, sans-serif';
+        gameoverConfig.fontSize = '15px';
+        gameoverConfig.stroke = '#000';
+        this.add.text(game.config.width / 2, game.config.height / 2 + 20, `Fitness: ${playerStatus.fitness}`, gameoverConfig)
+            .setOrigin(0.5);
+        this.add.text(game.config.width / 2, game.config.height / 2, `Family Relationships: ${playerStatus.fitness}`, gameoverConfig)
+            .setOrigin(0.5);
+        this.add.text(game.config.width / 2, game.config.height / 2 - 20, `Knowledge: ${playerStatus.fitness}`, gameoverConfig)
             .setOrigin(0.5);
         //Space key
         controls.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);

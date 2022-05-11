@@ -24,6 +24,7 @@ class MessageHome extends Activity {
         this.text.push(this.scene.add.text(this.x, this.y, 'running and fitted. All is well and I', {fontSize: '7px',}).setOrigin(0.5, 0.5));
         this.text.push(this.scene.add.text(this.x, this.y + 10, 'cannot wait to be back, Best Regards, <players name>', {fontSize: '7px',}).setOrigin(0.5, 0.5));
         this.textEntry = this.scene.add.text(0, 0, '', { font: '10px Courier', fill: '#ffff00' });
+        // this event remains after activity is over: consider converting this activity to it's own scene
         this.scene.input.keyboard.on('keydown', (event) => {
             this.textEntry.text += event.key;
         });
