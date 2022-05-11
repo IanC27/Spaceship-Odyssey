@@ -10,9 +10,5 @@ Gameplay: The movement of the character through the station is meant to simulate
 
 Experience: The idea behind this game is to make players think about how they spend their actual lives. The game will at times feel a bit tense, with the clock always ticking down. However, players will feel curious about what they can spend their time doing, and how it will affect their outcome at the end. Each ending is meant to reward players for what they were able to accomplish, but also make them curious about what else they could have achieved, prompting multiple playthroughs. Although our main focus is the theme of “fitting it in” to a schedule, the game also reflects the idea of “missing” through the homesickness mechanic. Players will be able to relate with the main character’s feelings of missing family and friends as they manage the character’s emotions.
 
-1: 
-On board the SS Odyssey, there’s no time to spare doing important things - as long as you can figure out what is truly important.
-3: 
-You have 5 days on the world’s most advanced space station to do whatever you like. Will you use the technology on board to improve the lives of others, better yourself, or do something else? Your choices always have consequences, so choose wisely!
-5: 
+
 Here on humanity’s most advanced space station, the impact of everything you do is multiplied by hundreds compared to on Earth. Working out makes you that much stronger, studying makes you that much smarter, and each discovery made here improves the lives of that many more people. How you choose to spend your 5-day stay is completely up to you! But, there’s a catch: every day you spend here, 1 year passes on Earth. Who do you want to be once you return after 5 years?
