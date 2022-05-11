@@ -99,11 +99,8 @@ class NodeTwo extends Phaser.Scene {
             clearInterval(this.clockInterval);
             this.gameover = true;
         }
-        if(game.settings.minutes == 0){
-            game.settings.minutes = 60;
-            game.settings.hours -= 1;
-        }
-        this.clockRight.text = Math.floor(game.settings.hours) + ':' + game.settings.minutes;
+        
+        this.clockRight.text = Math.floor(game.settings.minutes / 60) + ':' + game.settings.minutes % 60;
 
         if(this.gameover){
             this.clockRight.text = "0:00";

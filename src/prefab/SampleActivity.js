@@ -20,5 +20,6 @@ class SampleActivity extends Activity {
 
     end(player) {
         this.text.destroy();
+        game.settings.minutes -= 120;
     }
 }

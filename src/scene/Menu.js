@@ -40,8 +40,8 @@ class Menu extends Phaser.Scene {
         //game settings
         game.settings = {
             tired: true,
-            minutes: 0,
-            hours: 24
+            minutes: 1440,
+            
         }
     }
 
