@@ -84,17 +84,12 @@ class NodeTwo extends Phaser.Scene {
                 bottom: 5,
             },
         }
-        // timer 
-        game.settings = {
-            tired: true,
-            minutes: 60,
-            hours: 1
-        }
+        // timer
         this.clockInterval = setInterval(myTimer, 1000);
         function myTimer() {
             game.settings.minutes -= 10;
         }
-        this.clockRight = this.add.text(0, 0, Math.floor(game.settings.hours) + ':' + game.settings.minutes, timeConfig);
+        this.clockRight = this.add.text(0, 0, '24:00', timeConfig);
         // set game over var
         this.gameover = false;
     }

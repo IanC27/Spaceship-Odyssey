@@ -88,11 +88,6 @@ class NodeThree extends Phaser.Scene {
             },
         }
         // timer 
-        game.settings = {
-            tired: true,
-            minutes: 60,
-            hours: 24
-        }
         this.clockInterval = setInterval(myTimer, 1000);
         function myTimer() {
             game.settings.minutes -= 10;
