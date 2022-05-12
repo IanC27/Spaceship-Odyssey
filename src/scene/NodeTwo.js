@@ -12,6 +12,7 @@ class NodeTwo extends Phaser.Scene {
             frameHeight: 32
         });
         this.load.image("messagehome", "assets/textingBooth.png");
+        this.load.image("cycle", "assets/bike.png");
     }
 
     create() {
@@ -118,6 +119,8 @@ class NodeTwo extends Phaser.Scene {
         this.activities.add(new SleepingBag(this, 100, 140, "sleep", 0, this.nate, 60, "sleepAnim"))
         
         this.activities.add(new MessageHome(this, 40, 140, "messagehome", 0, this.nate, 60))
+
+        this.exercise = this.activities.add(new ExerciseCycle(this, 220, 140, "cycle", 0, this.nate ))
 
         //setting config
         let timeConfig = {
