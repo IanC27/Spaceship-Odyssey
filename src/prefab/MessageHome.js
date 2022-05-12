@@ -15,7 +15,7 @@ class MessageHome extends Activity {
     onInteract(player){
         this.scene.add.sprite(game.config.width /2, game.config.height /2, 'background');
         this.text = []
-        this.text.push(this.scene.add.text(this.x, this.y - 40, 'Type the following words: father, message,', {fo ntSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5));
+        this.text.push(this.scene.add.text(this.x, this.y - 40, 'Type the following words: father, message,', {fontSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5));
         this.text.push(this.scene.add.text(this.x, this.y - 30, 'contact, busy, well, regards', {fontSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5)); 
         // this event remains after activity is over: consider converting this activity to it's own scene
         this.scene.input.keyboard.createCombo("father");
@@ -29,7 +29,7 @@ class MessageHome extends Activity {
                     this.scene.add.text(0, 20, 'I miss you all dearly. Since my last contact', {fontSize: '8px', fill: '#ffff00'});
                     this.scene.input.keyboard.createCombo("busy");
                     this.scene.input.keyboard.on('keycombomatch', function (event) {
-                        this.scene.add.text(0, 30, 'with Control,  had been busy keeping the station', {fontSize: '8px', fill: '#ffff00'});
+                        this.scene.add.text(0, 30, 'with Control, I had been busy keeping the station', {fontSize: '8px', fill: '#ffff00'});
                         this.scene.input.keyboard.createCombo("well");
                         this.scene.input.keyboard.on('keycombomatch', function (event) {
                             this.scene.add.text(0, 40, 'running and fitted. All is well and I', {fontSize: '8px', fill: '#ffff00'});
