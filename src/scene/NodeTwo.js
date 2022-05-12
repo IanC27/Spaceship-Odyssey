@@ -18,7 +18,7 @@ class NodeTwo extends Phaser.Scene {
     create() {
         this.cameras.main.setBackgroundColor('#000');
         controls.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-        controls.next = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
+        //controls.next = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
         controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         controls.quit = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
@@ -81,10 +81,10 @@ class NodeTwo extends Phaser.Scene {
         })
 
         // skip to end debug
-        controls.next.on('down', () => {
-            this.gameOver();
+        /*controls.next.on('down', () => {
+            //this.gameOver();
         })
-
+        */
         // walls
         this.walls = this.physics.add.staticGroup();
         this.walls.add(this.add.rectangle(0, game.config.height / 4, game.config.width, 20, 0xffffff).setOrigin(0, 0));

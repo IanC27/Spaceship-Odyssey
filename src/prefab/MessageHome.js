@@ -4,29 +4,43 @@ class MessageHome extends Activity {
         this.activeAnim = animation;
     }
 
-    activeUpdate(){
-        if (Phaser.Input.Keyboard.JustDown(controls.quit)) {
-            this.preEnd(this.astronaut);
-        }
-        if (Phaser.Input.Keyboard.JustDown(controls.interact)) {
-            game.clock.minutes -= 60;
-        }
+    preload() {
+        this.load.image("background", "assets/MessageHomeBackground.png"); 
     }
 
+    activeUpdate(){
+        
+    }
+    
     onInteract(player){
+        this.scene.add.sprite(game.config.width /2, game.config.height /2, 'background');
         this.text = []
-        this.text.push(this.scene.add.text(this.x, this.y - 60, 'Press q to quit task', {fontSize: '10px',}).setOrigin(0.5, 0.5));
-        this.text.push(this.scene.add.text(this.x, this.y - 50, 'Press e to start writing a message home', {fontSize: '10px',}).setOrigin(0.5, 0.5)); 
-        this.text.push(this.scene.add.text(this.x, this.y - 40, 'Message: <Father>, it has been 133', {fontSize: '7px',}).setOrigin(0.5, 0.5));
-        this.text.push(this.scene.add.text(this.x, this.y - 30, 'days and we are close to finishing our orbit.', {fontSize: '7px',}).setOrigin(0.5, 0.5));
-        this.text.push(this.scene.add.text(this.x, this.y - 20, 'I miss you all dearly. Since my last contact', {fontSize: '7px',}).setOrigin(0.5, 0.5));
-        this.text.push(this.scene.add.text(this.x, this.y - 10, 'with Control,  had been busy keeping the station', {fontSize: '7px',}).setOrigin(0.5, 0.5));
-        this.text.push(this.scene.add.text(this.x, this.y, 'running and fitted. All is well and I', {fontSize: '7px',}).setOrigin(0.5, 0.5));
-        this.text.push(this.scene.add.text(this.x, this.y + 10, 'cannot wait to be back, Best Regards, <players name>', {fontSize: '7px',}).setOrigin(0.5, 0.5));
-        this.textEntry = this.scene.add.text(0, 0, '', { font: '10px Courier', fill: '#ffff00' });
+        this.text.push(this.scene.add.text(this.x, this.y - 40, 'Type the following words: father, message,', {fo ntSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5));
+        this.text.push(this.scene.add.text(this.x, this.y - 30, 'contact, busy, well, regards', {fontSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5)); 
         // this event remains after activity is over: consider converting this activity to it's own scene
-        this.scene.input.keyboard.on('keydown', (event) => {
-            this.textEntry.text += event.key;
+        this.scene.input.keyboard.createCombo("father");
+        this.scene.input.keyboard.on('keycombomatch', function (event) {
+            this.scene.add.text(0, 0, 'Message: <Father>, it has been 133', {fontSize: '8px', fill: '#ffff00'});
+            this.scene.input.keyboard.createCombo("message");
+            this.scene.input.keyboard.on('keycombomatch', function (event) {
+                this.scene.add.text(0, 10, 'days and we are close to finishing our orbit.', {fontSize: '8px', fill: '#ffff00'});
+                this.scene.input.keyboard.createCombo("contact");
+                this.scene.input.keyboard.on('keycombomatch', function (event) {
+                    this.scene.add.text(0, 20, 'I miss you all dearly. Since my last contact', {fontSize: '8px', fill: '#ffff00'});
+                    this.scene.input.keyboard.createCombo("busy");
+                    this.scene.input.keyboard.on('keycombomatch', function (event) {
+                        this.scene.add.text(0, 30, 'with Control,  had been busy keeping the station', {fontSize: '8px', fill: '#ffff00'});
+                        this.scene.input.keyboard.createCombo("well");
+                        this.scene.input.keyboard.on('keycombomatch', function (event) {
+                            this.scene.add.text(0, 40, 'running and fitted. All is well and I', {fontSize: '8px', fill: '#ffff00'});
+                            this.scene.input.keyboard.createCombo("regards");
+                            this.scene.input.keyboard.on('keycombomatch', function (event) {
+                                this.scene.add.text(0, 50, 'cannot wait to be back, Best Regards, <players name>', {fontSize: '8px', fill: '#ffff00'});
+                            });
+                        });
+                    });
+                });
+            });
         });
         // play animation if there is one
         if (this.activeAnim){
