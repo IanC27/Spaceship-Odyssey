@@ -13,6 +13,9 @@ class NodeTwo extends Phaser.Scene {
         });
         this.load.image("messagehome", "assets/textingBooth.png");
         this.load.image("cycle", "assets/bike.png");
+        this.load.image("background", "assets/MessageHomeBackground.png"); 
+
+        this.load.audio("songNoise", "assets/noise.mp3");
     }
 
     create() {
@@ -24,7 +27,7 @@ class NodeTwo extends Phaser.Scene {
 
 
         this.nate = this.physics.add.sprite(game.config.width / 2, game.config.height / 2, "astro");
-        this.nate.setDepth(1)
+        this.nate.setDepth(1);
         this.nate.setInteractive({draggable: true});
         //this.nate.setCollideWorldBounds(true);
         this.nate.setBounceX(0.8);
@@ -93,7 +96,7 @@ class NodeTwo extends Phaser.Scene {
 
         // camera follow
         this.cameras.main.startFollow(this.nate, true, 0.1, 0.1);
-        this.cameras.main.setDeadzone(150, 150);
+        //this.cameras.main.setDeadzone(150, 150);
         
         // activity anims
         this.anims.create({
@@ -141,6 +144,10 @@ class NodeTwo extends Phaser.Scene {
         }
         this.clockRight = this.add.text(0, 0, '24:00', timeConfig);
         this.clockRight.setScrollFactor(0, 0);
+
+        this.bgm = this.sound.add('songNoise');
+        this.bgm.setLoop(true);
+        this.bgm.play();
     }
 
 
