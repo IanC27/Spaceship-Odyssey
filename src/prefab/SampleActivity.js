@@ -20,6 +20,7 @@ class SampleActivity extends Activity {
 
     end(player) {
         this.text.destroy();
+        this.scene.addResearch(100);
         game.clock.minutes -= 120;
     }
 }

@@ -34,6 +34,7 @@ class NodeTwo extends Phaser.Scene {
         //this.nate.setCollideWorldBounds(true);
         this.nate.setBounceX(0.8);
         this.nate.setBounceY(0.8);
+        this.nate.setMaxVelocity(1000, 1000)
         // score and status variables
         playerStatus = {
             lastSlept: game.clock.minutes,
@@ -161,7 +162,7 @@ class NodeTwo extends Phaser.Scene {
         if (playerStatus.lastSlept - game.clock.minutes > 60 * 10) {
             playerStatus.tired = true;
             playerStatus.wellRested = false;
-            console.log("yawn!");
+            //console.log("yawn!");
         }
         
         this.clockRight.text = Math.floor(game.clock.minutes / 60).toString().padStart(2, "0") + ':' + (game.clock.minutes % 60).toString().padStart(2, "0");
@@ -171,5 +172,19 @@ class NodeTwo extends Phaser.Scene {
     gameOver() {
         this.clockRight.text = "00:00";
         this.scene.start("gameoverScene");
+    }
+
+    addResearch(points) {
+        playerStatus.research += points;
+    }
+
+    addSleep(hours) {
+        playerStatus.lastSlept = game.clock.minutes;
+        if (hours >= 6) {
+            playerStatus.tired = false;
+            if (hours >= 8) {
+                playerStatus.wellRested = true;
+            }
+        }
     }
 }

@@ -13,15 +13,8 @@ class SleepingBag extends Activity {
         }
 
         this.hoursSlept = Math.floor((this.sleepStartTime - game.clock.minutes) / 60)
-        this.sleepIndicator.text = `asleep for: ${this.hoursSlept} hours`
-
-        playerStatus.lastSlept = game.clock.minutes;
-        if (this.hoursSlept >= 6) {
-            playerStatus.tired = false;
-            if (this.hoursSlept >= 8) {
-                playerStatus.wellRested = true;
-            }
-        }
+        this.sleepIndicator.text = `asleep for: ${this.hoursSlept} hours`        
+        this.scene.addSleep(this.hoursSlept);
     }
 
     onInteract(player){
