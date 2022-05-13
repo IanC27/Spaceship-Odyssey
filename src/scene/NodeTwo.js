@@ -14,6 +14,9 @@ class NodeTwo extends Phaser.Scene {
         this.load.image("messagehome", "assets/textingBooth.png");
         this.load.image("cycle", "assets/bike.png");
         this.load.image("background", "assets/MessageHomeBackground.png"); 
+        this.load.image("AKey", "assets/AKey.png");
+        this.load.image("LeftKey", "assets/LeftKey.png");
+        this.load.image("RightKey", "assets/RightKey.png");
 
         this.load.image("arrow", "assets/arrow.png");
 

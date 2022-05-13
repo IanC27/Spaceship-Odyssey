@@ -20,12 +20,70 @@ class ExerciseScene extends Phaser.Scene {
 
     create() {
         console.log("a new scene!");
-        this.input.keyboard.on("keydown", () => {this.scene.stop()})
-        this.add.rectangle(game.config.width / 2, game.config.height / 2, 96, 64, 0x000000);
-        this.arrow = this.physics.add.sprite(game.config.width / 2, game.config.height / 2, "arrow");
-        this.arrow.setAngularVelocity(45);
-        this.arrow.setAngularAcceleration(10);
+        
+        let KeyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        let KeyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        this.add.rectangle(game.config.width / 2, game.config.height / 2 - 50, 75, 40, 0xff0000);
+        this.arrow = this.physics.add.sprite(game.config.width / 2, game.config.height / 2 - 50, "arrow");
+        this.arrow.setAngularVelocity(90);
 
+        this.leftKeySprite = this.add.image(game.config.width / 2 - 26, game.config.height / 2 - 50, "LeftKey");
+        this.rightKeySprite = this.add.image(game.config.width / 2 + 26, game.config.height / 2 - 50, "RightKey").setAlpha(0.5);
+        this.nextKeyLeft = true;
+
+        this.score = 0;
+
+        KeyLeft.on("down", () => {
+            if (this.nextKeyLeft) {
+                if (this.arrow.angle < -150 || this.arrow.angle > 150) {
+                    this.score += 10;
+                    this.swap(false);
+                    this.arrow.setAngularVelocity(this.arrow.body.angularVelocity + 10);
+                    console.log("left!");
+                } else {
+                    console.log("whoops!");
+                    this.swap(false);
+                }
+            }
+        });
+
+        KeyRight.on("down", () => {
+            if (!this.nextKeyLeft) {
+                if (this.arrow.angle < 30 && this.arrow.angle > -30) {
+                    this.score += 10;
+                    this.swap(true);
+                    this.arrow.setAngularVelocity(this.arrow.body.angularVelocity + 10);
+                    console.log("right!");
+                } else {
+                    console.log("whoops!");
+                    this.swap(true);
+                }
+            }
+        });
+        
+        // 6000ms = 1 hr in game
+        this.time.delayedCall(12000, () => {
+            playerStatus.fitness += this.score;
+            this.scene.stop();
+        })
+
+    }
+
+    swap(leftIsNext){
+        if (leftIsNext) {
+            this.nextKeyLeft = true;
+            this.rightKeySprite.setAlpha(0.5);
+            this.leftKeySprite.setAlpha(1);
+        } else {
+            this.nextKeyLeft = false;
+            this.rightKeySprite.setAlpha(1);
+            this.leftKeySprite.setAlpha(0.5);
+        }
+    }
+
+    update(){
+        
+        
     }
 
 }
