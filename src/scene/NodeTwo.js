@@ -98,8 +98,10 @@ class NodeTwo extends Phaser.Scene {
         */
         // walls
         this.walls = this.physics.add.staticGroup();
-        this.walls.add(this.add.rectangle(0, game.config.height / 4, game.config.width, 20, 0xffffff).setOrigin(0, 0));
-        this.walls.add(this.add.rectangle(0, game.config.height / 4 + 100, game.config.width, 20, 0xffffff).setOrigin(0, 0));
+        this.walls.add(this.add.rectangle(-game.config.width / 2, game.config.height / 4, game.config.width*2, 20, 0xffffff).setOrigin(0, 0));
+        this.walls.add(this.add.rectangle(-game.config.width / 2, game.config.height / 4 + 100, game.config.width*2, 20, 0xffffff).setOrigin(0, 0));
+        this.walls.add(this.add.rectangle(-game.config.width * 0.5, game.config.height / 3, 20, 100, 0xffffff  ).setOrigin(0, 0))
+        this.walls.add(this.add.rectangle(game.config.width * 1.5, game.config.height / 3, 20, 120, 0xffffff  ).setOrigin(0, 0))
         this.physics.add.collider(this.nate, this.walls, null, null, this);
 
         // camera follow
@@ -125,13 +127,13 @@ class NodeTwo extends Phaser.Scene {
 
         this.activities = this.physics.add.group({runChildUpdate: true});
         
-        this.activities.add(new SampleActivity(this, 170, 140, "activity", 0, this.nate));
+        this.activities.add(new SampleActivity(this, 200, 140, "activity", 0, this.nate));
         
         this.activities.add(new SleepingBag(this, 100, 140, "sleep", 0, this.nate, 60, "sleepAnim"))
         
-        this.activities.add(new MessageHome(this, 40, 140, "messagehome", 0, this.nate, 60))
+        this.activities.add(new MessageHome(this, 0, 140, "messagehome", 0, this.nate, 60))
 
-        this.exercise = this.activities.add(new ExerciseCycle(this, 220, 140, "cycle", 0, this.nate ))
+        this.activities.add(new ExerciseCycle(this, 300, 140, "cycle", 0, this.nate ))
 
         //setting config
         let timeConfig = {

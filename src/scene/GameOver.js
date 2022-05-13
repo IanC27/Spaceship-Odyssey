@@ -32,9 +32,9 @@ class GameOver extends Phaser.Scene {
         gameoverConfig.stroke = '#000';
         this.add.text(game.config.width / 2, game.config.height / 2 + 20, `Fitness: ${playerStatus.fitness}`, gameoverConfig)
             .setOrigin(0.5);
-        this.add.text(game.config.width / 2, game.config.height / 2, `Family Relationships: ${playerStatus.fitness}`, gameoverConfig)
+        this.add.text(game.config.width / 2, game.config.height / 2, `Family Relationships: ${playerStatus.family}`, gameoverConfig)
             .setOrigin(0.5);
-        this.add.text(game.config.width / 2, game.config.height / 2 - 20, `Knowledge: ${playerStatus.fitness}`, gameoverConfig)
+        this.add.text(game.config.width / 2, game.config.height / 2 - 20, `Research: ${playerStatus.research}`, gameoverConfig)
             .setOrigin(0.5);
         //Space key
         controls.restart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
