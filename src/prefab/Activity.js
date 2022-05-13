@@ -39,15 +39,15 @@ class Activity extends Phaser.GameObjects.Sprite {
         this.onInteract(player);
     }
 
-    preEnd(player) {
+    preEnd() {
         //re-enable player
         if (this.disablePlayer) {
-            player.enableBody(true, this.x, this.y, true, true);
+            this.astronaut.enableBody(true, this.x, this.y, true, true);
             this.active = false;
         }
         
         console.log("end");
-        this.end(player);
+        this.end();
     }
 
     onInteract(player) {

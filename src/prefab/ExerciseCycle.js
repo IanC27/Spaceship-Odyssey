@@ -1,10 +1,14 @@
 class ExerciseCycle extends Activity {
     onInteract(player) {
         this.scene.scene.launch("ExerciseScene");
-        this.scene.time.delayedCall(2000, () => {
-            this.scene.scene.stop("ExcerciseScene");
-            this.preEnd(this.astronaut);
-        })
+        let subScene = this.scene.scene.get("ExerciseScene");
+        subScene.events.on("shutdown", () => {
+            this.preEnd();
+        });
+        
+    }
+
+    end(){
 
     }
 }
@@ -15,7 +19,8 @@ class ExerciseScene extends Phaser.Scene {
     }
 
     create() {
-        
+        console.log("a new scene!");
+        this.input.keyboard.on("keydown", () => {this.scene.stop()})
     }
 
 }
