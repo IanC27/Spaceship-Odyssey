@@ -40,8 +40,10 @@ class ExerciseScene extends Phaser.Scene {
                     this.swap(false);
                     this.arrow.setAngularVelocity(this.arrow.body.angularVelocity + 10);
                     console.log("left!");
+                    this.sound.play("goodbleep");
                 } else {
                     console.log("whoops!");
+                    this.sound.play("ouch");
                     this.swap(false);
                 }
             }
@@ -54,8 +56,10 @@ class ExerciseScene extends Phaser.Scene {
                     this.swap(true);
                     this.arrow.setAngularVelocity(this.arrow.body.angularVelocity + 10);
                     console.log("right!");
+                    this.sound.play("goodbleep");
                 } else {
                     console.log("whoops!");
+                    this.sound.play("ouch");
                     this.swap(true);
                 }
             }

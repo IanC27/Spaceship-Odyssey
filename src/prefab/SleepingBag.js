@@ -13,7 +13,7 @@ class SleepingBag extends Activity {
         }
 
         this.hoursSlept = Math.floor((this.sleepStartTime - game.clock.minutes) / 60)
-        this.sleepIndicator.text = `asleep for: ${this.hoursSlept} hours`        
+        this.sleepIndicator.text = `asleep for: ${this.hoursSlept} hours`;        
         this.scene.addSleep(this.hoursSlept);
     }
 

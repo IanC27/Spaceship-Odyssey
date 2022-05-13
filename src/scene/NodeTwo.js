@@ -20,7 +20,9 @@ class NodeTwo extends Phaser.Scene {
 
         this.load.image("arrow", "assets/arrow.png");
 
-        this.load.audio("songNoise", "assets/noise.mp3");
+        this.load.audio("songNoise", "assets/noiseQ.mp3");
+        this.load.audio("goodbleep", "assets/dadeep.wav");
+        this.load.audio("ouch", "assets/eeemmp.wav");
     }
 
     create() {
