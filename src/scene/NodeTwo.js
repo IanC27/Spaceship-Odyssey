@@ -13,6 +13,7 @@ class NodeTwo extends Phaser.Scene {
         });
         this.load.image("messagehome", "assets/textingBooth.png");
         this.load.image("cycle", "assets/bike.png");
+        this.load.image("library", "assets/library.png");
         this.load.image("background", "assets/MessageHomeBackground.png"); 
         this.load.image("AKey", "assets/AKey.png");
         this.load.image("LeftKey", "assets/LeftKey.png");
@@ -127,14 +128,15 @@ class NodeTwo extends Phaser.Scene {
 
         this.activities = this.physics.add.group({runChildUpdate: true});
         
-        this.activities.add(new SampleActivity(this, 200, 140, "activity", 0, this.nate));
+        this.activities.add(new SampleActivity(this, 0, 140, "activity", 0, this.nate));
         
-        this.activities.add(new SleepingBag(this, 100, 140, "sleep", 0, this.nate, 60, "sleepAnim"))
+        this.activities.add(new SleepingBag(this, 60, 140, "sleep", 0, this.nate, 60, "sleepAnim"));
         
-        this.activities.add(new MessageHome(this, 0, 140, "messagehome", 0, this.nate, 60))
+        this.activities.add(new MessageHome(this, 120, 140, "messagehome", 0, this.nate, 60));
 
-        this.activities.add(new ExerciseCycle(this, 300, 140, "cycle", 0, this.nate ))
+        this.activities.add(new ExerciseCycle(this, 180, 140, "cycle", 0, this.nate ));
 
+        this.activities.add(new Library(this, 240, 140, "library", 0, this.nate ));
         //setting config
         let timeConfig = {
             fontFamily: 'Stencil Std, fantasy',
