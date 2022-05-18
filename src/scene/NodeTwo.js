@@ -19,6 +19,7 @@ class NodeTwo extends Phaser.Scene {
         this.load.image("AKey", "assets/AKey.png");
         this.load.image("LeftKey", "assets/LeftKey.png");
         this.load.image("RightKey", "assets/RightKey.png");
+        this.load.image("starfield", "assets/starfield.png");
 
         this.load.image("arrow", "assets/arrow.png");
 
@@ -34,6 +35,7 @@ class NodeTwo extends Phaser.Scene {
         controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         controls.quit = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
+        this.add.tileSprite(0, 0, 586, 431, "starfield").setScrollFactor(0.1).setOrigin(0, 0); 
 
         this.nate = this.physics.add.sprite(game.config.width / 2, game.config.height / 2, "astro");
         this.nate.setDepth(1);
@@ -57,6 +59,7 @@ class NodeTwo extends Phaser.Scene {
             spaceWalk: false
         }
 
+        // sleep bar & timers
         this.sleepBorder = this.add.rectangle(game.config.width - 106, 4, 102, 7, 0xffffff);
         this.sleepBorder.setOrigin(0, 0).setScrollFactor(0);
         this.sleepMeter = this.add.rectangle(game.config.width - 105, 5, 100, 5, 0x0000ff).setOrigin(0, 0);
@@ -68,6 +71,7 @@ class NodeTwo extends Phaser.Scene {
             callbackScope: this,
             loop: true
         });
+        // reffill 100 sleep after 1 hour asleep
         this.sleepTimer = this.time.addEvent({
             delay: 60,
             callback: this.incrSleep,
