@@ -21,11 +21,11 @@ class LibraryScene extends Phaser.Scene {
 
     create() {
         this.add.text(game.config.width / 2, game.config.height / 2 - 40, "Remember this key", {fontSize: '10px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
-        this.words = ["AEXCY", "CDJNM", "RXSKQ", "IPUTA"];
-        // TODO: make the words random?
-        this.prompt = this.add.text(game.config.width / 2, game.config.height / 2 - 25, "AEXCY", {fontSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5);
+        this.words = ["aexdhcy", "cdjnpzm", "rxsklsq", "ipuyhta"];
+        this.prompt = this.add.text(game.config.width / 2, game.config.height / 2 - 25, "aexdhcy", {fontSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5);
+        this.prompt.setVisible(true);
         this.time.delayedCall(3000, () => {
-            this.prompt.text = "?????"
+            this.prompt.setVisible(false);
         })
         this.comboConfig = {
             resetOnWrongKey: false,
@@ -49,12 +49,13 @@ class LibraryScene extends Phaser.Scene {
 
     createKeyCombo(index) {
         if (index >= this.words.length) {
-            //
+            
             this.scene.stop();
         } else {
-            this.prompt = this.add.text(game.config.width / 2, game.config.height / 2 - 25, this.words[index], {fontSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5);
+            this.prompt.text = this.words[index];
+            this.prompt.setVisible(true);
             this.time.delayedCall(3000, () => {
-                this.prompt.text = "?????"
+                this.prompt.setVisible(false);
             })
             this.input.keyboard.createCombo(this.words[index], this.comboConfig);
         }   
