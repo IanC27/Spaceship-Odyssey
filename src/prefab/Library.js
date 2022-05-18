@@ -1,4 +1,10 @@
 class Library extends Activity {
+    constructor(scene, x, y, texture, frame, player, range=60, animation) {
+        super(scene, x, y, texture, frame, player, range);
+        this.activeAnim = animation;
+        this.displayName = "Study!";
+    }
+
     onInteract(player) {
         this.scene.scene.launch("LibScene");
         let subScene = this.scene.scene.get("LibScene");

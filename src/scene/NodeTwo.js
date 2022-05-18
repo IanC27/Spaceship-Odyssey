@@ -101,8 +101,8 @@ class NodeTwo extends Phaser.Scene {
             //console.log("end", dragX, dragY);
             let vectorX = flingEnd.x - flingStart.x;
             let vectorY = flingEnd.y - flingStart.y;
-            this.nate.setVelocityX(vectorX);
-            this.nate.setVelocityY(vectorY);
+            this.nate.setVelocityX(-vectorX);
+            this.nate.setVelocityY(-vectorY);
             this.flingLine.destroy();
             firstFlingDrag = true;
         })

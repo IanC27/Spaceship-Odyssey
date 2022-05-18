@@ -2,10 +2,7 @@ class MessageHome extends Activity {
     constructor(scene, x, y, texture, frame, player, range=60, animation) {
         super(scene, x, y, texture, frame, player, range);
         this.activeAnim = animation;
-    }
-
-    activeUpdate(){
-        
+        this.displayName = "Message home"
     }
     
     onInteract(player){

@@ -2,7 +2,7 @@ class SleepingBag extends Activity {
     constructor(scene, x, y, texture, frame, player, range=60, animation) {
         super(scene, x, y, texture, frame, player, range);
         this.activeAnim = animation;
-        this.displayText = "Sleep";
+        this.displayName = "Sleep";
     }
 
     condition() {

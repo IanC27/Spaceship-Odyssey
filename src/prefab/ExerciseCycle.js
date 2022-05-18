@@ -1,4 +1,9 @@
 class ExerciseCycle extends Activity {
+    constructor(scene, x, y, texture, frame, player, range=60) {
+        super(scene, x, y, texture, frame, player, range);
+        this.displayName = "Work out!"
+    }
+
     onInteract(player) {
         this.scene.scene.launch("ExerciseScene");
         let subScene = this.scene.scene.get("ExerciseScene");
@@ -21,7 +26,6 @@ class ExerciseScene extends Phaser.Scene {
     }
 
     create() {
-        console.log("a new scene!");
         
         let KeyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         let KeyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -41,10 +45,10 @@ class ExerciseScene extends Phaser.Scene {
                     this.score += 10;
                     this.swap(false);
                     this.arrow.setAngularVelocity(this.arrow.body.angularVelocity + 10);
-                    console.log("left!");
+                    //console.log("left!");
                     this.sound.play("goodbleep");
                 } else {
-                    console.log("whoops!");
+                    //console.log("whoops!");
                     this.sound.play("ouch");
                     this.swap(false);
                 }
@@ -57,10 +61,10 @@ class ExerciseScene extends Phaser.Scene {
                     this.score += 10;
                     this.swap(true);
                     this.arrow.setAngularVelocity(this.arrow.body.angularVelocity + 10);
-                    console.log("right!");
+                    //console.log("right!");
                     this.sound.play("goodbleep");
                 } else {
-                    console.log("whoops!");
+                    //console.log("whoops!");
                     this.sound.play("ouch");
                     this.swap(true);
                 }
