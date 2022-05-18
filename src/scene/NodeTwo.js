@@ -44,9 +44,7 @@ class NodeTwo extends Phaser.Scene {
         this.nate.setMaxVelocity(1000, 1000)
         // score and status variables
         playerStatus = {
-            lastSlept: game.clock.minutes,
-            tired: false,
-            wellRested: false,
+            energy: 100,
             stress: 0,
             homeSickness: 0,
 
@@ -58,7 +56,27 @@ class NodeTwo extends Phaser.Scene {
             inventions: 0,
             spaceWalk: false
         }
-    
+
+        this.sleepBorder = this.add.rectangle(game.config.width - 106, 4, 102, 7, 0xffffff);
+        this.sleepBorder.setOrigin(0, 0).setScrollFactor(0);
+        this.sleepMeter = this.add.rectangle(game.config.width - 105, 5, 100, 5, 0x0000ff).setOrigin(0, 0);
+        this.sleepMeter.setScrollFactor(0);
+        // after about 5 hours, lose 100 sleep
+        this.awakeTimer = this.time.addEvent({
+            delay: 300,
+            callback: this.decrSleep,
+            callbackScope: this,
+            loop: true
+        });
+        this.sleepTimer = this.time.addEvent({
+            delay: 60,
+            callback: this.incrSleep,
+            callbackScope: this,
+            loop: true,
+            paused: true
+        });
+        
+            
         // flinging controls
         let firstFlingDrag = true;
         let flingStart = {x: 0, y: 0};
@@ -166,15 +184,10 @@ class NodeTwo extends Phaser.Scene {
     }
 
 
-    update() {
+    update(delta ) {
         if (game.clock.minutes <= 0){
             clearInterval(this.clockInterval);
             this.gameOver();
-        }
-        if (playerStatus.lastSlept - game.clock.minutes > 60 * 10) {
-            playerStatus.tired = true;
-            playerStatus.wellRested = false;
-            //console.log("yawn!");
         }
         
         this.clockRight.text = Math.floor(game.clock.minutes / 60).toString().padStart(2, "0") + ':' + (game.clock.minutes % 60).toString().padStart(2, "0");
@@ -190,13 +203,23 @@ class NodeTwo extends Phaser.Scene {
         playerStatus.research += points;
     }
 
-    addSleep(hours) {
-        playerStatus.lastSlept = game.clock.minutes;
-        if (hours >= 6) {
-            playerStatus.tired = false;
-            if (hours >= 8) {
-                playerStatus.wellRested = true;
-            }
+    incrSleep() {
+        let newEnergy = Math.min(100, playerStatus.energy + 1);
+        playerStatus.energy = newEnergy;
+        this.sleepMeter.displayWidth = newEnergy;
+        this.nate.setMaxVelocity(100, 100);
+        this.sleepBorder.setFillStyle(0xffffff, 1);
+    }
+
+    decrSleep() {
+        let newEnergy = Math.max(0, playerStatus.energy - 1);
+        playerStatus.energy = newEnergy;
+        this.sleepMeter.displayWidth = newEnergy;
+        if (newEnergy === 0){
+            this.nate.setMaxVelocity(45, 45);
+            this.sleepBorder.setFillStyle(0xff0000, 1);
         }
     }
+
+    
 }
