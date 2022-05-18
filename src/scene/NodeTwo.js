@@ -31,7 +31,7 @@ class NodeTwo extends Phaser.Scene {
     create() {
         this.cameras.main.setBackgroundColor('#000');
         controls.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-        //controls.next = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
+        controls.next = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
         controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         controls.quit = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
@@ -164,15 +164,17 @@ class NodeTwo extends Phaser.Scene {
 
         // DEBUG ZONE
         // skip to end debug
-        /*controls.next.on('down', () => {
-            //this.gameOver();
+        this.input.keyboard.on("keydown-MINUS", () => {
+            this.gameOver();
         })
-        */
-
+        
         // drain energy
-        this.input.keyboard.on("keydown-P", () => {
+        this.input.keyboard.on("keydown-PLUS", () => {
             playerStatus.energy = 0;
         })
+
+        // END DEBUG ZONE
+
         //setting config
         let timeConfig = {
             fontFamily: 'Stencil Std, fantasy',
@@ -211,6 +213,11 @@ class NodeTwo extends Phaser.Scene {
     
     gameOver() {
         this.clockRight.text = "00:00";
+        this.bgm.stop();
+        let subScenes = ["ExerciseScene", "LibScene", "MessageScene"]
+        for (let s of subScenes) {
+            this.scene.stop(s);
+        }
         this.scene.start("gameoverScene");
     }
 
