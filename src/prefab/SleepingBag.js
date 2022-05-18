@@ -5,6 +5,11 @@ class SleepingBag extends Activity {
         this.displayText = "Sleep";
     }
 
+    condition() {
+        //can do if tired
+        return true;
+    }
+
     activeUpdate(){
         if (Phaser.Input.Keyboard.JustDown(controls.quit)) {
             this.preEnd(this.astronaut);

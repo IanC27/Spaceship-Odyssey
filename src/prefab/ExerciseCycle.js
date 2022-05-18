@@ -8,9 +8,11 @@ class ExerciseCycle extends Activity {
         
     }
 
-    end(){
+    end() {
 
     }
+
+
 }
 
 class ExerciseScene extends Phaser.Scene {

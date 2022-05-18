@@ -6,14 +6,21 @@ class Activity extends Phaser.GameObjects.Sprite {
         
         scene.physics.add.overlap(player, this, () => {
             if (Phaser.Input.Keyboard.JustDown(controls.interact) && !this.active) {
-                this.preInteract(player)
+                if (this.condition()) {
+                    this.preInteract(player)
+                } else {
+                    this.failToStart();
+                }
+                
             }
-        }, this.condition, this);
+        }, null, this); 
 
         this.body.setSize(range, range);
         this.astronaut = player;
+        
         // override constructor to disable
         this.disablePlayer = true;
+        this.canDoTired = false;
         this.active = false;
     }
 
@@ -23,9 +30,22 @@ class Activity extends Phaser.GameObjects.Sprite {
         }
     }
 
-    // override to perform check before interact
-    condition(player, activity) {
-        return true;
+    tiredCheck(){
+        return (playerStatus.energy > 0);
+    }
+
+    // override to perform custom check before interact
+    condition() {
+        return this.tiredCheck();
+    }
+
+    // run if condition not met
+    failToStart() {
+        this.scene.sound.play("ouch");
+        this.scene.sleepBorder.setFillStyle(0xffffff, 1);
+        this.scene.time.delayedCall(400, () => {
+            this.scene.sleepBorder.setFillStyle(0xff0000, 1);
+        })
     }
 
     preInteract(player) {

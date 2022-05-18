@@ -115,11 +115,7 @@ class NodeTwo extends Phaser.Scene {
             this.nate.setDrag(0);
         })
 
-        // skip to end debug
-        /*controls.next.on('down', () => {
-            //this.gameOver();
-        })
-        */
+        
         // walls
         this.walls = this.physics.add.staticGroup();
         this.walls.add(this.add.rectangle(-game.config.width / 2, game.config.height / 4, game.config.width*2, 20, 0xffffff).setOrigin(0, 0));
@@ -162,6 +158,21 @@ class NodeTwo extends Phaser.Scene {
         this.activities.add(new Library(this, 240, 140, "library", 0, this.nate ));
 
         this.activities.add(new Stargaze(this, 300, 140, "stargaze", 0, this.nate ));
+
+
+
+
+        // DEBUG ZONE
+        // skip to end debug
+        /*controls.next.on('down', () => {
+            //this.gameOver();
+        })
+        */
+
+        // drain energy
+        this.input.keyboard.on("keydown-P", () => {
+            playerStatus.energy = 0;
+        })
         //setting config
         let timeConfig = {
             fontFamily: 'Stencil Std, fantasy',

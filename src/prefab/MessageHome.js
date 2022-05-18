@@ -98,7 +98,7 @@ class MessageScene extends Phaser.Scene {
 
     createKeyCombo(index) {
         if (index >= this.words.length) {
-            this.time.delayedCall(10000, () => {
+            this.time.delayedCall(3000, () => {
                 this.scene.stop();
             });
         } else {
