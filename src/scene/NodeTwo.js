@@ -35,7 +35,7 @@ class NodeTwo extends Phaser.Scene {
         controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         controls.quit = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
-        this.add.tileSprite(0, 0, 586, 431, "starfield").setScrollFactor(0.1).setOrigin(0, 0); 
+        this.add.tileSprite(game.config.width / 2, game.config.height / 2, 1000, 1000, "starfield").setScrollFactor(0.1).setOrigin(0.5, 0.5); 
 
         this.nate = this.physics.add.sprite(game.config.width / 2, game.config.height / 2, "astro");
         this.nate.setDepth(1);
