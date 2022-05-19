@@ -66,7 +66,7 @@ class Activity extends Phaser.GameObjects.Sprite {
             player.setVelocity(0, 0)
             player.disableBody(true, true);
         }
-        console.log("interacted");
+        //console.log("interacted");
         this.onInteract(player);
     }
 
@@ -77,7 +77,7 @@ class Activity extends Phaser.GameObjects.Sprite {
             this.inUse = false;
         }
         
-        console.log("end");
+        //console.log("end");
         this.end();
     }
 

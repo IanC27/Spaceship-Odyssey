@@ -20,8 +20,10 @@ class NodeTwo extends Phaser.Scene {
         this.load.image("LeftKey", "assets/LeftKey.png");
         this.load.image("RightKey", "assets/RightKey.png");
         this.load.image("starfield", "assets/starfield.png");
-
         this.load.image("arrow", "assets/arrow.png");
+
+        this.load.image("ship_tiles", "assets/tilesheet.png");
+        this.load.tilemapTiledJSON("ship_map", "assets/Node2Map.json");
 
         this.load.audio("songNoise", "assets/noiseQ.mp3");
         this.load.audio("goodbleep", "assets/dadeep.wav");
@@ -35,15 +37,31 @@ class NodeTwo extends Phaser.Scene {
         controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         controls.quit = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
-        this.add.tileSprite(game.config.width / 2, game.config.height / 2, 1000, 1000, "starfield").setScrollFactor(0.1).setOrigin(0.5, 0.5); 
+        // background
+        this.add.tileSprite(game.config.width / 2, game.config.height / 2, 1000, 1000, "starfield").setScrollFactor(0.1).setOrigin(0.5, 0.5);
+        // create tilemap
+        const map = this.add.tilemap("ship_map");
+        const tileset = map.addTilesetImage("tilesheet", "ship_tiles");
+        const shipLayer = map.createLayer("Ship", tileset, 0, 0);
 
-        this.nate = this.physics.add.sprite(game.config.width / 2, game.config.height / 2, "astro");
+        // tile 0 is the wall tile in Tiled, but this function seems to start at 1
+        // when choosing tiles, do (ID in Tiled) + 1
+        shipLayer.setCollision([1]);
+
+        
+
+        const playerSpawn = map.findObject("objects", obj => obj.name === "Player Spawn");
+
+        this.nate = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, "astro");
         this.nate.setDepth(1);
         this.nate.setInteractive({draggable: true});
         //this.nate.setCollideWorldBounds(true);
         this.nate.setBounceX(0.8);
         this.nate.setBounceY(0.8);
-        this.nate.setMaxVelocity(1000, 1000)
+        this.nate.setMaxVelocity(1000, 1000);
+
+
+        this.physics.add.collider(this.nate, shipLayer);
         // score and status variables
         playerStatus = {
             energy: 100,
@@ -117,12 +135,17 @@ class NodeTwo extends Phaser.Scene {
 
         
         // walls
+        /*
         this.walls = this.physics.add.staticGroup();
-        this.walls.add(this.add.rectangle(-game.config.width / 2, game.config.height / 4, game.config.width*2, 20, 0xffffff).setOrigin(0, 0));
-        this.walls.add(this.add.rectangle(-game.config.width / 2, game.config.height / 4 + 100, game.config.width*2, 20, 0xffffff).setOrigin(0, 0));
+        this.walls.add(this.add.rectangle(-game.config.width / 2, game.config.height / 4, game.config.width*2, 16, 0xffffff).setOrigin(0, 0));
+        this.walls.add(this.add.rectangle(-game.config.width / 2, game.config.height / 4 + 100, game.config.width*2, 16, 0xffffff).setOrigin(0, 0));
         this.walls.add(this.add.rectangle(-game.config.width * 0.5, game.config.height / 3, 20, 100, 0xffffff  ).setOrigin(0, 0))
         this.walls.add(this.add.rectangle(game.config.width * 1.5, game.config.height / 3, 20, 120, 0xffffff  ).setOrigin(0, 0))
         this.physics.add.collider(this.nate, this.walls, null, null, this);
+        */
+
+        
+
 
         // camera follow
         this.cameras.main.startFollow(this.nate, true, 0.1, 0.1);
@@ -146,18 +169,24 @@ class NodeTwo extends Phaser.Scene {
         */
 
         this.activities = this.physics.add.group({runChildUpdate: true});
-        
-        this.activities.add(new SampleActivity(this, 0, 140, "activity", 0, this.nate));
-        
-        this.activities.add(new SleepingBag(this, 60, 140, "sleep", 0, this.nate, 60, "sleepAnim"));
-        
-        this.activities.add(new MessageHome(this, 120, 140, "messagehome", 0, this.nate, 60));
 
-        this.activities.add(new ExerciseCycle(this, 180, 140, "cycle", 0, this.nate ));
+        const researchS = map.findObject("objects", obj => obj.name === "Research");
+        this.activities.add(new SampleActivity(this, researchS.x, researchS.y, "activity", 0, this.nate));
 
-        this.activities.add(new Library(this, 240, 140, "library", 0, this.nate ));
+        const sleepS = map.findObject("objects", obj => obj.name === "Sleep");
+        this.activities.add(new SleepingBag(this, sleepS.x, sleepS.y, "sleep", 0, this.nate, 60, "sleepAnim"));
+        
+        const messageS = map.findObject("objects", obj => obj.name === "Message");
+        this.activities.add(new MessageHome(this, messageS.x, messageS.y, "messagehome", 0, this.nate, 60));
 
-        this.activities.add(new Stargaze(this, 300, 140, "stargaze", 0, this.nate ));
+        const exerciseS = map.findObject("objects", obj => obj.name === "Exercise");
+        this.activities.add(new ExerciseCycle(this, exerciseS.x, exerciseS.y, "cycle", 0, this.nate ));
+
+        const libraryS = map.findObject("objects", obj => obj.name === "Library");
+        this.activities.add(new Library(this, libraryS.x, libraryS.y, "library", 0, this.nate ));
+
+        const stargazeS = map.findObject("objects", obj => obj.name === "Stargaze");
+        this.activities.add(new Stargaze(this, stargazeS.x, stargazeS.y, "stargaze", 0, this.nate ));
 
 
 
