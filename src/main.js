@@ -10,11 +10,11 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
         }
     },
     pixelArt: true,
-    scene: [Menu, GameOver, NodeTwo, ExerciseScene, MessageScene, LibraryScene]
+    scene: [Menu, GameOver, NodeTwo, ExerciseScene, MessageScene, LibraryScene, ResearchScene]
 }
 
 let controls = {};

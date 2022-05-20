@@ -10,8 +10,7 @@ class MessageHome extends Activity {
         let subScene = this.scene.scene.get("MessageScene");
         subScene.events.on("shutdown", () => {
             this.preEnd();
-        });
-        
+        });   
     }
 
     end(player) {
