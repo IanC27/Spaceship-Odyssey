@@ -16,13 +16,18 @@ class NodeTwo extends Phaser.Scene {
         this.load.image("library", "assets/library.png");
         this.load.image("stargaze", "assets/stargaze.png");
         this.load.image("background", "assets/MessageHomeBackground.png"); 
-        this.load.image("AKey", "assets/AKey.png");
-        this.load.image("DKey", "assets/DKey.png");
+        
         this.load.image("LeftKey", "assets/LeftKey.png");
         this.load.image("RightKey", "assets/RightKey.png");
         this.load.image("starfield", "assets/starfield.png");
         this.load.image("arrow", "assets/arrow.png");
         this.load.image("target", "assets/target_box_a.png");
+        this.load.image("AKey", "assets/AKey.png");
+        this.load.image("DKey", "assets/DKey.png");
+        this.load.image("SKey", "assets/SKey.png");
+        this.load.image("QKey", "assets/QKey.png");
+        this.load.image("WKey", "assets/WKey.png");
+        this.load.image("EKey", "assets/EKey.png");
 
         this.load.image("ship_tiles", "assets/tilesheet.png");
         this.load.tilemapTiledJSON("ship_map", "assets/Node2Map.json");
