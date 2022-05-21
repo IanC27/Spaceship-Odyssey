@@ -22,7 +22,7 @@ class SleepingBag extends Activity {
 
     onInteract(player){
         this.text = []
-        this.text.push(this.scene.add.text(this.x, this.y - 50, 'press q to wake up', {fontSize: '10px',}).setOrigin(0.5, 0.5)); 
+        this.text.push(this.scene.add.text(this.x, this.y - 20 , 'press q to wake up', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5));
         
         this.scene.awakeTimer.paused = true;
         this.scene.sleepTimer.paused = false;

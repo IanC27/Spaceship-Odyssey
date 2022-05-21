@@ -84,27 +84,6 @@ class NodeTwo extends Phaser.Scene {
             spaceWalk: false
         }
 
-        // sleep bar & timers
-        this.sleepBorder = this.add.rectangle(game.config.width - 106, 4, 102, 7, 0xffffff);
-        this.sleepBorder.setOrigin(0, 0).setScrollFactor(0);
-        this.sleepMeter = this.add.rectangle(game.config.width - 105, 5, 100, 5, 0x0000ff).setOrigin(0, 0);
-        this.sleepMeter.setScrollFactor(0);
-        // after about 5 hours, lose 100 sleep
-        this.awakeTimer = this.time.addEvent({
-            delay: 300,
-            callback: this.decrSleep,
-            callbackScope: this,
-            loop: true
-        });
-        // reffill 100 sleep after 1 hour asleep
-        this.sleepTimer = this.time.addEvent({
-            delay: 60,
-            callback: this.incrSleep,
-            callbackScope: this,
-            loop: true,
-            paused: true
-        });
-        
             
         // flinging controls
         let firstFlingDrag = true;
@@ -230,6 +209,28 @@ class NodeTwo extends Phaser.Scene {
         }
         this.clockRight = this.add.text(0, 0, '24:00', timeConfig);
         this.clockRight.setScrollFactor(0, 0);
+
+        // sleep bar & timers
+        this.sleepBorder = this.add.rectangle(game.config.width - 106, 4, 102, 7, 0xffffff);
+        this.sleepBorder.setOrigin(0, 0).setScrollFactor(0);
+        this.sleepMeter = this.add.rectangle(game.config.width - 105, 5, 100, 5, 0x0000ff).setOrigin(0, 0);
+        this.sleepMeter.setScrollFactor(0);
+        // after  8 hours, lose 100 sleep
+        this.awakeTimer = this.time.addEvent({
+            delay: 480,
+            callback: this.decrSleep,
+            callbackScope: this,
+            loop: true
+        });
+        // reffill 100 sleep after 1 hour asleep
+        this.sleepTimer = this.time.addEvent({
+            delay: 60,
+            callback: this.incrSleep,
+            callbackScope: this,
+            loop: true,
+            paused: true
+        });
+        
 
         this.bgm = this.sound.add('songNoise');
         this.bgm.setLoop(true);
