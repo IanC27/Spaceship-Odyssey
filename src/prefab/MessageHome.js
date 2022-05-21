@@ -25,6 +25,9 @@ class MessageScene extends Phaser.Scene {
     }
 
     create() {
+        this.sfx = this.sound.add("typing", {loop: true});
+        this.sfx.play();
+
         this.add.rectangle(0, 0, game.config.width, 60, 0xffffff).setOrigin(0, 0);
         this.add.text(game.config.width / 2, game.config.height / 2 - 40, "Type!", {fontSize: '10px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
         this.words = ["father", "message", "busy", "contact", "well", "regards"];
@@ -59,6 +62,7 @@ class MessageScene extends Phaser.Scene {
     createKeyCombo(index) {
         if (index >= this.words.length) {
             this.time.delayedCall(3000, () => {
+                this.sfx.stop();
                 this.scene.stop();
             });
         } else {

@@ -14,15 +14,11 @@ class SleepingBag extends Activity {
         if (Phaser.Input.Keyboard.JustDown(controls.quit)) {
             this.preEnd(this.astronaut);
         }
-        if (Phaser.Input.Keyboard.JustDown(controls.interact)) {
-            game.clock.minutes -= 60;
-        }
-
     }
 
     onInteract(player){
-        this.text = []
-        this.text.push(this.scene.add.text(this.x, this.y - 20 , 'press q to wake up', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5));
+        this.scene.sound.play("zipper");
+        this.text = this.scene.add.text(this.x, this.y - 20 , 'press q to wake up', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
         
         this.scene.awakeTimer.paused = true;
         this.scene.sleepTimer.paused = false;
@@ -34,11 +30,9 @@ class SleepingBag extends Activity {
     }
 
     end(player) {
-        for (let tex of this.text) {
-            tex.destroy()
-        }
-        this.setFrame(0)
-        
+        this.scene.sound.play("zipper_R");
+        this.text.destroy();
+        this.setFrame(0);
         this.scene.awakeTimer.paused = false;
         this.scene.sleepTimer.paused = true;
     }

@@ -5,8 +5,15 @@ class NodeTwo extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("astro", "assets/astronautV1.png");
-        this.load.image("activity", "assets/activity.png")
+        this.load.spritesheet("astro", "assets/astroAnimV1.png", {
+            frameWidth: 16,
+            frameHeight: 32
+        });
+        this.load.spritesheet("stargaze_astro", "assets/astroStargaze.png", {
+            frameWidth: 16,
+            frameHeight: 32
+        })
+        this.load.image("activity", "assets/activity.png");
         this.load.spritesheet("sleep", "assets/sleepsheet.png", {
             frameWidth: 16,
             frameHeight: 32
@@ -35,6 +42,11 @@ class NodeTwo extends Phaser.Scene {
         this.load.audio("songNoise", "assets/noiseQ.mp3");
         this.load.audio("goodbleep", "assets/dadeep.wav");
         this.load.audio("ouch", "assets/eeemmp.wav");
+        this.load.audio("zipper", "assets/zipper.mp3");
+        this.load.audio("zipper_R", "assets/zipper_reversed.mp3");
+        this.load.audio("typing", "assets/keyboard.mp3");
+        this.load.audio("power_on", "assets/power on.wav");
+        this.load.audio("power_down", "assets/powerdown.wav");
     }
 
     create() {
@@ -51,15 +63,13 @@ class NodeTwo extends Phaser.Scene {
         const tileset = map.addTilesetImage("tilesheet", "ship_tiles");
         const shipLayer = map.createLayer("Ship", tileset, 0, 0);
 
-        // tile 0 is the wall tile in Tiled, but this function seems to start at 1
-        // when choosing tiles, do (ID in Tiled) + 1
+        // tile 0 is the EMPTY tile, meaning tiles actually start at 1
+        // tile index is ID + 1
         shipLayer.setCollision([1]);
-
-        
 
         const playerSpawn = map.findObject("objects", obj => obj.name === "Player Spawn");
 
-        this.nate = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, "astro");
+        this.nate = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, "astro", 1);
         this.nate.setDepth(1);
         this.nate.setInteractive({draggable: true});
         //this.nate.setCollideWorldBounds(true);
@@ -119,20 +129,6 @@ class NodeTwo extends Phaser.Scene {
             this.nate.setDrag(0);
         })
 
-        
-        // walls
-        /*
-        this.walls = this.physics.add.staticGroup();
-        this.walls.add(this.add.rectangle(-game.config.width / 2, game.config.height / 4, game.config.width*2, 16, 0xffffff).setOrigin(0, 0));
-        this.walls.add(this.add.rectangle(-game.config.width / 2, game.config.height / 4 + 100, game.config.width*2, 16, 0xffffff).setOrigin(0, 0));
-        this.walls.add(this.add.rectangle(-game.config.width * 0.5, game.config.height / 3, 20, 100, 0xffffff  ).setOrigin(0, 0))
-        this.walls.add(this.add.rectangle(game.config.width * 1.5, game.config.height / 3, 20, 120, 0xffffff  ).setOrigin(0, 0))
-        this.physics.add.collider(this.nate, this.walls, null, null, this);
-        */
-
-        
-
-
         // camera follow
         this.cameras.main.startFollow(this.nate, true, 0.1, 0.1);
         //this.cameras.main.setDeadzone(150, 150);
@@ -172,7 +168,7 @@ class NodeTwo extends Phaser.Scene {
         this.activities.add(new Library(this, libraryS.x, libraryS.y, "library", 0, this.nate ));
 
         const stargazeS = map.findObject("objects", obj => obj.name === "Stargaze");
-        this.activities.add(new Stargaze(this, stargazeS.x, stargazeS.y, "stargaze", 0, this.nate ));
+        this.activities.add(new Stargaze(this, stargazeS.x, stargazeS.y, "stargaze_astro", 0, this.nate));
 
 
 
@@ -246,6 +242,13 @@ class NodeTwo extends Phaser.Scene {
         
         this.clockRight.text = Math.floor(game.clock.minutes / 60).toString().padStart(2, "0") + ':' + (game.clock.minutes % 60).toString().padStart(2, "0");
 
+        if (this.nate.body.velocity.x > 10) {
+            this.nate.setFrame(2);
+        } else if (this.nate.body.velocity.x < -10) {
+            this.nate.setFrame(0);
+        } else {
+            this.nate.setFrame(1);
+        }
     }
     
     gameOver() {

@@ -19,6 +19,8 @@ class ResearchScene extends Phaser.Scene {
     }
 
     create() {
+        this.sound.play("power_on");
+
         const target = this.physics.add.sprite(game.config.width / 2, game.config.height / 2 + 4, "target");
         target.body.setSize(8, 30);
         this.keysVelocity = -80;
@@ -52,7 +54,11 @@ class ResearchScene extends Phaser.Scene {
         });
         
         this.deployKey()
-        this.time.delayedCall(7600, () => this.scene.stop());
+        this.time.delayedCall(7600, () => {
+            this.sound.play("power_down");
+            this.scene.stop();
+        
+        });
     }
 
     deployKey() {
