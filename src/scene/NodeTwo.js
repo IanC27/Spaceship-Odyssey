@@ -16,11 +16,18 @@ class NodeTwo extends Phaser.Scene {
         this.load.image("library", "assets/library.png");
         this.load.image("stargaze", "assets/stargaze.png");
         this.load.image("background", "assets/MessageHomeBackground.png"); 
-        this.load.image("AKey", "assets/AKey.png");
+        
         this.load.image("LeftKey", "assets/LeftKey.png");
         this.load.image("RightKey", "assets/RightKey.png");
         this.load.image("starfield", "assets/starfield.png");
         this.load.image("arrow", "assets/arrow.png");
+        this.load.image("target", "assets/target_box_a.png");
+        this.load.image("AKey", "assets/AKey.png");
+        this.load.image("DKey", "assets/DKey.png");
+        this.load.image("SKey", "assets/SKey.png");
+        this.load.image("QKey", "assets/QKey.png");
+        this.load.image("WKey", "assets/WKey.png");
+        this.load.image("EKey", "assets/EKey.png");
 
         this.load.image("ship_tiles", "assets/tilesheet.png");
         this.load.tilemapTiledJSON("ship_map", "assets/Node2Map.json");
@@ -171,7 +178,7 @@ class NodeTwo extends Phaser.Scene {
         this.activities = this.physics.add.group({runChildUpdate: true});
 
         const researchS = map.findObject("objects", obj => obj.name === "Research");
-        this.activities.add(new SampleActivity(this, researchS.x, researchS.y, "activity", 0, this.nate));
+        this.activities.add(new Research(this, researchS.x, researchS.y, "activity", 0, this.nate));
 
         const sleepS = map.findObject("objects", obj => obj.name === "Sleep");
         this.activities.add(new SleepingBag(this, sleepS.x, sleepS.y, "sleep", 0, this.nate, 60, "sleepAnim"));
@@ -243,6 +250,7 @@ class NodeTwo extends Phaser.Scene {
     gameOver() {
         this.clockRight.text = "00:00";
         this.bgm.stop();
+        // remember to add all sub-scene keys to this list
         let subScenes = ["ExerciseScene", "LibScene", "MessageScene"]
         for (let s of subScenes) {
             this.scene.stop(s);
