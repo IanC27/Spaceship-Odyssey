@@ -5,21 +5,19 @@ class NodeTwo extends Phaser.Scene {
     }
 
     preload() {
-        this.load.spritesheet("astro", "assets/astroAnimV1.png", {
+        let astroDimensions = {
             frameWidth: 16,
             frameHeight: 32
-        });
-        this.load.spritesheet("stargaze_astro", "assets/astroStargaze.png", {
-            frameWidth: 16,
-            frameHeight: 32
-        })
+        };
+        this.load.spritesheet("astro", "assets/astroAnimV1.png", astroDimensions);
+        this.load.spritesheet("stargaze_astro", "assets/astroStargaze.png", astroDimensions)
+        this.load.spritesheet("exercise_astro", "assets/astroExerciseAnim.png", astroDimensions);
+        this.load.spritesheet("read_astro", "assets/astroReadAnim.png", astroDimensions)
+        this.load.spritesheet("work_astro", "assets/astroCraftAnim.png", astroDimensions)
         this.load.image("activity", "assets/activity.png");
-        this.load.spritesheet("sleep", "assets/sleepsheet.png", {
-            frameWidth: 16,
-            frameHeight: 32
-        });
+        this.load.spritesheet("sleep", "assets/sleepsheet.png", astroDimensions);
         this.load.image("messagehome", "assets/textingBooth.png");
-        this.load.image("cycle", "assets/bike.png");
+        this.load.image("cycle", "assets/midbike.png");
         this.load.image("library", "assets/library.png");
         this.load.image("stargaze", "assets/stargaze.png");
         this.load.image("background", "assets/MessageHomeBackground.png"); 
@@ -45,8 +43,8 @@ class NodeTwo extends Phaser.Scene {
         this.load.audio("zipper", "assets/zipper.mp3");
         this.load.audio("zipper_R", "assets/zipper_reversed.mp3");
         this.load.audio("typing", "assets/keyboard.mp3");
-        this.load.audio("power_on", "assets/power on.wav");
-        this.load.audio("power_down", "assets/powerdown.wav");
+        this.load.audio("power_on", "assets/power on.mp3");
+        this.load.audio("power_down", "assets/powerdown.mp3");
         
     }
 
@@ -73,7 +71,6 @@ class NodeTwo extends Phaser.Scene {
         this.nate = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, "astro", 1);
         this.nate.setDepth(1);
         this.nate.setInteractive({draggable: true});
-        //this.nate.setCollideWorldBounds(true);
         this.nate.setBounceX(0.8);
         this.nate.setBounceY(0.8);
         this.nate.setMaxVelocity(1000, 1000);
@@ -132,15 +129,33 @@ class NodeTwo extends Phaser.Scene {
 
         // camera follow
         this.cameras.main.startFollow(this.nate, true, 0.1, 0.1);
-        //this.cameras.main.setDeadzone(150, 150);
+        //this.cameras.main.setDeadzone(100, 100);
         
         // activity anims
+
         this.anims.create({
-            key: "sleepAnim",
-            frames: this.anims.generateFrameNumbers("sleep", {start: 1, end: 1, first: 1}),
-            frameRate: 1,
-            repeat: 0
+            key: "workAnim",
+            frames: this.anims.generateFrameNumbers("work_astro", {start: 0, end: 2, first: 0}),
+            frameRate: 4,
+            repeat: -1,
+            yoyo: true
+        });
+
+        this.anims.create({
+            key: "bikeAnim",
+            frames: this.anims.generateFrameNumbers("exercise_astro", {start: 0, end: 1, first: 0}),
+            frameRate: 4,
+            repeat: -1,
         })
+
+        this.anims.create({
+            key: "readAnim",
+            frames: this.anims.generateFrameNumbers("read_astro", {start: 0, end: 1, first: 0}),
+            frameRate: 0.4,
+            repeat: -1,
+        })
+
+
         /*
 
         this.anims.create({
@@ -154,19 +169,19 @@ class NodeTwo extends Phaser.Scene {
         this.activities = this.physics.add.group({runChildUpdate: true});
 
         const researchS = map.findObject("objects", obj => obj.name === "Research");
-        this.activities.add(new Research(this, researchS.x, researchS.y, "activity", 0, this.nate));
+        this.activities.add(new Research(this, researchS.x, researchS.y, "activity", 0, this.nate, "workAnim"));
 
         const sleepS = map.findObject("objects", obj => obj.name === "Sleep");
-        this.activities.add(new SleepingBag(this, sleepS.x, sleepS.y, "sleep", 0, this.nate, 60, "sleepAnim"));
+        this.activities.add(new SleepingBag(this, sleepS.x, sleepS.y, "sleep", 0, this.nate));
         
         const messageS = map.findObject("objects", obj => obj.name === "Message");
-        this.activities.add(new MessageHome(this, messageS.x, messageS.y, "messagehome", 0, this.nate, 60));
+        this.activities.add(new MessageHome(this, messageS.x, messageS.y, "messagehome", 0, this.nate, "workAnim"));
 
         const exerciseS = map.findObject("objects", obj => obj.name === "Exercise");
-        this.activities.add(new ExerciseCycle(this, exerciseS.x, exerciseS.y, "cycle", 0, this.nate ));
+        this.activities.add(new ExerciseCycle(this, exerciseS.x, exerciseS.y, "cycle", 0, this.nate, "bikeAnim"));
 
         const libraryS = map.findObject("objects", obj => obj.name === "Library");
-        this.activities.add(new Library(this, libraryS.x, libraryS.y, "library", 0, this.nate ));
+        this.activities.add(new Library(this, libraryS.x, libraryS.y, "library", 0, this.nate, "readAnim"));
 
         const stargazeS = map.findObject("objects", obj => obj.name === "Stargaze");
         this.activities.add(new Stargaze(this, stargazeS.x, stargazeS.y, "stargaze_astro", 0, this.nate));

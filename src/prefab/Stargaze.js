@@ -1,8 +1,7 @@
 class Stargaze extends Activity {
-    constructor(scene, x, y, texture, frame, player, range=60, animation) {
-        super(scene, x, y, texture, frame, player, range);
-        this.activeAnim = animation;
-        this.displayName = "stargaze"
+    constructor(scene, x, y, texture, frame, player) {
+        super(scene, x, y, texture, frame, player);
+        this.displayName = "stargaze";
     }
 
 

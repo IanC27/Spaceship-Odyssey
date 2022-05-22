@@ -1,8 +1,9 @@
 class MessageHome extends Activity {
-    constructor(scene, x, y, texture, frame, player, range=60, animation) {
-        super(scene, x, y, texture, frame, player, range);
+    constructor(scene, x, y, texture, frame, player, animation) {
+        super(scene, x, y, texture, frame, player, animation);
         this.activeAnim = animation;
         this.displayName = "Message home"
+        this.animOffset = {x: -5, y: 0}
     }
     
     onInteract(player){
@@ -15,7 +16,6 @@ class MessageHome extends Activity {
 
     end(player) {
         playerStatus.family += 100;
-        this.setFrame(0);
     }
 }
 

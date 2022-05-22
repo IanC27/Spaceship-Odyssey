@@ -1,7 +1,6 @@
 class SleepingBag extends Activity {
-    constructor(scene, x, y, texture, frame, player, range=60, animation) {
-        super(scene, x, y, texture, frame, player, range);
-        this.activeAnim = animation;
+    constructor(scene, x, y, texture, frame, player) {
+        super(scene, x, y, texture, frame, player);
         this.displayName = "Sleep";
     }
 
@@ -26,7 +25,7 @@ class SleepingBag extends Activity {
         this.sleepStartTime = game.clock.minutes;
         this.hoursSlept = 0;
         
-        this.play(this.activeAnim);
+        this.setFrame(1);
     }
 
     end(player) {

@@ -1,7 +1,8 @@
 class ExerciseCycle extends Activity {
-    constructor(scene, x, y, texture, frame, player, range=60) {
-        super(scene, x, y, texture, frame, player, range);
+    constructor(scene, x, y, texture, frame, player, animation) {
+        super(scene, x, y, texture, frame, player, animation);
         this.displayName = "Work out!"
+        this.animOffset = {x: -2, y: -6  }
     }
 
     onInteract(player) {
@@ -12,12 +13,6 @@ class ExerciseCycle extends Activity {
         });
         
     }
-
-    end() {
-
-    }
-
-
 }
 
 class ExerciseScene extends Phaser.Scene {

@@ -1,7 +1,8 @@
 class Research extends Activity {
-    constructor(scene, x, y, texture, frame, player, range=60) {
-        super(scene, x, y, texture, frame, player, range);
-        this.displayName = "Conduct Research"
+    constructor(scene, x, y, texture, frame, player, animation) {
+        super(scene, x, y, texture, frame, player, animation);
+        this.displayName = "Conduct Research";
+        this.animOffset = {x: 0, y: 10}
     }
 
     onInteract(){
@@ -24,7 +25,7 @@ class ResearchScene extends Phaser.Scene {
         const target = this.physics.add.sprite(game.config.width / 2, game.config.height / 2 + 4, "target");
         target.body.setSize(8, 30);
         this.keysVelocity = -80;
-        this.keys = ["A", "D", "S", "Q", "W", "E"];
+        this.keys = ["A", "D", "S", "Q", "W"];
         this.keyGroups = {};
         
 

@@ -1,5 +1,5 @@
 class Activity extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, player, range=60) {
+    constructor(scene, x, y, texture, frame, player, animation, range=60) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -17,9 +17,13 @@ class Activity extends Phaser.GameObjects.Sprite {
 
         this.body.setSize(range, range);
         this.astronaut = player;
-        
+
+        // place an animated sprite while being used
+        this.activeAnim = animation;
         // override constructor to disable
         this.disablePlayer = true;
+        // move the player and the animated sprite from the center
+        this.animOffset = {x: 0, y:0};
         this.canDoTired = false;
         this.inUse = false;
         this.displayName = "Activity";
@@ -63,8 +67,14 @@ class Activity extends Phaser.GameObjects.Sprite {
         // disable body+object, and hide player
         this.inUse =  true;
         if (this.disablePlayer) {
-            player.setVelocity(0, 0)
+            player.setVelocity(0, 0);
+            this.astronaut.setPosition(this.x + this.animOffset.x, this.y + this.animOffset.y);
             player.disableBody(true, true);
+
+            if (this.activeAnim) {
+                this.activeSprite = this.scene.add.sprite(this.x + this.animOffset.x, this.y + this.animOffset.y, this.activeAnim, 0);
+                this.activeSprite.play(this.activeAnim);
+            }
         }
         //console.log("interacted");
         this.onInteract(player);
@@ -73,7 +83,10 @@ class Activity extends Phaser.GameObjects.Sprite {
     preEnd() {
         //re-enable player
         if (this.disablePlayer) {
-            this.astronaut.enableBody(true, this.x, this.y, true, true);
+            if (this.activeAnim) {
+                this.activeSprite.destroy();
+            }
+            this.astronaut.enableBody(false, 0, 0, true, true);
             this.inUse = false;
         }
         

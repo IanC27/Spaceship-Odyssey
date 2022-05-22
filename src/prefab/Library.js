@@ -1,7 +1,6 @@
 class Library extends Activity {
-    constructor(scene, x, y, texture, frame, player, range=60, animation) {
-        super(scene, x, y, texture, frame, player, range);
-        this.activeAnim = animation;
+    constructor(scene, x, y, texture, frame, player, animation) {
+        super(scene, x, y, texture, frame, player, animation);
         this.displayName = "Study!";
     }
 

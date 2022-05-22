@@ -83,7 +83,7 @@
   <object id="8" name="Craft-O-Tron" x="223.333" y="640">
    <point/>
   </object>
-  <object id="9" name="Player Spawn" x="399.333" y="96">
+  <object id="9" name="Player Spawn" x="400" y="160">
    <point/>
   </object>
  </objectgroup>
