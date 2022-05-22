@@ -47,6 +47,7 @@ class NodeTwo extends Phaser.Scene {
         this.load.audio("typing", "assets/keyboard.mp3");
         this.load.audio("power_on", "assets/power on.wav");
         this.load.audio("power_down", "assets/powerdown.wav");
+        
     }
 
     create() {
