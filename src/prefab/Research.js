@@ -6,11 +6,16 @@ class Research extends Activity {
     }
 
     onInteract(){
+        this.scene.stressTimer.paused = false;
         this.scene.scene.launch("ResearchScene");
         let subScene = this.scene.scene.get("ResearchScene");
         subScene.events.on("shutdown", () => {
             this.preEnd();
         });   
+    }
+
+    end() {
+        this.scene.stressTimer.paused = true;
     }
 }
 

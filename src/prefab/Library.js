@@ -5,12 +5,12 @@ class Library extends Activity {
     }
 
     onInteract(player) {
+        this.scene.stressTimer.paused = false;
         this.scene.scene.launch("LibScene");
         let subScene = this.scene.scene.get("LibScene");
         subScene.events.on("shutdown", () => {
             this.preEnd();
         });
-        
     }
 
     end(player) {
@@ -19,6 +19,7 @@ class Library extends Activity {
         }else{
             playerStatus.knowledge += 20;
         }
+        this.scene.stressTimer.paused = true;
         this.setFrame(0);
     }
 }

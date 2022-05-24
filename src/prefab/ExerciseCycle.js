@@ -6,12 +6,17 @@ class ExerciseCycle extends Activity {
     }
 
     onInteract(player) {
+        this.scene.stressTimer.paused = false;
         this.scene.scene.launch("ExerciseScene");
         let subScene = this.scene.scene.get("ExerciseScene");
         subScene.events.on("shutdown", () => {
             this.preEnd();
         });
-        
+    }
+
+    end() {
+        this.scene.stressTimer.paused = true;
+
     }
 }
 

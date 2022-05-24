@@ -232,12 +232,12 @@ class NodeTwo extends Phaser.Scene {
         // stress bar & timers
         this.stressBorder = this.add.rectangle(game.config.width - 106, 12, 102, 7, 0xffffff);
         this.stressBorder.setOrigin(0, 0).setScrollFactor(0);
-        this.stressMeter = this.add.rectangle(game.config.width - 105, 13, 100, 5, 0x800080).setOrigin(0, 0);
+        this.stressMeter = this.add.rectangle(game.config.width - 105, 13, 1, 5, 0x800080).setOrigin(0, 0);
         this.stressMeter.setScrollFactor(0);
         // homesickness bar & timers
         this.hsBorder = this.add.rectangle(game.config.width - 106, 20, 102, 7, 0xffffff);
         this.hsBorder.setOrigin(0, 0).setScrollFactor(0);
-        this.hsMeter = this.add.rectangle(game.config.width - 105, 21, 100, 5, 0xff9900).setOrigin(0, 0);
+        this.hsMeter = this.add.rectangle(game.config.width - 105, 21, 1, 5, 0xff9900).setOrigin(0, 0);
         this.hsMeter.setScrollFactor(0);
         
         // after 8 hours, lose 100 sleep
@@ -260,7 +260,15 @@ class NodeTwo extends Phaser.Scene {
             delay: 720,
             callback: this.incrStress,
             callbackScope: this,
-            loop: true
+            loop: true,
+            paused: true
+        });
+        this.destressTimer = this.time.addEvent({
+            delay: 30,
+            callback: this.decrStress,
+            callbackScope: this,
+            loop: true,
+            paused: true
         });
         // after 12 hours, gain 100 homesickness
         this.hsTimer = this.time.addEvent({
@@ -313,7 +321,6 @@ class NodeTwo extends Phaser.Scene {
         playerStatus.energy = newEnergy;
         this.sleepMeter.displayWidth = newEnergy;
         this.nate.setMaxVelocity(100, 100);
-        this.sleepBorder.setFillStyle(0xffffff, 1);
     }
 
     decrSleep() {
@@ -330,11 +337,24 @@ class NodeTwo extends Phaser.Scene {
         let newStress = Math.min(100, playerStatus.stress + 1);
         playerStatus.stress = newStress;
         this.stressMeter.displayWidth = newStress;
+        this.stressBorder.setFillStyle(0xff0000, 1);
+        this.time.delayedCall(100, () => this.stressBorder.setFillStyle(0xffffff, 1));
+    }
+
+    decrStress() {
+        let newStress = Math.max(0, playerStatus.stress - 1);
+        playerStatus.stress = newStress;
+        this.stressMeter.displayWidth = newStress;
     }
 
     incrHs() {
         let newHs = Math.min(100, playerStatus.homeSickness + 1);
         playerStatus.homeSickness = newHs;
         this.hsMeter.displayWidth = newHs;
+    }
+
+    resetHS() {
+        playerStatus.homeSickness = 0;
+        this.hsMeter.displayWidth = 1;
     }
 }

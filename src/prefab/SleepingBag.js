@@ -19,7 +19,8 @@ class SleepingBag extends Activity {
         if (playerStatus.homeSickness <= 60){
             this.scene.sound.play("zipper");
             this.text = this.scene.add.text(this.x, this.y - 20 , 'press q to wake up', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
-            
+            this.scene.sleepBorder.setFillStyle(0x00ff00, 1);
+
             this.scene.awakeTimer.paused = true;
             this.scene.sleepTimer.paused = false;
 
@@ -30,6 +31,7 @@ class SleepingBag extends Activity {
             this.text = this.scene.add.text(this.x, this.y - 20 , 'I really miss home...', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
             this.scene.time.delayedCall(2000, () => {
                 this.text.text = 'press q to wake up';
+                this.scene.sleepBorder.setFillStyle(0x00ff00, 1);
                 this.scene.awakeTimer.paused = true;
                 this.scene.sleepTimer.paused = false;
 
@@ -43,6 +45,7 @@ class SleepingBag extends Activity {
     end(player) {
         this.scene.sound.play("zipper_R");
         this.text.destroy();
+        this.scene.sleepBorder.setFillStyle(0xffffff, 1);
         this.setFrame(0);
         this.scene.awakeTimer.paused = false;
         this.scene.sleepTimer.paused = true;

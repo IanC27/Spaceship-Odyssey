@@ -20,6 +20,7 @@ class MessageHome extends Activity {
         }else{
             playerStatus.family += 100;
         }
+        this.scene.resetHS();
     }
 }
 
