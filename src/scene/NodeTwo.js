@@ -227,14 +227,25 @@ class NodeTwo extends Phaser.Scene {
         this.sleepBorder.setOrigin(0, 0).setScrollFactor(0);
         this.sleepMeter = this.add.rectangle(game.config.width - 105, 5, 100, 5, 0x0000ff).setOrigin(0, 0);
         this.sleepMeter.setScrollFactor(0);
-        // after  8 hours, lose 100 sleep
+        // stress bar & timers
+        this.stressBorder = this.add.rectangle(game.config.width - 106, 12, 102, 7, 0xffffff);
+        this.stressBorder.setOrigin(0, 0).setScrollFactor(0);
+        this.stressMeter = this.add.rectangle(game.config.width - 105, 13, 100, 5, 0xFFFF00).setOrigin(0, 0);
+        this.stressMeter.setScrollFactor(0);
+        // homesickness bar & timers
+        this.hsBorder = this.add.rectangle(game.config.width - 106, 20, 102, 7, 0xffffff);
+        this.hsBorder.setOrigin(0, 0).setScrollFactor(0);
+        this.hsMeter = this.add.rectangle(game.config.width - 105, 21, 100, 5, 0x800080).setOrigin(0, 0);
+        this.hsMeter.setScrollFactor(0);
+        
+        // after 8 hours, lose 100 sleep
         this.awakeTimer = this.time.addEvent({
             delay: 480,
             callback: this.decrSleep,
             callbackScope: this,
             loop: true
         });
-        // reffill 100 sleep after 1 hour asleep
+        // refill 100 sleep after 1 hour asleep
         this.sleepTimer = this.time.addEvent({
             delay: 60,
             callback: this.incrSleep,
@@ -242,7 +253,20 @@ class NodeTwo extends Phaser.Scene {
             loop: true,
             paused: true
         });
-        
+        // after 12 hours, gain 100 stress
+        this.stressTimer = this.time.addEvent({
+            delay: 720,
+            callback: this.incrStress,
+            callbackScope: this,
+            loop: true
+        });
+        // after 12 hours, gain 100 homesickness
+        this.hsTimer = this.time.addEvent({
+            delay: 720,
+            callback: this.incrHs,
+            callbackScope: this,
+            loop: true
+        });
 
         this.bgm = this.sound.add('songNoise');
         this.bgm.setLoop(true);
@@ -300,5 +324,15 @@ class NodeTwo extends Phaser.Scene {
         }
     }
 
-    
+    incrStress() {
+        let newStress = Math.max(0, playerStatus.stress + 1);
+        playerStatus.stress = newStress;
+        this.stressMeter.displayWidth = newStress;
+    }
+
+    incrHs() {
+        let newHs = Math.max(0, playerStatus.homeSickness + 1);
+        playerStatus.homeSickness = newHs;
+        this.hsMeter.displayWidth = newHs;
+    }
 }

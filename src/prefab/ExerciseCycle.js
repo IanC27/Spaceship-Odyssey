@@ -68,7 +68,11 @@ class ExerciseScene extends Phaser.Scene {
         
         // 6000ms = 1 hr in game
         this.time.delayedCall(12000, () => {
-            playerStatus.fitness += this.score;
+            if (playerStatus.stress > 60){
+                playerStatus.fitness += this.score/2;
+            }else{
+                playerStatus.fitness += this.score;
+            }
             this.scene.stop();
         })
 

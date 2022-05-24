@@ -14,7 +14,11 @@ class Library extends Activity {
     }
 
     end(player) {
-        playerStatus.knowledge += 20;
+        if (playerStatus.stress > 60){
+            playerStatus.knowledge += 10;
+        }else{
+            playerStatus.knowledge += 20;
+        }
         this.setFrame(0);
     }
 }

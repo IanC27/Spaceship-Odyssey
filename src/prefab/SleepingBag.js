@@ -16,15 +16,27 @@ class SleepingBag extends Activity {
     }
 
     onInteract(player){
-        this.scene.sound.play("zipper");
-        this.text = this.scene.add.text(this.x, this.y - 20 , 'press q to wake up', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
-        
-        this.scene.awakeTimer.paused = true;
-        this.scene.sleepTimer.paused = false;
+        if (playerStatus.homeSickness <= 60){
+            this.scene.sound.play("zipper");
+            this.text = this.scene.add.text(this.x, this.y - 20 , 'press q to wake up', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
+            
+            this.scene.awakeTimer.paused = true;
+            this.scene.sleepTimer.paused = false;
 
-        this.sleepStartTime = game.clock.minutes;
-        this.hoursSlept = 0;
-        
+            this.sleepStartTime = game.clock.minutes;
+            this.hoursSlept = 0;
+        }else{
+            this.scene.sound.play("zipper");
+            this.text = this.scene.add.text(this.x, this.y - 20 , 'I really miss home...', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
+            this.scene.time.delayedCall(2000, () => {
+                this.text.text = 'press q to wake up';
+                this.scene.awakeTimer.paused = true;
+                this.scene.sleepTimer.paused = false;
+
+                this.sleepStartTime = game.clock.minutes;
+                this.hoursSlept = 0;
+            });
+        }
         this.setFrame(1);
     }
 

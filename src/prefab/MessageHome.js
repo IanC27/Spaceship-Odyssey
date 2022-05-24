@@ -15,7 +15,11 @@ class MessageHome extends Activity {
     }
 
     end(player) {
-        playerStatus.family += 100;
+        if (playerStatus.stress > 60){
+            playerStatus.family += 50;
+        }else{
+            playerStatus.family += 100;
+        }
     }
 }
 
