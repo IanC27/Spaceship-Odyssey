@@ -4,15 +4,15 @@ class GameOver extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("menu", "assets/menu.png"); // not needed
-        this.load.image('space', '.assets/space.png');
+      //  this.load.image("menu", "assets/menu.png"); // menu 
+        this.load.image('space', 'assets/space.png');
     }
 
     create() {
         this.cameras.main.setBackgroundColor('#000');
         // title screen graphic
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'space').setOrigin(0, 0); //fix resolution
-        this.add.sprite(game.config.width /2, game.config.height /2, 'menu');
+        //this.add.sprite(game.config.width /2, game.config.height /2, 'menu');  // menu
         // menu text configuration
         let gameoverConfig = {
             fontFamily: 'Stencil Std, fantasy',
@@ -24,11 +24,6 @@ class GameOver extends Phaser.Scene {
                 bottom: 5,
             },
         }
-        // loop background
-        //while (){
-        //    this.starfield.tilePositionX -= 4;
-        //}
-        //
         this.add.text(game.config.width / 2, 50, 'GAME OVER', gameoverConfig)
             .setOrigin(0.5);
         gameoverConfig.fontSize = '20px';
@@ -50,6 +45,7 @@ class GameOver extends Phaser.Scene {
     }
 
     update() {
+        this.starfield.tilePositionX -= 4;
         if (Phaser.Input.Keyboard.JustDown(controls.restart)) {
             game.clock.minutes = 1440;
             this.scene.start("NodeTwo");
