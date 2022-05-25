@@ -4,12 +4,14 @@ class GameOver extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("menu", "assets/menu.png")
+        this.load.image("menu", "assets/menu.png"); // not needed
+        this.load.image('space', './assets/space.PNG');
     }
 
     create() {
         this.cameras.main.setBackgroundColor('#000');
         // title screen graphic
+        this.starfield = this.add.tileSprite(0, 0, 640, 480, 'space').setOrigin(0, 0); //fix resolution
         this.add.sprite(game.config.width /2, game.config.height /2, 'menu');
         // menu text configuration
         let gameoverConfig = {
@@ -22,6 +24,11 @@ class GameOver extends Phaser.Scene {
                 bottom: 5,
             },
         }
+        // loop background idk if this works
+        while (true){
+            this.starfield.tilePositionX -= 4;
+        }
+        //
         this.add.text(game.config.width / 2, 50, 'GAME OVER', gameoverConfig)
             .setOrigin(0.5);
         gameoverConfig.fontSize = '20px';
