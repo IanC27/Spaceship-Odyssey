@@ -5,7 +5,7 @@ class GameOver extends Phaser.Scene {
 
     preload() {
         this.load.image("menu", "assets/menu.png"); // not needed
-        this.load.image('space', './assets/space.PNG');
+        this.load.image('space', '.assets/space.png');
     }
 
     create() {
@@ -24,10 +24,10 @@ class GameOver extends Phaser.Scene {
                 bottom: 5,
             },
         }
-        // loop background idk if this works
-        while (true){
-            this.starfield.tilePositionX -= 4;
-        }
+        // loop background
+        //while (){
+        //    this.starfield.tilePositionX -= 4;
+        //}
         //
         this.add.text(game.config.width / 2, 50, 'GAME OVER', gameoverConfig)
             .setOrigin(0.5);
