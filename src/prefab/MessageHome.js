@@ -61,7 +61,7 @@ class MessageScene extends Phaser.Scene {
                 });
                 
             })
-        this.createKeyCombo(0);    
+        this.createKeyCombo(0); 
     }
 
     createKeyCombo(index) {

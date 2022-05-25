@@ -73,6 +73,3 @@ class ResearchScene extends Phaser.Scene {
     }
 }
 
-function randomInt(max) {
-    return Math.floor(Math.random() * max);
-}

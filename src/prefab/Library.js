@@ -1,7 +1,7 @@
 class Library extends Activity {
     constructor(scene, x, y, texture, frame, player, animation) {
         super(scene, x, y, texture, frame, player, animation);
-        this.displayName = "Study!";
+        this.displayName = "Study";
     }
 
     onInteract(player) {
@@ -30,44 +30,76 @@ class LibraryScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.text(game.config.width / 2, game.config.height / 2 - 40, "Remember this key", {fontSize: '10px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
-        this.words = ["aexdhcy", "cdjnpzm", "rxsklsq", "ipuyhta"];
-        this.prompt = this.add.text(game.config.width / 2, game.config.height / 2 - 25, "aexdhcy", {fontSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5);
-        this.prompt.setVisible(true);
-        this.time.delayedCall(3000, () => {
-            this.prompt.setVisible(false);
-        })
-        this.comboConfig = {
-            resetOnWrongKey: false,
-            maxKeyDelay: 0,
-            deleteOnMatch: true
+        this.keys = ["Q", "W", "A", "S"];
+        this.sprites = {
+            Q: this.add.sprite(game.config.width / 2 - 10, game.config.height / 2 - 60, "QKey"),
+            W: this.add.sprite(game.config.width / 2 + 10, game.config.height / 2 - 60, "WKey"),
+            A: this.add.sprite(game.config.width / 2 - 10, game.config.height / 2 - 40, "AKey"),
+            S: this.add.sprite(game.config.width / 2 + 10, game.config.height / 2 - 40, "SKey")
         }
-        this.wordIndex = 0;
+        this.combo = []
+        
+
         this.input.keyboard.on('keycombomatch', () => {
-                //console.log("match");
                 this.sound.play("goodbleep");
-                this.prompt.setColor('#00ff00');
+                this.combo.push(this.keys[randomInt(this.keys.length)]);
                 this.time.delayedCall(200, () => {
-                    this.prompt.setColor('#ffff00');
-                    this.wordIndex++;
-                    this.createKeyCombo(this.wordIndex);
+                    this.input.keyboard.createCombo(this.combo, {deleteOnMatch: true});
+                    this.playSequence();
                 });
-                
-            })
-        this.createKeyCombo(0);    
+        });
+
+        for (let key of this.keys) {
+            this.input.keyboard.on("keydown-" + key, () => {
+                console.log(key);
+                if (this.blinkEvent.paused) {
+                    let sprite = this.sprites[key]
+                    this.sound.play(key + "_beep");
+                    sprite.setTint(0x00FF00);
+                    this.time.delayedCall(100, () => {
+                        sprite.clearTint();
+                    });
+                }
+        });
+        }
+
+        this.blinkEvent = this.time.addEvent({
+            delay: 200,
+            callback: this.blink,
+            args: [],
+            callbackScope: this,
+            repeat: 0,
+            paused: true
+        });
+
+        this.time.delayedCall(5000, () => this.scene.stop());
+
+        this.combo.push(this.keys[randomInt(this.keys.length)]);
+        this.combo.push(this.keys[randomInt(this.keys.length)]);
+        this.input.keyboard.createCombo(this.combo, {deleteOnMatch: true});
+        this.playSequence();
     }
 
-    createKeyCombo(index) {
-        if (index >= this.words.length) {
-            
-            this.scene.stop();
-        } else {
-            this.prompt.text = this.words[index];
-            this.prompt.setVisible(true);
-            this.time.delayedCall(3000, () => {
-                this.prompt.setVisible(false);
-            })
-            this.input.keyboard.createCombo(this.words[index], this.comboConfig);
-        }   
+    blink(i) {
+        // at last item in combo
+        if (i == this.combo.length - 1) {
+            this.blinkEvent.paused = true;
+        }
+        let sprite = this.sprites[this.combo[i]]
+        sprite.setTint(0x00FF00);
+        console.log("blink", i);
+        // play sound
+        this.sound.play(this.combo[i] + "_beep");
+        this.blinkEvent.args = [i + 1];
+        this.time.delayedCall(100, () => {
+            sprite.clearTint();
+        })
+
+    }
+
+    playSequence() {
+        this.blinkEvent.args = [0];
+        this.blinkEvent.repeat = this.combo.length;
+        this.blinkEvent.paused = false;
     }
 }
