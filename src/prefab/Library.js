@@ -14,11 +14,6 @@ class Library extends Activity {
     }
 
     end(player) {
-        if (playerStatus.stress > 60){
-            playerStatus.knowledge += 10;
-        }else{
-            playerStatus.knowledge += 20;
-        }
         this.scene.stressTimer.paused = true;
         this.setFrame(0);
     }
@@ -30,6 +25,19 @@ class LibraryScene extends Phaser.Scene {
     }
 
     create() {
+        this.combo = []
+        if (playerStatus.stress > 60) {
+            this.pointReward = 3;
+            this.pointTextColor = "#ff0000";
+        } else {
+            this.pointReward = 5;
+            this.pointTextColor = "#00ff00";
+        }
+
+
+        this.add.text(game.config.width / 2, game.config.height / 2 - 25, "Memorize!", {fontSize: '10px', fill: '#ffaa00'})
+            .setOrigin(0.5, 0.5);
+        this.pointsText = this.add.text(game.config.width / 2, game.config.height - 40, "", {fontSize: '10px', fill: this.pointTextColor});
         this.keys = ["Q", "W", "A", "S"];
         this.sprites = {
             Q: this.add.sprite(game.config.width / 2 - 10, game.config.height / 2 - 60, "QKey"),
@@ -37,13 +45,27 @@ class LibraryScene extends Phaser.Scene {
             A: this.add.sprite(game.config.width / 2 - 10, game.config.height / 2 - 40, "AKey"),
             S: this.add.sprite(game.config.width / 2 + 10, game.config.height / 2 - 40, "SKey")
         }
-        this.combo = []
+        
         
 
         this.input.keyboard.on('keycombomatch', () => {
-                this.sound.play("goodbleep");
-                this.combo.push(this.keys[randomInt(this.keys.length)]);
-                this.time.delayedCall(200, () => {
+            this.keysRemaining = this.combo.length + 1;
+                this.time.delayedCall(500, () => {
+                    this.sound.play("goodbleep");
+                    playerStatus.knowledge += this.pointReward;
+                    this.pointsText.text = "+" + this.pointReward.toString();
+                    this.add.tween({
+                        targets: this.pointsText,
+                        y: {from: game.config.height / 2 - 10, to: game.config.height / 2 - 30},
+                        alpha: {from: 1, to: 0},
+                        ease: "Quad",
+                        duration: 1500
+                    })
+
+                    if (this.combo.length == 5) {
+                        this.scene.stop();
+                    }
+                    this.combo.push(this.keys[randomInt(this.keys.length)]);
                     this.input.keyboard.createCombo(this.combo, {deleteOnMatch: true});
                     this.playSequence();
                 });
@@ -51,55 +73,54 @@ class LibraryScene extends Phaser.Scene {
 
         for (let key of this.keys) {
             this.input.keyboard.on("keydown-" + key, () => {
-                console.log(key);
-                if (this.blinkEvent.paused) {
-                    let sprite = this.sprites[key]
-                    this.sound.play(key + "_beep");
-                    sprite.setTint(0x00FF00);
-                    this.time.delayedCall(100, () => {
-                        sprite.clearTint();
-                    });
-                }
+                //console.log(key);
+                this.keysRemaining -= 1;
+                let sprite = this.sprites[key]
+                this.sound.play(key + "_beep");
+                sprite.setTint(0x00FF00);
+                this.time.delayedCall(100, () => {
+                    sprite.clearTint();
+                });
+                this.time.delayedCall(500, () => {
+                    if (this.keysRemaining < 1) {
+                        this.sound.play("ouch");
+                        this.scene.stop();
+                    }
+                })
         });
         }
 
-        this.blinkEvent = this.time.addEvent({
-            delay: 200,
-            callback: this.blink,
-            args: [],
-            callbackScope: this,
-            repeat: 0,
-            paused: true
-        });
-
-        this.time.delayedCall(5000, () => this.scene.stop());
-
         this.combo.push(this.keys[randomInt(this.keys.length)]);
         this.combo.push(this.keys[randomInt(this.keys.length)]);
+        this.keysRemaining = 2;
         this.input.keyboard.createCombo(this.combo, {deleteOnMatch: true});
         this.playSequence();
     }
 
-    blink(i) {
-        // at last item in combo
-        if (i == this.combo.length - 1) {
-            this.blinkEvent.paused = true;
-        }
-        let sprite = this.sprites[this.combo[i]]
-        sprite.setTint(0x00FF00);
-        console.log("blink", i);
-        // play sound
-        this.sound.play(this.combo[i] + "_beep");
-        this.blinkEvent.args = [i + 1];
-        this.time.delayedCall(100, () => {
-            sprite.clearTint();
-        })
-
-    }
-
     playSequence() {
-        this.blinkEvent.args = [0];
-        this.blinkEvent.repeat = this.combo.length;
-        this.blinkEvent.paused = false;
+        let tl = this.tweens.createTimeline();
+        for (let key of this.combo) {
+            tl.add({
+                targets: this.sprites[key],
+                ease: "Linear",
+                duration: 1,
+                tint: 0x00FF00,
+                repeat: 0,
+                yoyo: false,
+                delay: 200,
+                onComplete: () => (this.sound.play(key + "_beep"))
+            });
+            tl.add({
+                targets: this.sprites[key],
+                ease: "Linear",
+                duration: 1,
+                tint: 0xFFFFFF,
+                repeat: 0,
+                yoyo: false,
+                delay: 100,
+            })
+            
+        }
+        tl.play();
     }
 }
