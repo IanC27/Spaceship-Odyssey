@@ -29,6 +29,14 @@ class SleepingBag extends Activity {
         }else{
             this.scene.sound.play("zipper");
             this.text = this.scene.add.text(this.x, this.y - 20 , 'I really miss home...', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
+            this.scene.add.tween({
+                targets: this.text,
+                duration: 2000,
+                alpha: 0,
+                y: this.y - 50,
+                ease: "Quad.out"
+                
+            })
             this.scene.time.delayedCall(2000, () => {
                 this.text.text = 'press q to wake up';
                 this.scene.sleepBorder.setFillStyle(0x00ff00, 1);

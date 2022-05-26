@@ -58,7 +58,7 @@ class LibraryScene extends Phaser.Scene {
                         targets: this.pointsText,
                         y: {from: game.config.height / 2 - 10, to: game.config.height / 2 - 30},
                         alpha: {from: 1, to: 0},
-                        ease: "Quad",
+                        ease: "Quad.out",
                         duration: 1500
                     })
 
