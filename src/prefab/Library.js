@@ -26,7 +26,7 @@ class LibraryScene extends Phaser.Scene {
 
     create() {
         this.combo = []
-        if (playerStatus.stress > 60) {
+        if (playerStatus.stress >= 100) {
             this.pointReward = 3;
             this.pointTextColor = "#ff0000";
         } else {

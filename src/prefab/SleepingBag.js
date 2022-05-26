@@ -16,7 +16,7 @@ class SleepingBag extends Activity {
     }
 
     onInteract(player){
-        if (playerStatus.homeSickness <= 60){
+        if (playerStatus.homeSickness < 100){
             this.scene.sound.play("zipper");
             this.text = this.scene.add.text(this.x, this.y - 20 , 'press q to wake up', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
             this.scene.sleepBorder.setFillStyle(0x00ff00, 1);
