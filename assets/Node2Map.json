@@ -87,8 +87,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":352.000333333333,
-                 "y":80
+                 "x":400,
+                 "y":100
                 }, 
                 {
                  "height":0,
@@ -99,8 +99,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":103.333333333333,
-                 "y":257.333333333333
+                 "x":103.333,
+                 "y":257.333
                 }, 
                 {
                  "height":0,
@@ -149,6 +149,66 @@
                  "width":0,
                  "x":400,
                  "y":160
+                }, 
+                {
+                 "height":0,
+                 "id":10,
+                 "name":"Quarters",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":400,
+                 "y":190
+                }, 
+                {
+                 "height":0,
+                 "id":11,
+                 "name":"LibrarySign",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":511.333333333333,
+                 "y":401.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":12,
+                 "name":"Gym",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":399.333333333333,
+                 "y":529.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":13,
+                 "name":"Comms",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":287.333333333333,
+                 "y":399.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":14,
+                 "name":"Lab",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":688,
+                 "y":289.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -157,7 +217,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":10,
+ "nextobjectid":15,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",

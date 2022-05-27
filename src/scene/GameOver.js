@@ -125,7 +125,7 @@ class GameOver extends Phaser.Scene {
             this.sound.play("success");
         } else {
             this.resultText.setColor("#ff0000");
-            this.sound.play("failure")
+            this.sound.play("failure");
         }
         this.resultText.text = this.results[this.index];
         if (this.index == this.results.length - 1) {

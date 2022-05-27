@@ -5,52 +5,7 @@ class NodeTwo extends Phaser.Scene {
     }
 
     preload() {
-        let astroDimensions = {
-            frameWidth: 16,
-            frameHeight: 32
-        };
-        this.load.spritesheet("astro", "assets/astroAnimV1.png", astroDimensions);
-        this.load.spritesheet("stargaze_astro", "assets/astroStargaze.png", astroDimensions)
-        this.load.spritesheet("exercise_astro", "assets/astroExerciseAnim.png", astroDimensions);
-        this.load.spritesheet("read_astro", "assets/astroReadAnim.png", astroDimensions)
-        this.load.spritesheet("work_astro", "assets/astroCraftAnim.png", astroDimensions)
-        this.load.image("activity", "assets/activity.png");
-        this.load.spritesheet("sleep", "assets/sleepsheet.png", astroDimensions);
-        this.load.image("messagehome", "assets/textingBooth.png");
-        this.load.image("cycle", "assets/midbike.png");
-        this.load.image("library", "assets/library.png");
-        this.load.image("stargaze", "assets/stargaze.png");
-        this.load.image("background", "assets/MessageHomeBackground.png"); 
         
-        this.load.image("LeftKey", "assets/LeftKey.png");
-        this.load.image("RightKey", "assets/RightKey.png");
-        this.load.image("starfield", "assets/starfield.png");
-        this.load.image("arrow", "assets/arrow.png");
-        this.load.image("target", "assets/target_box_a.png");
-        this.load.image("AKey", "assets/AKey.png");
-        this.load.image("DKey", "assets/DKey.png");
-        this.load.image("SKey", "assets/SKey.png");
-        this.load.image("QKey", "assets/QKey.png");
-        this.load.image("WKey", "assets/WKey.png");
-        this.load.image("EKey", "assets/EKey.png");
-
-        this.load.image("ship_tiles", "assets/tilesheet.png");
-        this.load.tilemapTiledJSON("ship_map", "assets/Node2Map.json");
-
-        this.load.audio("songNoise", "assets/noiseQ.mp3");
-        this.load.audio("goodbleep", "assets/dadeep.wav");
-        this.load.audio("ouch", "assets/eeemmp.wav");
-        this.load.audio("zipper", "assets/zipper.mp3");
-        this.load.audio("zipper_R", "assets/zipper_reversed.mp3");
-        this.load.audio("typing", "assets/keyboard.mp3");
-        this.load.audio("power_on", "assets/power on.mp3");
-        this.load.audio("power_down", "assets/powerdown.mp3");
-        this.load.audio("A_beep", "assets/A.wav");
-        this.load.audio("S_beep", "assets/S.wav");
-        this.load.audio("Q_beep", "assets/Q.wav");
-        this.load.audio("W_beep", "assets/W.wav");
-        this.load.audio("success", "assets/goodnews.mp3");
-        this.load.audio("failure", "assets/badnews.mp3");
  
     }
 
@@ -172,6 +127,7 @@ class NodeTwo extends Phaser.Scene {
         })
         */
 
+        // create activities 
         this.activities = this.physics.add.group({runChildUpdate: true});
 
         const researchS = map.findObject("objects", obj => obj.name === "Research");
@@ -192,8 +148,35 @@ class NodeTwo extends Phaser.Scene {
         const stargazeS = map.findObject("objects", obj => obj.name === "Stargaze");
         this.activities.add(new Stargaze(this, stargazeS.x, stargazeS.y, "stargaze_astro", 0, this.nate));
 
+        // create wall text
+        const commsSign = map.findObject("objects", obj => obj.name === "Comms");
+        // right aligned text
+        this.add.bitmapText(commsSign.x, commsSign.y, "pixel_font", "COMMS", false, 2)
+            .setLetterSpacing(1)
+            .setOrigin(1, 0.5);
 
+        const libSign = map.findObject("objects", obj => obj.name === "LibrarySign");
+        this.add.bitmapText(libSign.x, libSign.y, "pixel_font", "LIBRARY")
+            .setLetterSpacing(1)
+            .setOrigin(0, 0.5);
 
+        const gymSign = map.findObject("objects", obj => obj.name === "Gym");
+        this.add.bitmapText(gymSign.x, gymSign.y, "pixel_font", "G Y M")
+            .setLetterSpacing(1)
+            .setOrigin(0.5, 0)
+            .setMaxWidth(1);
+
+        const quartersSign = map.findObject("objects", obj => obj.name === "Quarters");
+        this.add.bitmapText(quartersSign.x, quartersSign.y, "pixel_font", "Q U A R T E R S")
+            .setLetterSpacing(1)
+            .setOrigin(0.5, 0)
+            .setMaxWidth(1);
+
+        const labSign = map.findObject("objects", obj => obj.name === "Lab");
+        this.add.bitmapText(labSign.x, labSign.y, "pixel_font", "LAB")
+            .setLetterSpacing(1)
+            .setOrigin(0.5, 0.5)
+            .setMaxWidth(1);
 
         // DEBUG ZONE
         // skip to end debug
@@ -201,7 +184,7 @@ class NodeTwo extends Phaser.Scene {
             this.gameOver();
         })
         
-        // drain energy
+        // max all bad stuff
         this.input.keyboard.on("keydown-PLUS", () => {
             playerStatus.energy = 0;
             playerStatus.stress = 100;
