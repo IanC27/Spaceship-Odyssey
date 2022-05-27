@@ -31,7 +31,7 @@ class ExerciseScene extends Phaser.Scene {
         let KeyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.add.rectangle(game.config.width / 2, game.config.height / 2 - 50, 75, 40, 0xff0000);
         this.arrow = this.physics.add.sprite(game.config.width / 2, game.config.height / 2 - 50, "arrow");
-        this.arrow.setAngularVelocity(90);
+        this.arrow.setAngularVelocity(100);
 
         this.leftKeySprite = this.add.image(game.config.width / 2 - 26, game.config.height / 2 - 50, "AKey");
         this.rightKeySprite = this.add.image(game.config.width / 2 + 26, game.config.height / 2 - 50, "DKey").setAlpha(0.5);
@@ -42,7 +42,7 @@ class ExerciseScene extends Phaser.Scene {
         KeyLeft.on("down", () => {
             if (this.nextKeyLeft) {
                 if (this.arrow.angle < -150 || this.arrow.angle > 150) {
-                    this.score += 10;
+                    this.score += 5;
                     this.swap(false);
                     this.arrow.setAngularVelocity(this.arrow.body.angularVelocity + 10);
                     //console.log("left!");
@@ -58,7 +58,7 @@ class ExerciseScene extends Phaser.Scene {
         KeyRight.on("down", () => {
             if (!this.nextKeyLeft) {
                 if (this.arrow.angle < 30 && this.arrow.angle > -30) {
-                    this.score += 10;
+                    this.score += 5;
                     this.swap(true);
                     this.arrow.setAngularVelocity(this.arrow.body.angularVelocity + 10);
                     //console.log("right!");

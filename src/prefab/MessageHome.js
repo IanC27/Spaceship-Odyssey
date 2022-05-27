@@ -15,10 +15,10 @@ class MessageHome extends Activity {
     }
 
     end(player) {
-        if (playerStatus.stress > 60){
-            playerStatus.family += 50;
+        if (playerStatus.stress >= 100){
+            playerStatus.family += 10;
         }else{
-            playerStatus.family += 100;
+            playerStatus.family += 15;
         }
         this.scene.resetHS();
     }

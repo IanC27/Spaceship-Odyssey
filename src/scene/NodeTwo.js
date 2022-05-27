@@ -49,6 +49,8 @@ class NodeTwo extends Phaser.Scene {
         this.load.audio("S_beep", "assets/S.wav");
         this.load.audio("Q_beep", "assets/Q.wav");
         this.load.audio("W_beep", "assets/W.wav");
+        this.load.audio("success", "assets/goodnews.mp3");
+        this.load.audio("failure", "assets/badnews.mp3");
  
     }
 
@@ -309,10 +311,11 @@ class NodeTwo extends Phaser.Scene {
         this.clockRight.text = "00:00";
         this.bgm.stop();
         // remember to add all sub-scene keys to this list
-        let subScenes = ["ExerciseScene", "LibScene", "MessageScene"]
+        let subScenes = ["ExerciseScene", "LibScene", "MessageScene", "ResearchScene"]
         for (let s of subScenes) {
             this.scene.stop(s);
         }
+        this.sound.stopAll();
         this.scene.start("gameoverScene");
     }
 

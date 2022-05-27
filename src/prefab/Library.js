@@ -37,7 +37,10 @@ class LibraryScene extends Phaser.Scene {
 
         this.add.text(game.config.width / 2, game.config.height / 2 - 25, "Memorize!", {fontSize: '10px', fill: '#ffaa00'})
             .setOrigin(0.5, 0.5);
-        this.pointsText = this.add.text(game.config.width / 2, game.config.height - 40, "", {fontSize: '10px', fill: this.pointTextColor});
+        this.pointsText = this.add.text(game.config.width / 2, game.config.height / 2 - 10, "+" + this.pointReward.toString(), {fontSize: '10px', fill: this.pointTextColor});
+        this.pointsText.setAlpha(0);
+        this.pointsText.setOrigin(0.5, 0.5);
+
         this.keys = ["Q", "W", "A", "S"];
         this.sprites = {
             Q: this.add.sprite(game.config.width / 2 - 10, game.config.height / 2 - 60, "QKey"),
@@ -52,8 +55,7 @@ class LibraryScene extends Phaser.Scene {
             this.keysRemaining = this.combo.length + 1;
                 this.time.delayedCall(500, () => {
                     this.sound.play("goodbleep");
-                    playerStatus.knowledge += this.pointReward;
-                    this.pointsText.text = "+" + this.pointReward.toString();
+                    playerStatus.knowledge += this.pointReward
                     this.add.tween({
                         targets: this.pointsText,
                         y: {from: game.config.height / 2 - 10, to: game.config.height / 2 - 30},
@@ -63,11 +65,14 @@ class LibraryScene extends Phaser.Scene {
                     })
 
                     if (this.combo.length == 5) {
-                        this.scene.stop();
+                        this.time.delayedCall(500, () => {
+                            this.scene.stop();
+                        });
+                    } else {
+                        this.combo.push(this.keys[randomInt(this.keys.length)]);
+                        this.input.keyboard.createCombo(this.combo, {deleteOnMatch: true});
+                        this.playSequence();
                     }
-                    this.combo.push(this.keys[randomInt(this.keys.length)]);
-                    this.input.keyboard.createCombo(this.combo, {deleteOnMatch: true});
-                    this.playSequence();
                 });
         });
 
