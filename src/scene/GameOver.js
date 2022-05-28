@@ -23,7 +23,7 @@ class GameOver extends Phaser.Scene {
         } else if (playerStatus.knowledge > 0) {
             this.knowledgeMessage = "You learned a lot and got some course credit. Only a bit further and you might've been able to earn a degree!"
         } else {
-            this.knowledgeMessage = "You didn't make great use of \nthe ship library... Isn't there \nstill so much you want to learn?";
+            this.knowledgeMessage = "You didn't make great use of the ship library... Isn't there still so much you want to learn?";
             this.knowledgeSuccess = false;
         }
 
@@ -33,7 +33,7 @@ class GameOver extends Phaser.Scene {
         } else if (playerStatus.research >= 75) {
             this.researchMessage = "Thanks to your work in the research lab, you discovered a more energy efficient process for making safe drinking water! Is there more to discover?...";
         } else if (playerStatus.research >= 25) {
-            this.researchMessage = "you did a little research"
+            this.researchMessage = "Nice job, you discovered a new moon orbiting Jupiter! But you feel like you were on the verge of discovering something even greater..."
         } else {
             this.researchMessage = "You were unable to utilize the station's research lab to it's full potential. What kind of discoveries have still yet to be made?"; //???
             this.researchSuccess = false;
@@ -55,7 +55,7 @@ class GameOver extends Phaser.Scene {
         } else if (playerStatus.family >= 10) {
             this.familyMessage = "You were overjoyed to see your family again, but also surprised at how much has gone by in 5 years. So many milestones passed by in what felt like moments... You wonder if it was really worth it...";
         } else {
-            this.familyMessage = `After years of sending messages with no reply, your family had eventually assumed the worst. Your spose had remarried, and the rest of your family was getting ready to move on. It was a shock when you returned. They are desperate to know why you couldn't write home.`
+            this.familyMessage = `After years of sending messages with no reply, your family had eventually assumed the worst. Your spose had remarried, and the rest of your family was getting ready to move on. It was a shock when you returned. They are desperate to know why you couldn't write home.`;
             this.familySuccess = false;
         }
 
