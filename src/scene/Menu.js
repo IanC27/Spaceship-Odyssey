@@ -10,11 +10,11 @@ class Menu extends Phaser.Scene {
 
     create() {
         // title screen graphic
-        this.add.sprite(game.config.width /2, game.config.height /2, 'menu');
+        this.add.tileSprite(0, 0, game.config.width, game.config.height, "starfield").setOrigin(0, 0);
         //this.add.rectangle(0, 0, game.config.width, game.config.height, 0xffffff).setOrigin(0, 0);
         // menu text configuration
         let menuConfig = {
-            fontFamily: 'Impact, fantasy',
+            fontFamily: 'Impact',
             fontSize: '30px',
             color: '#FFFFFF',
             align: 'right',

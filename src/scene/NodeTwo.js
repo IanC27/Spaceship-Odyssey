@@ -55,6 +55,8 @@ class NodeTwo extends Phaser.Scene {
 
             
         // flinging controls
+
+        this.pointer = this.input.activePointer;
         let firstFlingDrag = true;
         let flingStart = {x: 0, y: 0};
         let flingEnd = {x: 0, y: 0};
@@ -69,7 +71,8 @@ class NodeTwo extends Phaser.Scene {
                 flingEnd.y = dragY;
                 this.flingLine.setTo(flingStart.x, flingStart.y, flingEnd.x, flingEnd.y);
             }
-        })
+        });
+
         this.nate.on('dragend', (pointer, dragX, dragY, dropped) => {
             //console.log("end", dragX, dragY);
             let vectorX = flingEnd.x - flingStart.x;
@@ -84,6 +87,20 @@ class NodeTwo extends Phaser.Scene {
         controls.space.on('down', () => {
             this.nate.setDrag(50);
         });
+
+        // mouse-only breaking:
+        /*
+        this.input.on('pointerdown', ()=> {
+            this.nate.setDrag(500);
+            console.log('down')
+        })
+        this.input.on('pointerup', ()=> {
+            //this.nate.setDrag(50);
+            this.nate.setDrag(0);
+            console.log('up')
+        })
+        */
+        
         controls.space.on('up', () => {
             this.nate.setDrag(0);
         })
@@ -273,7 +290,7 @@ class NodeTwo extends Phaser.Scene {
     }
 
 
-    update(delta ) {
+    update(delta) {
         if (game.clock.minutes <= 0){
             clearInterval(this.clockInterval);
             this.gameOver();
@@ -288,6 +305,10 @@ class NodeTwo extends Phaser.Scene {
         } else {
             this.nate.setFrame(1);
         }
+        if (this.pointer.isDown) {
+            console.log("down");
+        }
+
     }
     
     gameOver() {
