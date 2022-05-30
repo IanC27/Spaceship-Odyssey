@@ -55,7 +55,7 @@ class GameOver extends Phaser.Scene {
         } else if (playerStatus.family >= 10) {
             this.familyMessage = "You were overjoyed to see your family again, but also surprised at how much has gone by in 5 years. So many milestones passed by in what felt like moments... You wonder if it was really worth it...";
         } else {
-            this.familyMessage = `After years of sending messages with no reply, your family had eventually assumed the worst. Your spose had remarried, and the rest of your family was getting ready to move on. It was a shock when you returned. They are desperate to know why you couldn't write home.`;
+            this.familyMessage = `After years of sending messages with no reply, your family had eventually assumed the worst. Your spouse had remarried, and the rest of your family was getting ready to move on. It was a shock when you returned. They are desperate to know why you couldn't write home.`;
             this.familySuccess = false;
         }
 
