@@ -34,10 +34,9 @@ class NodeTwo extends Phaser.Scene {
         this.nate.setInteractive({draggable: true});
         this.nate.setBounceX(0.8);
         this.nate.setBounceY(0.8);
-        this.nate.setMaxVelocity(1000, 1000);
-
-
+        this.nate.setMaxVelocity(game.config.height / 2, game.config.height / 2);
         this.physics.add.collider(this.nate, shipLayer);
+
         // score and status variables
         playerStatus = {
             energy: 100,
@@ -51,32 +50,32 @@ class NodeTwo extends Phaser.Scene {
             inventionProgress: 0,
             inventions: 0,
             spaceWalk: false
-        }
+        };
 
             
         // flinging controls
 
         this.pointer = this.input.activePointer;
+        /*
         let firstFlingDrag = true;
-        let flingStart = {x: 0, y: 0};
-        let flingEnd = {x: 0, y: 0};
-        this.nate.on('drag', (pointer, dragX, dragY, dropped) => {
+        
+        this.input.on('drag', (pointer, obj, dragX, dragY) => {
             if (firstFlingDrag) {
                 firstFlingDrag = false;
                 flingStart.x = dragX;
                 flingStart.y = dragY;
                 this.flingLine = this.add.line(0, 0, flingStart.x, flingStart.y, flingStart.x, flingStart.y, 0x00ff00)
             } else {
-                flingEnd.x = dragX;
-                flingEnd.y = dragY;
-                this.flingLine.setTo(flingStart.x, flingStart.y, flingEnd.x, flingEnd.y);
+                velocityVector.x = dragX;
+                velocityVector.y = dragY;
+                this.flingLine.setTo(flingStart.x, flingStart.y, velocityVector.x, velocityVector.y);
             }
         });
 
-        this.nate.on('dragend', (pointer, dragX, dragY, dropped) => {
+        this.input.on('dragend', (pointer, obj, dropped) => {
             //console.log("end", dragX, dragY);
-            let vectorX = flingEnd.x - flingStart.x;
-            let vectorY = flingEnd.y - flingStart.y;
+            let vectorX = velocityVector.x - flingStart.x;
+            let vectorY = velocityVector.y - flingStart.y;
             this.nate.setVelocityX(-vectorX);
             this.nate.setVelocityY(-vectorY);
             this.flingLine.destroy();
@@ -99,10 +98,52 @@ class NodeTwo extends Phaser.Scene {
             this.nate.setDrag(0);
             console.log('up')
         })
-        */
+        
         
         controls.space.on('up', () => {
             this.nate.setDrag(0);
+        })
+        */
+        this.flingLine = this.add.line(0, 0, this.nate.x, this.nate.y, this.nate.x, this.nate.y, 0x00ff00);
+        this.flingLine.setDepth(1);
+        
+        
+        this.velocityVector = {x: 0, y: 0};
+
+        this.input.on("pointerdown", (pointer) => {
+            
+            this.nate.setDrag(100);
+            
+        });
+        
+        this.input.on("pointermove", (pointer) => {
+
+        });
+        
+        this.input.on("pointerup", (pointer) => {
+            /*
+            let vX = pointer.downX - pointer.upX
+            let vY = pointer.downY - pointer.upY
+            console.log(vX, vY);
+            */
+            this.nate.setVelocityX(this.velocityVector.x);
+            this.nate.setVelocityY(this.velocityVector.y);
+            this.flingLine.setTo(0, 0, 0, 0);
+        });
+
+        // in case the player drags outside, max velocity it to edge of screen
+        this.input.on("pointerupoutside", (pointer) => {
+            /*
+            let endX = Phaser.Math.Clamp(pointer.upX, 0, game.config.width);
+            let endY = Phaser.Math.Clamp(pointer.upY, 0, game.config.height);
+            let vX = pointer.downX - endX;
+            let vY = pointer.downY - endY;
+            console.log(vX, vY);
+            */
+            this.nate.setVelocityX(this.velocityVector.x);
+            this.nate.setVelocityY(this.velocityVector.y);
+            this.flingLine.setTo(0, 0, 0, 0);
+
         })
 
         // camera follow
@@ -305,10 +346,18 @@ class NodeTwo extends Phaser.Scene {
         } else {
             this.nate.setFrame(1);
         }
-        if (this.pointer.isDown) {
-            console.log("down");
-        }
 
+        // update velocity line position constantly
+        if (this.pointer.isDown && this.pointer.getDistance() > 0) {
+            this.nate.setDrag(0);
+            let diffX = Phaser.Math.Clamp(this.pointer.downX - this.pointer.x, -(game.config.width / 2), game.config.width / 2);
+            let diffY = Phaser.Math.Clamp(this.pointer.downY - this.pointer.y, -(game.config.height / 2), game.config.height / 2);
+            console.log(diffX, diffY);
+            let endPointX = this.nate.x + diffX;
+            let endPointY = this.nate.y + diffY;
+            this.flingLine.setTo(this.nate.x, this.nate.y, endPointX, endPointY);
+            this.velocityVector = {x: diffX, y: diffY};
+        }
     }
     
     gameOver() {
