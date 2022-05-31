@@ -10,44 +10,40 @@ class SleepingBag extends Activity {
     }
 
     activeUpdate(){
-        if (Phaser.Input.Keyboard.JustDown(controls.quit)) {
+        if (Phaser.Input.Keyboard.JustDown(controls.quit) 
+         || playerStatus.energy >= 100) {
             this.preEnd(this.astronaut);
         }
     }
 
     onInteract(player){
-        if (playerStatus.homeSickness < 100){
-            this.scene.sound.play("zipper");
-            this.text = this.scene.add.text(this.x, this.y - 20 , 'press q to wake up', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
-            this.scene.sleepBorder.setFillStyle(0x00ff00, 1);
-
-            this.scene.awakeTimer.paused = true;
-            this.scene.sleepTimer.paused = false;
-
-            this.sleepStartTime = game.clock.minutes;
-            this.hoursSlept = 0;
-        }else{
-            this.scene.sound.play("zipper");
-            this.text = this.scene.add.text(this.x, this.y - 20 , 'I really miss home...', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
+        this.scene.sound.play("zipper");
+        this.setFrame(1);
+        let delay;
+        this.text = this.scene.add.text(this.x, this.y - 20 , '', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
+        if (playerStatus.homeSickness == 100){
+            delay = 2000;
+            this.text.text = "I really miss home...";
             this.scene.add.tween({
                 targets: this.text,
                 duration: 2000,
                 alpha: 0,
                 y: this.y - 50,
                 ease: "Quad.out"
-                
-            })
-            this.scene.time.delayedCall(2000, () => {
-                this.text.text = 'press q to wake up';
-                this.scene.sleepBorder.setFillStyle(0x00ff00, 1);
-                this.scene.awakeTimer.paused = true;
-                this.scene.sleepTimer.paused = false;
-
-                this.sleepStartTime = game.clock.minutes;
-                this.hoursSlept = 0;
             });
+        } else {
+            delay = 0;
         }
-        this.setFrame(1);
+        this.scene.time.delayedCall(delay, () => {
+            this.text.text = "click to wake up"
+            this.text.alpha = 1;
+            this.text.y = this.y - 20;
+            this.scene.awakeTimer.paused = true;
+            this.scene.sleepTimer.paused = false;
+            this.scene.sleepBorder.setFillStyle(0x00ff00, 1);
+        
+        }, this)
+        
     }
 
     end(player) {

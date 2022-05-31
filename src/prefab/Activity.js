@@ -15,6 +15,17 @@ class Activity extends Phaser.GameObjects.Sprite {
             }
         }, null, this); 
 
+        this.setInteractive();
+        this.on("pointerdown", () => {
+            if (scene.physics.world.overlap(this, this.astronaut) && !this.inUse){
+                if (this.condition()) {
+                    this.preInteract(player)
+                } else {
+                    this.failToStart();
+                }
+            }
+        });
+
         this.body.setSize(range, range);
         this.astronaut = player;
 

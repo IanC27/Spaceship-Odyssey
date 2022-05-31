@@ -79,6 +79,8 @@ class NodeTwo extends Phaser.Scene {
             this.nate.setVelocityX(this.velocityVector.x);
             this.nate.setVelocityY(this.velocityVector.y);
             this.flingLine.setTo(0, 0, 0, 0);
+            this.velocityVector.x = 0;
+            this.velocityVector.y = 0;
         });
 
         // in case the player drags outside, max velocity it to edge of screen
