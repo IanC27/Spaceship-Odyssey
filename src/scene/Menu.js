@@ -34,15 +34,15 @@ class Menu extends Phaser.Scene {
         menuConfig.color = '#FFFFFF';
         menuConfig.stroke = '#000'
         this.add.text(game.config.width / 2, 110, 'Click and drag to set velocity', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width / 2, 130, 'Hold SPACE to slow down', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width / 2, 130, 'Hold to slow down', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width / 2, 150, 'Press E to interact', menuConfig).setOrigin(0.5);
         menuConfig.fontSize = '20px'; 
-        this.add.text(game.config.width / 2, game.config.height - 50, 'Press (SPACE) to start', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width / 2, game.config.height - 50, 'Click to start', menuConfig).setOrigin(0.5);
         
         //this.add.bitmapText(0, 200, "pixel_font", "MOTHER 3");
-
-        //Space key
-        controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.input.on("pointerdown", () => {
+            this.scene.start("NodeTwo");
+        });
 
         //game clock
         //48 hours
@@ -52,8 +52,6 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(controls.space)) {
-            this.scene.start("NodeTwo");
-        }
+        
     }
 }

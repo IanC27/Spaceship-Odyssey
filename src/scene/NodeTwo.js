@@ -13,7 +13,6 @@ class NodeTwo extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#000');
         controls.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         controls.next = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
-        controls.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         controls.quit = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
         // background
@@ -56,57 +55,8 @@ class NodeTwo extends Phaser.Scene {
         // flinging controls
 
         this.pointer = this.input.activePointer;
-        /*
-        let firstFlingDrag = true;
-        
-        this.input.on('drag', (pointer, obj, dragX, dragY) => {
-            if (firstFlingDrag) {
-                firstFlingDrag = false;
-                flingStart.x = dragX;
-                flingStart.y = dragY;
-                this.flingLine = this.add.line(0, 0, flingStart.x, flingStart.y, flingStart.x, flingStart.y, 0x00ff00)
-            } else {
-                velocityVector.x = dragX;
-                velocityVector.y = dragY;
-                this.flingLine.setTo(flingStart.x, flingStart.y, velocityVector.x, velocityVector.y);
-            }
-        });
-
-        this.input.on('dragend', (pointer, obj, dropped) => {
-            //console.log("end", dragX, dragY);
-            let vectorX = velocityVector.x - flingStart.x;
-            let vectorY = velocityVector.y - flingStart.y;
-            this.nate.setVelocityX(-vectorX);
-            this.nate.setVelocityY(-vectorY);
-            this.flingLine.destroy();
-            firstFlingDrag = true;
-        })
-
-        // breaking
-        controls.space.on('down', () => {
-            this.nate.setDrag(50);
-        });
-
-        // mouse-only breaking:
-        /*
-        this.input.on('pointerdown', ()=> {
-            this.nate.setDrag(500);
-            console.log('down')
-        })
-        this.input.on('pointerup', ()=> {
-            //this.nate.setDrag(50);
-            this.nate.setDrag(0);
-            console.log('up')
-        })
-        
-        
-        controls.space.on('up', () => {
-            this.nate.setDrag(0);
-        })
-        */
         this.flingLine = this.add.line(0, 0, this.nate.x, this.nate.y, this.nate.x, this.nate.y, 0x00ff00);
         this.flingLine.setDepth(1);
-        
         
         this.velocityVector = {x: 0, y: 0};
 
@@ -352,7 +302,7 @@ class NodeTwo extends Phaser.Scene {
             this.nate.setDrag(0);
             let diffX = Phaser.Math.Clamp(this.pointer.downX - this.pointer.x, -(game.config.width / 2), game.config.width / 2);
             let diffY = Phaser.Math.Clamp(this.pointer.downY - this.pointer.y, -(game.config.height / 2), game.config.height / 2);
-            console.log(diffX, diffY);
+            //console.log(diffX, diffY);
             let endPointX = this.nate.x + diffX;
             let endPointY = this.nate.y + diffY;
             this.flingLine.setTo(this.nate.x, this.nate.y, endPointX, endPointY);
