@@ -57,17 +57,19 @@ class NodeTwo extends Phaser.Scene {
         this.pointer = this.input.activePointer;
         this.flingLine = this.add.line(0, 0, this.nate.x, this.nate.y, this.nate.x, this.nate.y, 0x00ff00);
         this.flingLine.setDepth(1);
+        this.mouseMoved = false;
         
         this.velocityVector = {x: 0, y: 0};
 
         this.input.on("pointerdown", (pointer) => {
             
             this.nate.setDrag(100);
+            this.mouseMoved = false;
             
         });
         
         this.input.on("pointermove", (pointer) => {
-
+            this.mouseMoved = true;
         });
         
         this.input.on("pointerup", (pointer) => {
@@ -76,8 +78,12 @@ class NodeTwo extends Phaser.Scene {
             let vY = pointer.downY - pointer.upY
             console.log(vX, vY);
             */
-            this.nate.setVelocityX(this.velocityVector.x);
-            this.nate.setVelocityY(this.velocityVector.y);
+            if (this.mouseMoved) {
+                this.nate.setVelocityX(this.velocityVector.x);
+                this.nate.setVelocityY(this.velocityVector.y);
+                this.mouseMoved = false;
+            }
+            this.nate.setDrag(0);
             this.flingLine.setTo(0, 0, 0, 0);
             this.velocityVector.x = 0;
             this.velocityVector.y = 0;

@@ -45,37 +45,24 @@ class ResearchScene extends Phaser.Scene {
         this.count = 0;
         this.keys = ["A", "D", "S", "Q", "W"];
         this.keyGroups = {};
-        const target = this.physics.add.sprite(game.config.width / 2, game.config.height / 2 + 4, "target");
-        target.body.setSize(8, 30);
+        this.keyButtons = {};
+        let buttonX = 89;
+        this.target = this.physics.add.sprite(game.config.width / 2, game.config.height / 2 + 4, "target");
+        this.target.body.setSize(8, 30);
+        
 
         for (let key of this.keys) {
             this.keyGroups[key] = this.physics.add.group({ velocityX: this.keysVelocity });
+            this.keyButtons[key] = this.add.sprite(buttonX, game.config.height - 90, key + "Key");
+            buttonX += 20;
 
+            this.keyButtons[key].setInteractive()
+            this.keyButtons[key].on('pointerdown', () => {
+                this.processKey(key);
+            });
+            
             this.input.keyboard.on("keydown-" + key, () => {
-                //console.log(key);
-                if (this.physics.world.overlap(target, this.keyGroups[key])) {
-                    //console.log("nice!");
-                    this.sound.play("goodbleep");
-                    this.add.tween({
-                        targets: this.pointsText,
-                        y: {from: game.config.height / 2 - 10, to: game.config.height / 2 - 30},
-                        alpha: {from: 1, to: 0},
-                        ease: "Quad.out",
-                        duration: 1500
-                    })
-                    let group = this.keyGroups[key].getChildren();
-                    group.shift().destroy();
-                    playerStatus.research += this.pointReward;
-
-                    this.count += 1;
-                    if (this.count > this.maxCount) {
-                        this.sound.play("power_down");
-                        this.scene.stop();
-                    }
-                } else {
-                    this.sound.play("ouch");
-
-                }
+                this.processKey(key);
             });
         }
 
@@ -87,11 +74,38 @@ class ResearchScene extends Phaser.Scene {
         });
         
         this.deployKey()
+        this.time.delayedCall(8000, () => {
+            this.sound.play("power_down");
+            this.scene.stop();
+        })
     }
 
     deployKey() {
         let key = this.keys[randomInt(this.keys.length)];
         this.keyGroups[key].add(this.add.sprite(game.config.width, game.config.height / 2, key + "Key"));
+    }
+
+    processKey(key) {
+        //console.log(key);
+        if (this.physics.world.overlap(this.target, this.keyGroups[key])) {
+            //console.log("nice!");
+            this.sound.play("goodbleep");
+            this.add.tween({
+                targets: this.pointsText,
+                y: {from: game.config.height / 2 - 10, to: game.config.height / 2 - 30},
+                alpha: {from: 1, to: 0},
+                ease: "Quad.out",
+                duration: 1500
+            })
+            let group = this.keyGroups[key].getChildren();
+            group.shift().destroy();
+            playerStatus.research += this.pointReward;
+
+            this.count += 1;
+        } else {
+            this.sound.play("ouch");
+
+        }
     }
 }
 
