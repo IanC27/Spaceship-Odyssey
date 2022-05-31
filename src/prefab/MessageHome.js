@@ -16,6 +16,10 @@ class MessageHome extends Activity {
 
     end(player) {
         if (playerStatus.stress >= 100){
+            this.pStress = this.scene.add.text(this.x, this.y + 20, "This stress is holding me back...", {fontSize: '10px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
+            this.scene.time.delayedCall(2000, () => {
+                this.pStress.destroy();
+            });
             playerStatus.family += 10;
         }else{
             playerStatus.family += 15;

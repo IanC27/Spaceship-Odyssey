@@ -29,6 +29,8 @@ class Menu extends Phaser.Scene {
 
         // show menu text
         this.add.text(game.config.width / 2, 50, 'SPACESHIP ODYSSEY', menuConfig).setOrigin(0.5);
+        menuConfig.fontSize = '15px';
+        this.add.text(game.config.width / 2, 80, 'By Ian, Jason, Chris, Nic', menuConfig).setOrigin(0.5);
         menuConfig.fontFamily = 'Gill Sans, sans-serif';
         menuConfig.fontSize = '15px';
         menuConfig.color = '#FFFFFF';

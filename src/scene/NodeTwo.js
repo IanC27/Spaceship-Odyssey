@@ -224,16 +224,22 @@ class NodeTwo extends Phaser.Scene {
         this.clockRight.setScrollFactor(0, 0);
 
         // sleep bar & timers
+        this.sleeptext = this.add.text(135, 8, "Sleep: ", {fontSize: '8px', fill: '#000000'}).setOrigin(0.5, 0.5);
+        this.sleeptext.setScrollFactor(0, 0);
         this.sleepBorder = this.add.rectangle(game.config.width - 106, 4, 102, 7, 0xffffff);
         this.sleepBorder.setOrigin(0, 0).setScrollFactor(0);
         this.sleepMeter = this.add.rectangle(game.config.width - 105, 5, 100, 5, 0x0000ff).setOrigin(0, 0);
         this.sleepMeter.setScrollFactor(0);
         // stress bar & timers
+        this.stresstext = this.add.text(132, 16, "Stress: ", {fontSize: '8px', fill: '#000000'}).setOrigin(0.5, 0.5);
+        this.stresstext.setScrollFactor(0, 0);
         this.stressBorder = this.add.rectangle(game.config.width - 106, 12, 102, 7, 0xffffff);
         this.stressBorder.setOrigin(0, 0).setScrollFactor(0);
         this.stressMeter = this.add.rectangle(game.config.width - 105, 13, 1, 5, 0x800080).setOrigin(0, 0);
         this.stressMeter.setScrollFactor(0);
         // homesickness bar & timers
+        this.hstext = this.add.text(118, 24, "Homesickness: ", {fontSize: '8px', fill: '#000000'}).setOrigin(0.5, 0.5);
+        this.hstext.setScrollFactor(0, 0);
         this.hsBorder = this.add.rectangle(game.config.width - 106, 20, 102, 7, 0xffffff);
         this.hsBorder.setOrigin(0, 0).setScrollFactor(0);
         this.hsMeter = this.add.rectangle(game.config.width - 105, 21, 1, 5, 0xff9900).setOrigin(0, 0);
@@ -254,20 +260,12 @@ class NodeTwo extends Phaser.Scene {
             loop: true,
             paused: true
         });
-        // after 12 hours, gain 100 stress
+        // after 12 hours, gain 100 stress      
         this.stressTimer = this.time.addEvent({
             delay: 720,
             callback: this.incrStress,
             callbackScope: this,
             loop: true,
-            paused: true
-        });
-        this.destressTimer = this.time.addEvent({
-            delay: 30,
-            callback: this.decrStress,
-            callbackScope: this,
-            loop: true,
-            paused: true
         });
         // after 12 hours, gain 100 homesickness
         this.hsTimer = this.time.addEvent({
@@ -349,8 +347,9 @@ class NodeTwo extends Phaser.Scene {
         let newStress = Math.min(100, playerStatus.stress + 1);
         playerStatus.stress = newStress;
         this.stressMeter.displayWidth = newStress;
-        this.stressBorder.setFillStyle(0xff0000, 1);
-        this.time.delayedCall(100, () => this.stressBorder.setFillStyle(0xffffff, 1));
+        if (newStress >= 100){
+            this.stressBorder.setFillStyle(0xff0000, 1);
+        }
     }
 
     decrStress() {
