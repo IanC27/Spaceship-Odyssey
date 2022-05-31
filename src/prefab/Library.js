@@ -27,6 +27,10 @@ class LibraryScene extends Phaser.Scene {
     create() {
         this.combo = []
         if (playerStatus.stress >= 100) {
+            this.pStress = this.scene.add.text(this.x, this.y + 20, "This stress is holding me back...", {fontSize: '10px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
+            this.scene.time.delayedCall(2000, () => {
+                this.pStress.destroy();
+            });
             this.pointReward = 3;
             this.pointTextColor = "#ff0000";
         } else {
