@@ -4,13 +4,13 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        
+        this.load.image('starfield', 'assets/starfield.png');
         
     }
 
     create() {
         // title screen graphic
-        this.add.tileSprite(0, 0, game.config.width, game.config.height, "starfield").setOrigin(0, 0);
+        this.starfield = this.add.tileSprite(0, 0, game.config.width, game.config.height, "starfield").setOrigin(0, 0);
         //this.add.rectangle(0, 0, game.config.width, game.config.height, 0xffffff).setOrigin(0, 0);
         // menu text configuration
         let menuConfig = {
@@ -54,6 +54,7 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
-        
+        this.starfield.tilePositionX -= 0.25;
+      
     }
 }
