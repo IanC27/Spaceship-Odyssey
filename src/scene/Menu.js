@@ -33,7 +33,7 @@ class Menu extends Phaser.Scene {
         this.add.text(game.config.width / 2, 80, 'By Ian, Jason, Chris, Nic', menuConfig).setOrigin(0.5);
         menuConfig.fontFamily = 'Gill Sans, sans-serif';
         menuConfig.fontSize = '15px';
-        menuConfig.color = '#FFFFFF';
+        menuConfig.color = '#ECC2B9';
         menuConfig.stroke = '#000'
         this.add.text(game.config.width / 2, 110, 'Click and drag to set velocity', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width / 2, 130, 'Hold to slow down', menuConfig).setOrigin(0.5);
