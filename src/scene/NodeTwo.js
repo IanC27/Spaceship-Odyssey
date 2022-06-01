@@ -266,16 +266,26 @@ class NodeTwo extends Phaser.Scene {
             loop: true,
             paused: true
         });
-        // after 12 hours, gain 100 stress      
+        
         this.stressTimer = this.time.addEvent({
-            delay: 720,
+            delay: 250,
             callback: this.incrStress,
             callbackScope: this,
             loop: true,
+            paused: true
         });
+
+        this.destressTimer = this.time.addEvent({
+            delay: 50,
+            callback: this.decrStress,
+            callbackScope: this,
+            loop: true,
+            paused: true
+        });
+
         // after 12 hours, gain 100 homesickness
         this.hsTimer = this.time.addEvent({
-            delay: 720,
+            delay: 800,
             callback: this.incrHs,
             callbackScope: this,
             loop: true

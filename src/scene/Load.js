@@ -24,7 +24,7 @@ class Load extends Phaser.Scene {
         this.load.spritesheet("sleep", "assets/sleepsheet.png", astroDimensions);
         this.load.image("messagehome", "assets/textingBooth.png");
         this.load.image("cycle", "assets/midbike.png");
-        this.load.image("library", "assets/library2.png");
+        this.load.image("library", "assets/bookshelf2.png");
         this.load.image("stargaze", "assets/stargaze.png");
         this.load.image("background", "assets/MessageHomeBackground.png"); 
         
