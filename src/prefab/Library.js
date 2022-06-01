@@ -27,9 +27,14 @@ class LibraryScene extends Phaser.Scene {
     create() {
         this.combo = []
         if (playerStatus.stress >= 100) {
-            this.pStress = this.scene.add.text(this.x, this.y + 20, "This stress is holding me back...", {fontSize: '10px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
-            this.scene.time.delayedCall(2000, () => {
-                this.pStress.destroy();
+            this.pStress = this.add.text(game.config.width / 2, game.config.height / 2  + 20, "I feel stressed...", { fontSize: '10px', fill: '#000000' })
+                .setOrigin(0.5, 0.5);
+            this.add.tween({
+                targets: this.pStress,
+                duration: 2000,
+                alpha: 0,
+                y: game.config.height / 2,
+                ease: "Quad.out"
             });
             this.pointReward = 3;
             this.pointTextColor = "#ff0000";
@@ -39,9 +44,9 @@ class LibraryScene extends Phaser.Scene {
         }
 
 
-        this.add.text(game.config.width / 2, game.config.height / 2 - 25, "Memorize!", {fontSize: '10px', fill: '#ffaa00'})
+        this.add.text(game.config.width / 2, game.config.height / 2 - 25, "Memorize!", { fontSize: '10px', fill: '#ffaa00' })
             .setOrigin(0.5, 0.5);
-        this.pointsText = this.add.text(game.config.width / 2, game.config.height / 2 - 10, "+" + this.pointReward.toString(), {fontSize: '10px', fill: this.pointTextColor});
+        this.pointsText = this.add.text(game.config.width / 2, game.config.height / 2 - 10, "+" + this.pointReward.toString(), { fontSize: '10px', fill: this.pointTextColor });
         this.pointsText.setAlpha(0);
         this.pointsText.setOrigin(0.5, 0.5);
 
@@ -52,58 +57,66 @@ class LibraryScene extends Phaser.Scene {
             A: this.add.sprite(game.config.width / 2 - 10, game.config.height / 2 - 40, "AKey"),
             S: this.add.sprite(game.config.width / 2 + 10, game.config.height / 2 - 40, "SKey")
         }
-        
-        
-
-        this.input.keyboard.on('keycombomatch', () => {
-            this.keysRemaining = this.combo.length + 1;
-                this.time.delayedCall(500, () => {
-                    this.sound.play("goodbleep");
-                    playerStatus.knowledge += this.pointReward
-                    this.add.tween({
-                        targets: this.pointsText,
-                        y: {from: game.config.height / 2 - 10, to: game.config.height / 2 - 30},
-                        alpha: {from: 1, to: 0},
-                        ease: "Quad.out",
-                        duration: 1500
-                    })
-
-                    if (this.combo.length == 5) {
-                        this.time.delayedCall(500, () => {
-                            this.scene.stop();
-                        });
-                    } else {
-                        this.combo.push(this.keys[randomInt(this.keys.length)]);
-                        this.input.keyboard.createCombo(this.combo, {deleteOnMatch: true});
-                        this.playSequence();
-                    }
-                });
-        });
 
         for (let key of this.keys) {
             this.input.keyboard.on("keydown-" + key, () => {
-                //console.log(key);
-                this.keysRemaining -= 1;
-                let sprite = this.sprites[key]
-                this.sound.play(key + "_beep");
-                sprite.setTint(0x00FF00);
-                this.time.delayedCall(100, () => {
-                    sprite.clearTint();
-                });
-                this.time.delayedCall(500, () => {
-                    if (this.keysRemaining < 1) {
-                        this.sound.play("ouch");
-                        this.scene.stop();
-                    }
-                })
-        });
+                this.processKey(key);
+            });
+
+            this.sprites[key].setInteractive();
+            this.sprites[key].on('pointerdown', () => {
+                this.processKey(key);
+            });
         }
 
         this.combo.push(this.keys[randomInt(this.keys.length)]);
-        this.combo.push(this.keys[randomInt(this.keys.length)]);
-        this.keysRemaining = 2;
-        this.input.keyboard.createCombo(this.combo, {deleteOnMatch: true});
-        this.playSequence();
+        this.playerCombo = [];
+        this.index = 0;
+        this.time.delayedCall(500, () => this.playSequence());
+        
+    }
+
+    checkCombo() {
+        if (this.playerCombo[this.index] != this.combo[this.index]) {
+            this.sound.play("ouch");
+            this.scene.stop();
+        }
+        this.index += 1
+        if (this.playerCombo.length == this.combo.length) {
+            this.time.delayedCall(500, () => {
+                this.sound.play("goodbleep");
+                playerStatus.knowledge += this.pointReward
+                this.add.tween({
+                    targets: this.pointsText,
+                    y: { from: game.config.height / 2 - 10, to: game.config.height / 2 - 30 },
+                    alpha: { from: 1, to: 0 },
+                    ease: "Quad.out",
+                    duration: 1500
+                })
+                if (this.combo.length == 4) {
+                    this.time.delayedCall(500, () => {
+                        this.scene.stop();
+                    });
+                } else {
+                    this.combo.push(randomElem(this.keys));
+                    this.playerCombo = [];
+                    this.index = 0;
+                    this.playSequence();
+                }
+            }) 
+        }
+    }
+    processKey(key) {
+        //console.log(key);
+        this.playerCombo.push(key);
+        let sprite = this.sprites[key]
+        this.sound.play(key + "_beep");
+        sprite.setTint(0x00FF00);
+        this.time.delayedCall(100, () => {
+            sprite.clearTint();
+        });
+        this.checkCombo();
+        
     }
 
     playSequence() {
@@ -128,8 +141,9 @@ class LibraryScene extends Phaser.Scene {
                 yoyo: false,
                 delay: 100,
             })
-            
+
         }
         tl.play();
     }
+
 }

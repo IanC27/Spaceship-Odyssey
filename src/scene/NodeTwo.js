@@ -230,21 +230,21 @@ class NodeTwo extends Phaser.Scene {
         this.clockRight.setScrollFactor(0, 0);
 
         // sleep bar & timers
-        this.sleeptext = this.add.text(135, 8, "Sleep: ", {fontSize: '8px', fill: '#000000'}).setOrigin(0.5, 0.5);
+        this.sleeptext = this.add.text(135, 8, "Sleep: ", {fontSize: '8px', fill: '#0000ff'}).setOrigin(0.5, 0.5);
         this.sleeptext.setScrollFactor(0, 0);
         this.sleepBorder = this.add.rectangle(game.config.width - 106, 4, 102, 7, 0xffffff);
         this.sleepBorder.setOrigin(0, 0).setScrollFactor(0);
         this.sleepMeter = this.add.rectangle(game.config.width - 105, 5, 100, 5, 0x0000ff).setOrigin(0, 0);
         this.sleepMeter.setScrollFactor(0);
         // stress bar & timers
-        this.stresstext = this.add.text(132, 16, "Stress: ", {fontSize: '8px', fill: '#000000'}).setOrigin(0.5, 0.5);
+        this.stresstext = this.add.text(132, 16, "Stress: ", {fontSize: '8px', fill: '#800080'}).setOrigin(0.5, 0.5);
         this.stresstext.setScrollFactor(0, 0);
         this.stressBorder = this.add.rectangle(game.config.width - 106, 12, 102, 7, 0xffffff);
         this.stressBorder.setOrigin(0, 0).setScrollFactor(0);
         this.stressMeter = this.add.rectangle(game.config.width - 105, 13, 1, 5, 0x800080).setOrigin(0, 0);
         this.stressMeter.setScrollFactor(0);
         // homesickness bar & timers
-        this.hstext = this.add.text(118, 24, "Homesickness: ", {fontSize: '8px', fill: '#000000'}).setOrigin(0.5, 0.5);
+        this.hstext = this.add.text(118, 24, "Homesickness: ", {fontSize: '8px', fill: '#ff9900'}).setOrigin(0.5, 0.5);
         this.hstext.setScrollFactor(0, 0);
         this.hsBorder = this.add.rectangle(game.config.width - 106, 20, 102, 7, 0xffffff);
         this.hsBorder.setOrigin(0, 0).setScrollFactor(0);

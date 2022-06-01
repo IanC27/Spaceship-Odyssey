@@ -36,7 +36,7 @@ class SleepingBag extends Activity {
         }
         
         this.scene.time.delayedCall(delay, () => {
-            this.text.text = "click to wake up"
+            this.text.text = "" // controls to wake up?
             this.text.alpha = 1;
             this.text.y = this.y - 20;
             this.scene.awakeTimer.paused = true;

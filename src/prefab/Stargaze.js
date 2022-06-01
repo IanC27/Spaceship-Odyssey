@@ -7,14 +7,14 @@ class Stargaze extends Activity {
     }
 
     activeUpdate(){
-        if (Phaser.Input.Keyboard.JustDown(controls.quit)) {
+        if (Phaser.Input.Keyboard.JustDown(controls.quit) || playerStatus.stress == 0) {
             this.preEnd(this.astronaut);
         }
     }
 
     onInteract(player){
         this.setFrame(1);
-        this.text = this.scene.add.text(this.x, this.y - 20 , 'press q to finish stargazing', {fontSize: '10px', fill: '#ffffff'}).setOrigin(0.5, 0.5);
+        this.text = this.scene.add.text(this.x, this.y - 20 , '', {fontSize: '10px', fill: '#ffffff'}).setOrigin(0.5, 0.5);
         this.scene.stressBorder.setFillStyle(0x00ff00, 1);
         this.scene.destressTimer.paused = false;
     }
