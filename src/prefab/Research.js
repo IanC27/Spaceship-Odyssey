@@ -30,9 +30,14 @@ class ResearchScene extends Phaser.Scene {
         this.maxCount = 5;
 
         if (playerStatus.stress >= 100) {
-            this.pStress = this.scene.add.text(this.x, this.y + 20, "This stress is holding me back...", {fontSize: '10px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
-            this.scene.time.delayedCall(2000, () => {
-                this.pStress.destroy();
+            this.pStress = this.add.text(game.config.width / 2, game.config.height / 2  + 20, "I feel stressed...", { fontSize: '10px', fill: '#000000' })
+                .setOrigin(0.5, 0.5);
+            this.add.tween({
+                targets: this.pStress,
+                duration: 2000,
+                alpha: 0,
+                y: game.config.height / 2,
+                ease: "Quad.out"
             });
             this.pointReward = 3;
             this.pointTextColor = "#ff0000";
@@ -94,17 +99,16 @@ class ResearchScene extends Phaser.Scene {
         if (this.physics.world.overlap(this.target, this.keyGroups[key])) {
             //console.log("nice!");
             this.sound.play("goodbleep");
+            playerStatus.research += this.pointReward;
             this.add.tween({
                 targets: this.pointsText,
                 y: {from: game.config.height / 2 - 10, to: game.config.height / 2 - 30},
                 alpha: {from: 1, to: 0},
                 ease: "Quad.out",
                 duration: 1500
-            })
+            });
             let group = this.keyGroups[key].getChildren();
             group.shift().destroy();
-            playerStatus.research += this.pointReward;
-
             this.count += 1;
         } else {
             this.sound.play("ouch");

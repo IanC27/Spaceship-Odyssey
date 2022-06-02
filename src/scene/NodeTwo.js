@@ -209,7 +209,8 @@ class NodeTwo extends Phaser.Scene {
 
         // END DEBUG ZONE
 
-        //setting config
+        // UI ELEMENTS
+        // UI config
         let timeConfig = {
             fontFamily: 'Stencil Std, fantasy',
             fontSize: '28px',
@@ -221,29 +222,35 @@ class NodeTwo extends Phaser.Scene {
                 bottom: 5,
             },
         }
+        // 
+        this.add.rectangle(0, 0, game.config.width, 30, 0x6b6b6b)
+            .setOrigin(0, 0)
+            .setScrollFactor(0);
+
         // timer
         this.clockInterval = setInterval(myTimer, 100);
         function myTimer() {
             game.clock.minutes -= 1;
         }
-        this.clockRight = this.add.text(0, 0, '24:00', timeConfig);
+        this.clockRight = this.add.bitmapText(15, 6, "pixel_font", '00 00');
         this.clockRight.setScrollFactor(0, 0);
+        this.clockRight.setLetterSpacing(1);
 
-        // sleep bar & timers
+        // sleep bar
         this.sleeptext = this.add.text(135, 8, "Sleep: ", {fontSize: '8px', fill: '#0000ff'}).setOrigin(0.5, 0.5);
         this.sleeptext.setScrollFactor(0, 0);
         this.sleepBorder = this.add.rectangle(game.config.width - 106, 4, 102, 7, 0xffffff);
         this.sleepBorder.setOrigin(0, 0).setScrollFactor(0);
         this.sleepMeter = this.add.rectangle(game.config.width - 105, 5, 100, 5, 0x0000ff).setOrigin(0, 0);
         this.sleepMeter.setScrollFactor(0);
-        // stress bar & timers
+        // stress bar
         this.stresstext = this.add.text(132, 16, "Stress: ", {fontSize: '8px', fill: '#800080'}).setOrigin(0.5, 0.5);
         this.stresstext.setScrollFactor(0, 0);
         this.stressBorder = this.add.rectangle(game.config.width - 106, 12, 102, 7, 0xffffff);
         this.stressBorder.setOrigin(0, 0).setScrollFactor(0);
         this.stressMeter = this.add.rectangle(game.config.width - 105, 13, 1, 5, 0x800080).setOrigin(0, 0);
         this.stressMeter.setScrollFactor(0);
-        // homesickness bar & timers
+        // homesickness bar
         this.hstext = this.add.text(118, 24, "Homesickness: ", {fontSize: '8px', fill: '#ff9900'}).setOrigin(0.5, 0.5);
         this.hstext.setScrollFactor(0, 0);
         this.hsBorder = this.add.rectangle(game.config.width - 106, 20, 102, 7, 0xffffff);
@@ -303,7 +310,7 @@ class NodeTwo extends Phaser.Scene {
             this.gameOver();
         }
         
-        this.clockRight.text = Math.floor(game.clock.minutes / 60).toString().padStart(2, "0") + ':' + (game.clock.minutes % 60).toString().padStart(2, "0");
+        this.clockRight.text = Math.floor(game.clock.minutes / 60).toString().padStart(2, "0") + ' ' + (game.clock.minutes % 60).toString().padStart(2, "0");
 
         if (this.nate.body.velocity.x > 10) {
             this.nate.setFrame(2);
@@ -314,7 +321,7 @@ class NodeTwo extends Phaser.Scene {
         }
 
         // update velocity line position constantly
-        if (this.pointer.isDown && this.pointer.getDistance() > 0) {
+        if (this.pointer.isDown && this.pointer.getDistance() > 10) {
             this.nate.setDrag(0);
             let diffX = Phaser.Math.Clamp(this.pointer.downX - this.pointer.x, -(game.config.width / 2), game.config.width / 2);
             let diffY = Phaser.Math.Clamp(this.pointer.downY - this.pointer.y, -(game.config.height / 2), game.config.height / 2);
