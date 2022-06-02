@@ -43,7 +43,7 @@ class Menu extends Phaser.Scene {
         
         //this.add.bitmapText(0, 200, "pixel_font", "MOTHER 3");
         this.input.on("pointerdown", () => {
-            this.scene.start("NodeTwo");
+            this.scene.start("Tutorial");
         });
 
         //game clock

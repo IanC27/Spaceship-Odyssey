@@ -13,7 +13,7 @@ const config = {
         }
     },
     pixelArt: true,
-    scene: [Load, Menu, GameOver, NodeTwo, ExerciseScene, MessageScene, LibraryScene, ResearchScene]
+    scene: [Load, Menu, GameOver, Tutorial, NodeTwo, ExerciseScene, MessageScene, LibraryScene, ResearchScene]
 }
 
 let controls = {};
