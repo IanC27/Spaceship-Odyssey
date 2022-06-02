@@ -222,19 +222,38 @@ class NodeTwo extends Phaser.Scene {
                 bottom: 5,
             },
         }
-        // 
+        // UI
         this.add.rectangle(0, 0, game.config.width, 30, 0x6b6b6b)
+            .setOrigin(0, 0)
+            .setScrollFactor(0);;
+
+        // clock
+        this.clockPosX = 4
+        this.add.rectangle(this.clockPosX, 4, 70, 19, 0xffffff)
+            .setOrigin(0, 0)
+            .setScrollFactor(0);
+        
+        
+        this.clockDay = this.add.bitmapText(this.clockPosX + 2, 6, "pixel_font", '');
+        this.clockDay.setScrollFactor(0, 0);
+        this.clockDay.setLetterSpacing(1);
+
+        this.add.rectangle(this.clockPosX + 14, 12, 3, 2, 0x000000)
             .setOrigin(0, 0)
             .setScrollFactor(0);
 
-        // timer
-        this.clockInterval = setInterval(myTimer, 100);
-        function myTimer() {
-            game.clock.minutes -= 1;
-        }
-        this.clockRight = this.add.bitmapText(15, 6, "pixel_font", '00 00');
-        this.clockRight.setScrollFactor(0, 0);
-        this.clockRight.setLetterSpacing(1);
+        this.clockHour = this.add.bitmapText(this.clockPosX + 19, 6, "pixel_font", '');
+        this.clockHour.setScrollFactor(0, 0);
+        this.clockHour.setLetterSpacing(1);
+
+        this.add.rectangle(this.clockPosX + 42, 12, 3, 2, 0x000000)
+            .setOrigin(0, 0)
+            .setScrollFactor(0);
+
+
+        this.clockMin = this.add.bitmapText(this.clockPosX + 47, 6, "pixel_font", '');
+        this.clockMin.setScrollFactor(0, 0);
+        this.clockMin.setLetterSpacing(1);
 
         // sleep bar
         this.sleeptext = this.add.text(135, 8, "Sleep: ", {fontSize: '8px', fill: '#0000ff'}).setOrigin(0.5, 0.5);
@@ -298,6 +317,14 @@ class NodeTwo extends Phaser.Scene {
             loop: true
         });
 
+        // timer
+        
+        this.clockInterval = setInterval(myTimer, 100);
+        function myTimer() {
+            game.clock.minutes -= 1;
+        }
+        
+
         this.bgm = this.sound.add('songNoise');
         this.bgm.setLoop(true);
         this.bgm.play();
@@ -309,8 +336,14 @@ class NodeTwo extends Phaser.Scene {
             clearInterval(this.clockInterval);
             this.gameOver();
         }
+        let days = Math.floor(game.clock.minutes / 1440)
+        //console.log(game.clock.minutes % 144);
+        let hours = Math.floor((game.clock.minutes % 1440) / 60)
+        let minutes = (game.clock.minutes % 60);
         
-        this.clockRight.text = Math.floor(game.clock.minutes / 60).toString().padStart(2, "0") + ' ' + (game.clock.minutes % 60).toString().padStart(2, "0");
+        this.clockDay.text = days.toString().padStart(1, "0"); 
+        this.clockHour.text = hours.toString().padStart(2, "0");
+        this.clockMin.text = minutes.toString().padStart(2, "0");
 
         if (this.nate.body.velocity.x > 10) {
             this.nate.setFrame(2);
@@ -334,7 +367,6 @@ class NodeTwo extends Phaser.Scene {
     }
     
     gameOver() {
-        this.clockRight.text = "00:00";
         this.bgm.stop();
         // remember to add all sub-scene keys to this list
         let subScenes = ["ExerciseScene", "LibScene", "MessageScene", "ResearchScene"]
