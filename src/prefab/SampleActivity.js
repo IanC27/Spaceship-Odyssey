@@ -1,16 +1,7 @@
 class SampleActivity extends Activity {
     
     activeUpdate(){
-        // press q to abandon task
-        if (Phaser.Input.Keyboard.JustDown(controls.quit)) {
-            this.preEnd(this.astronaut);
-        }
-        if (this.count > 4){
-            this.preEnd(this.astronaut);
-        }
-        if (Phaser.Input.Keyboard.JustDown(controls.interact)) {
-            this.count += 1;
-        }
+       
     }
 
     condition() {
@@ -18,8 +9,13 @@ class SampleActivity extends Activity {
     }
 
     onInteract(player) {
-        this.text = this.scene.add.text(this.x, this.y - 50, 'press e 5 times!', {fontSize: '10px',}).setOrigin(0.5, 0.5);
-        this.count = 0;
+        this.word = this.scene.add.bitmapText(this.x, this.y - 40, "pixel_font", "BEGIN")
+            .setLetterSpacing(1)
+            .setOrigin(0.5, 0.5);
+        this.word.setInteractive();
+        this.word.on("pointerdown", () => {
+            this.scene.scene.start("NodeTwo");
+        });
     }
 
     end(player) {

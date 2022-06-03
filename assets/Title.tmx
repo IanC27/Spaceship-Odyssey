@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="3">
+ <editorsettings>
+  <export target="Title.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="tilesheet" tilewidth="16" tileheight="16" tilecount="4" columns="2">
+  <image source="tilesheet.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="5" name="tilesheet" tilewidth="16" tileheight="16" tilecount="4" columns="2">
+  <image source="tilesheet.png" width="32" height="32"/>
+ </tileset>
+ <layer id="1" name="Ship" width="20" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,
+0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,
+1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,1,
+0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,1,
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1
+</data>
+ </layer>
+ <objectgroup id="2" name="objects">
+  <object id="1" name="Begin" x="240" y="80">
+   <point/>
+  </object>
+  <object id="2" name="Player Spawn" x="64" y="80">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
