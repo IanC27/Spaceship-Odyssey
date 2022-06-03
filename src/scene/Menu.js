@@ -37,7 +37,7 @@ class Menu extends Phaser.Scene {
         menuConfig.stroke = '#000'
         this.add.text(game.config.width / 2, 110, 'Click and drag to set velocity', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width / 2, 130, 'Hold to slow down', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width / 2, 150, 'Press E to interact', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width / 2, 150, 'Click on an activity to interact', menuConfig).setOrigin(0.5);
         menuConfig.fontSize = '20px'; 
         this.add.text(game.config.width / 2, game.config.height - 50, 'Click to start', menuConfig).setOrigin(0.5);
         
