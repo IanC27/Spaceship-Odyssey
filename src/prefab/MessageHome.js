@@ -37,46 +37,66 @@ class MessageScene extends Phaser.Scene {
         this.sfx = this.sound.add("typing", {loop: true});
         this.sfx.play();
 
+        this.buttonBounds = {
+            x_min: 30,
+            x_max: game.config.width - 30,
+            y_min: 70,
+            y_max: game.config.height - 30
+        }
+
         this.add.rectangle(0, 0, game.config.width, 60, 0xffffff).setOrigin(0, 0);
         this.add.text(game.config.width / 2, game.config.height / 2 - 40, "Type!", {fontSize: '10px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
+        this.prompt = this.add.text(game.config.width / 2, game.config.height / 2 - 25, "", {fontSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5);
         this.words = ["father", "message", "busy", "contact", "well", "regards"];
         this.texts = ['<Father>, it has been 133', 'days and we are close to finishing our orbit.', 'I miss you all dearly. Since my last contact', 'with Control, I had been busy keeping the station', 'running and fitted. All is well and I', 'cannot wait to be back, Best Regards, <players name>'];
         // TODO: make the words random?
-        this.prompt = this.add.text(game.config.width / 2, game.config.height / 2 - 25, "father", {fontSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5);
-        this.comboConfig = {
-            resetOnWrongKey: false,
-            maxKeyDelay: 0,
-            deleteOnMatch: true
+        
+
+        this.keys = ["A", "S", "Q", "W"];
+        for (let key of this.keys) {
+            this.input.keyboard.on("keydown-" + key, () => {
+                if (key == this.currKey) {
+                    this.hitKey();
+                }
+            });
         }
-        this.wordIndex = 0;
+        
+        this.button = this.add.sprite(0, 0, "AKey");
+        this.button.setOrigin(0.5, 0.5);
+        this.button.setInteractive();
+        this.button.on("pointerdown", () => {
+            this.hitKey();
+        })
         this.textIndex = 0;
         this.height = 0;
-        this.input.keyboard.on('keycombomatch', () => {
-                //console.log("match");
-                this.sound.play("goodbleep");
-                this.prompt.setColor('#00ff00');
-                this.add.text(0, this.height, this.texts[this.textIndex], {fontSize: '8px', fill: '#000000'});
-                this.time.delayedCall(200, () => {
-                    this.prompt.setColor('#ffff00');
-                    this.wordIndex++;
-                    this.textIndex++;
-                    this.height += 10;
-                    this.createKeyCombo(this.wordIndex);
-                });
-                
-            })
-        this.createKeyCombo(0); 
+        this.newButton(); 
     }
 
-    createKeyCombo(index) {
-        if (index >= this.words.length) {
+    hitKey() {
+        this.sound.play("goodbleep");
+        this.add.text(0, this.height, this.texts[this.textIndex], {fontSize: '8px', fill: '#000000'});
+        this.textIndex++;
+        this.height += 10;
+        this.button.setTint(0x00FF00);
+        this.time.delayedCall(100, () => {
+            this.newButton();
+        })
+    }
+
+    newButton() {
+        if (this.textIndex >= this.texts.length) {
+            this.prompt.text = "Sending. . .";
+            this.button.destroy();
             this.time.delayedCall(3000, () => {
                 this.sfx.stop();
                 this.scene.stop();
             });
         } else {
-            this.prompt.text = this.words[index];
-            this.input.keyboard.createCombo(this.words[index], this.comboConfig);
-        }   
+            this.button.setTint(0xFFFFFF);
+            this.button.x = randomInt(this.buttonBounds.x_min, this.buttonBounds.x_max);
+            this.button.y = randomInt(this.buttonBounds.y_min, this.buttonBounds.y_max);
+            this.currKey = randomElem(this.keys);
+            this.button.setTexture(this.currKey + "Key");
+        }
     }
 }

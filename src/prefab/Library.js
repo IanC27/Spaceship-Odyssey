@@ -43,7 +43,6 @@ class LibraryScene extends Phaser.Scene {
             this.pointTextColor = "#00ff00";
         }
 
-
         this.add.text(game.config.width / 2, game.config.height / 2 - 25, "Memorize!", { fontSize: '10px', fill: '#ffaa00' })
             .setOrigin(0.5, 0.5);
         this.pointsText = this.add.text(game.config.width / 2, game.config.height / 2 - 10, "+" + this.pointReward.toString(), { fontSize: '10px', fill: this.pointTextColor });
