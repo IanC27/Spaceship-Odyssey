@@ -5,6 +5,7 @@ class Activity extends Phaser.GameObjects.Sprite {
         scene.physics.add.existing(this);
         scene.physics.add.overlap(player, this);
         this.showTextZone = scene.physics.add.existing(scene.add.zone(this.x, this.y, range, range));
+        scene.physics.add.overlap(player, this.showTextZone);
         this.justDone = false;
 
         this.on("overlapstart", () => {
@@ -87,9 +88,9 @@ class Activity extends Phaser.GameObjects.Sprite {
     // run if condition not met
     failToStart() {
         this.scene.sound.play("ouch");
-        this.scene.sleepBorder.setFillStyle(0xffffff, 1);
+        this.scene.sleepBorder.setFillStyle(0xff0000, 1);
         this.scene.time.delayedCall(400, () => {
-            this.scene.sleepBorder.setFillStyle(0xff0000, 1);
+            this.scene.sleepBorder.setFillStyle(0xffffff, 1);
         })
     }
 
@@ -118,6 +119,7 @@ class Activity extends Phaser.GameObjects.Sprite {
                 this.activeSprite.destroy();
             }
             this.astronaut.enableBody(false, 0, 0, true, true);
+            this.astronaut.setVelocity(0, 0);
             this.inUse = false;
         }
         

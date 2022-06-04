@@ -167,9 +167,10 @@ class NodeTwo extends Phaser.Scene {
         // create wall text
         const commsSign = map.findObject("objects", obj => obj.name === "Comms");
         // right aligned text
-        this.add.bitmapText(commsSign.x, commsSign.y, "pixel_font", "COMMS", false, 2)
+        this.add.bitmapText(commsSign.x, commsSign.y, "pixel_font", "C O M M S")
             .setLetterSpacing(1)
-            .setOrigin(1, 0.5);
+            .setOrigin(0.5, 0)
+            .setMaxWidth(1);
 
         const libSign = map.findObject("objects", obj => obj.name === "LibrarySign");
         this.add.bitmapText(libSign.x, libSign.y, "pixel_font", "LIBRARY")
@@ -193,6 +194,11 @@ class NodeTwo extends Phaser.Scene {
             .setLetterSpacing(1)
             .setOrigin(0.5, 0.5)
             .setMaxWidth(1);
+
+        const obsSign = map.findObject("objects", obj => obj.name === "Observation");
+        this.add.bitmapText(obsSign.x, obsSign.y, "pixel_font", "OBSERVATION", false, 2)
+            .setLetterSpacing(1)
+            .setOrigin(1, 0.5);
 
         // DEBUG ZONE
         // skip to end debug
@@ -318,7 +324,11 @@ class NodeTwo extends Phaser.Scene {
         });
 
         // timer
-        
+            //game clock
+            //48 hours
+        game.clock = {
+             minutes: 2880,
+        }
         this.clockInterval = setInterval(myTimer, 100);
         function myTimer() {
             game.clock.minutes -= 1;

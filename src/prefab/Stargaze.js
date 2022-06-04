@@ -2,13 +2,16 @@ class Stargaze extends Activity {
     constructor(scene, x, y, texture, frame, player) {
         super(scene, x, y, texture, frame, player);
         this.displayName = "stargaze";
-        
-        
-
     }
 
+    condition() {
+        return this.tiredCheck && playerStatus.stress > 0;
+    }
+
+    failToStart() {}
+
     activeUpdate(){
-        if (Phaser.Input.Keyboard.JustDown(controls.quit) || this.scene.pointer.isDown) {
+        if (Phaser.Input.Keyboard.JustDown(controls.quit) || playerStatus.stress == 0) {
             this.preEnd(this.astronaut);
         }
 
