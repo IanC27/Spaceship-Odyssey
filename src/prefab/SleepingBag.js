@@ -20,7 +20,7 @@ class SleepingBag extends Activity {
         this.scene.sound.play("zipper");
         this.setFrame(1);
         let delay;
-        this.text = this.scene.add.text(this.x, this.y - 20 , '', {fontSize: '10px', fill: '#000000'}).setOrigin(0.5, 0.5);
+        this.text = this.scene.add.text(this.x, this.y - 20 , '', {fontSize: '15px', fill: '#000000'}).setOrigin(0.5, 0.5);
         if (playerStatus.homeSickness == 100){
             delay = 2000;
             this.text.text = "I really miss home...";

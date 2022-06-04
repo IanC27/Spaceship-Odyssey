@@ -1,6 +1,6 @@
 class Library extends Activity {
-    constructor(scene, x, y, texture, frame, player, animation) {
-        super(scene, x, y, texture, frame, player, animation);
+    constructor(scene, x, y, texture, frame, player, animation, textOffset) {
+        super(scene, x, y, texture, frame, player, animation, textOffset);
         this.displayName = "Study";
     }
 
@@ -27,7 +27,7 @@ class LibraryScene extends Phaser.Scene {
     create() {
         this.combo = []
         if (playerStatus.stress >= 100) {
-            this.pStress = this.add.text(game.config.width / 2, game.config.height / 2  + 20, "I feel stressed...", { fontSize: '10px', fill: '#000000' })
+            this.pStress = this.add.text(game.config.width / 2, game.config.height / 2  + 20, "I feel stressed...", { fontSize: '15px', fill: '#000000' })
                 .setOrigin(0.5, 0.5);
             this.add.tween({
                 targets: this.pStress,
@@ -43,9 +43,9 @@ class LibraryScene extends Phaser.Scene {
             this.pointTextColor = "#00ff00";
         }
 
-        this.add.text(game.config.width / 2, game.config.height / 2 - 25, "Memorize!", { fontSize: '10px', fill: '#ffaa00' })
+        this.add.text(game.config.width / 2, game.config.height / 2 - 25, "Memorize!", { fontSize: '15px', fill: '#ffaa00' })
             .setOrigin(0.5, 0.5);
-        this.pointsText = this.add.text(game.config.width / 2, game.config.height / 2 - 10, "+" + this.pointReward.toString(), { fontSize: '10px', fill: this.pointTextColor });
+        this.pointsText = this.add.text(game.config.width / 2, game.config.height / 2 - 10, "+" + this.pointReward.toString(), { fontSize: '15px', fill: this.pointTextColor });
         this.pointsText.setAlpha(0);
         this.pointsText.setOrigin(0.5, 0.5);
 

@@ -1,7 +1,8 @@
 class Stargaze extends Activity {
-    constructor(scene, x, y, texture, frame, player) {
-        super(scene, x, y, texture, frame, player);
-        this.displayName = "stargaze";
+    constructor(scene, x, y, texture, frame, player, anim, textOffset) {
+        super(scene, x, y, texture, frame, player, anim, textOffset);
+        this.displayName = "Stargaze";
+        this.body.setSize(80, 80);
     }
 
     condition() {

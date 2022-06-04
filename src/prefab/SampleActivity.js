@@ -13,7 +13,7 @@ class SampleActivity extends Activity {
     }
 
     onInteract(player) {
-        this.scene.add.rectangle(this.x, this.y + 35, 75, 25, 0x00ff00);
+        this.button = this.scene.add.rectangle(this.x, this.y + 35, 75, 25, 0x00ff00);
         this.word = this.scene.add.bitmapText(this.x, this.y + 35, "pixel_font", "LAUNCH")
             .setLetterSpacing(1)
             .setOrigin(0.5, 0.5);
@@ -21,6 +21,8 @@ class SampleActivity extends Activity {
         this.word.on("pointerdown", () => {
             this.scene.sound.play("goodbleep");
             this.scene.scrollSpeed = 0.25;
+            this.word.destroy();
+            this.button.destroy();
             this.scene.time.delayedCall(1000, () => {
                 this.scene.scene.start("NodeTwo");
             })

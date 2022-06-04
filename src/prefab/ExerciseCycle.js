@@ -27,7 +27,7 @@ class ExerciseScene extends Phaser.Scene {
 
     create() {
         if (playerStatus.stress >= 100) {
-            this.pStress = this.add.text(game.config.width / 2, game.config.height / 2  + 20, "I feel stressed...", { fontSize: '10px', fill: '#000000' })
+            this.pStress = this.add.text(game.config.width / 2, game.config.height / 2  + 20, "I feel stressed...", { fontSize: '15px', fill: '#000000' })
                 .setOrigin(0.5, 0.5);
             this.add.tween({
                 targets: this.pStress,
@@ -42,7 +42,7 @@ class ExerciseScene extends Phaser.Scene {
             this.pointReward = 5;
             this.pointTextColor = "#00ff00";
         }
-        this.pointsText = this.add.text(game.config.width / 2, game.config.height - 10, "+" + this.pointReward.toString(), {fontSize: '10px', fill: this.pointTextColor});
+        this.pointsText = this.add.text(game.config.width / 2, game.config.height - 10, "+" + this.pointReward.toString(), {fontSize: '15px', fill: this.pointTextColor});
         this.pointsText.setAlpha(0);
         this.pointsText.setOrigin(0.5, 0.5);
         

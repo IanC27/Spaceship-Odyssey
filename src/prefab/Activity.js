@@ -1,5 +1,5 @@
 class Activity extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, player, animation, range=100) {
+    constructor(scene, x, y, texture, frame, player, animation, textOffset=30, range=100) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -23,19 +23,6 @@ class Activity extends Phaser.GameObjects.Sprite {
             this.justDone = false;
         })
 
-        /*
-        this.setInteractive();
-        this.on("pointerdown", () => {
-            if (scene.physics.world.overlap(this, this.astronaut) && !this.inUse){
-                if (this.condition()) {
-                    this.preInteract(player)
-                } else {
-                    this.failToStart();
-                }
-            }
-        });
-        */
-
         //this.body.setSize(range, range);
         this.astronaut = player;
 
@@ -48,7 +35,7 @@ class Activity extends Phaser.GameObjects.Sprite {
         this.canDoTired = false;
         this.inUse = false;
         this.displayName = "Activity";
-        this.displayText = this.scene.add.text(this.x, this.y - 30, "", {fontSize: '10px', fill: '#ffaa00'});
+        this.displayText = this.scene.add.text(this.x, this.y - textOffset, "", {fontSize: '15px', fill: '#000000'});
         this.displayText.setOrigin(0.5, 0);
     }
 

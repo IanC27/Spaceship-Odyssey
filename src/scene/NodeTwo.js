@@ -153,16 +153,16 @@ class NodeTwo extends Phaser.Scene {
         this.activities.add(new SleepingBag(this, sleepS.x, sleepS.y, "sleep", 0, this.nate));
         
         const messageS = map.findObject("objects", obj => obj.name === "Message");
-        this.activities.add(new MessageHome(this, messageS.x, messageS.y, "messagehome", 0, this.nate, "workAnim"));
+        this.activities.add(new MessageHome(this, messageS.x, messageS.y, "messagehome", 0, this.nate, "workAnim", 40));
 
         const exerciseS = map.findObject("objects", obj => obj.name === "Exercise");
         this.activities.add(new ExerciseCycle(this, exerciseS.x, exerciseS.y, "cycle", 0, this.nate, "bikeAnim"));
 
         const libraryS = map.findObject("objects", obj => obj.name === "Library");
-        this.activities.add(new Library(this, libraryS.x, libraryS.y, "library", 0, this.nate, "readAnim"));
+        this.activities.add(new Library(this, libraryS.x, libraryS.y, "library", 0, this.nate, "readAnim", 40));
 
         const stargazeS = map.findObject("objects", obj => obj.name === "Stargaze");
-        this.activities.add(new Stargaze(this, stargazeS.x, stargazeS.y, "stargaze_astro", 0, this.nate));
+        this.activities.add(new Stargaze(this, stargazeS.x, stargazeS.y, "stargaze_astro", 0, this.nate, null, 55));
 
         // create wall text
         const commsSign = map.findObject("objects", obj => obj.name === "Comms");

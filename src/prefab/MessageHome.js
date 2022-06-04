@@ -1,6 +1,6 @@
 class MessageHome extends Activity {
-    constructor(scene, x, y, texture, frame, player, animation) {
-        super(scene, x, y, texture, frame, player, animation);
+    constructor(scene, x, y, texture, frame, player, animation, textOffset) {
+        super(scene, x, y, texture, frame, player, animation, textOffset);
         this.activeAnim = animation;
         this.displayName = "Message home"
         this.animOffset = {x: -5, y: 0}
@@ -16,10 +16,6 @@ class MessageHome extends Activity {
 
     end(player) {
         if (playerStatus.stress >= 100){
-            this.pStress = this.scene.add.text(this.x, this.y + 20, "This stress is holding me back...", {fontSize: '10px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
-            this.scene.time.delayedCall(2000, () => {
-                this.pStress.destroy();
-            });
             playerStatus.family += 10;
         }else{
             playerStatus.family += 15;
@@ -45,9 +41,8 @@ class MessageScene extends Phaser.Scene {
         }
 
         this.add.rectangle(0, 0, game.config.width, 60, 0xffffff).setOrigin(0, 0);
-        this.add.text(game.config.width / 2, game.config.height / 2 - 40, "Type!", {fontSize: '10px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
-        this.prompt = this.add.text(game.config.width / 2, game.config.height / 2 - 25, "", {fontSize: '10px', fill: '#ffff00'}).setOrigin(0.5, 0.5);
-        this.words = ["father", "message", "busy", "contact", "well", "regards"];
+        this.prompt =this.add.text(game.config.width / 2, game.config.height / 2 - 40, "Type!", {fontSize: '15px', fill: '#000000'}).setOrigin(0.5, 0.5);
+        this.add.text(game.config.width / 2, game.config.height / 2 - 20, "", {fontSize: '15px', fill: '#ffaa00'}).setOrigin(0.5, 0.5);
         this.texts = ['<Father>, it has been 133', 'days and we are close to finishing our orbit.', 'I miss you all dearly. Since my last contact', 'with Control, I had been busy keeping the station', 'running and fitted. All is well and I', 'cannot wait to be back, Best Regards, <players name>'];
         // TODO: make the words random?
         
