@@ -40,7 +40,7 @@ class Tutorial extends Phaser.Scene {
 
         // camera follow
         this.cameras.main.startFollow(this.nate, true, 0.1, 0.1);
-        this.cameras.main.setDeadzone(150, 150);
+        this.cameras.main.setDeadzone(100, 100);
         
         // flinging controls
         this.pointer = this.input.activePointer;

@@ -1,20 +1,31 @@
 class Activity extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, player, animation, range=60) {
+    constructor(scene, x, y, texture, frame, player, animation, range=100) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         scene.physics.add.existing(this);
-        
-        scene.physics.add.overlap(player, this, () => {
-            if (Phaser.Input.Keyboard.JustDown(controls.interact) && !this.inUse) {
+        scene.physics.add.overlap(player, this);
+        this.showTextZone = scene.physics.add.existing(scene.add.zone(this.x, this.y, range, range));
+        this.justDone = false;
+
+        this.on("overlapstart", () => {
+            console.log("overlapstart")
+            //console.log(this.inUse,  this.justDone)
+            if (!this.inUse && !this.justDone) {
                 if (this.condition()) {
                     this.preInteract(player)
                 } else {
                     this.failToStart();
                 }
-                
             }
-        }, null, this); 
+            this.justDone = true;
+        });
 
+        this.on("overlapend", () => {
+            this.justDone = false;
+            console.log("overlapend");
+        })
+
+        /*
         this.setInteractive();
         this.on("pointerdown", () => {
             if (scene.physics.world.overlap(this, this.astronaut) && !this.inUse){
@@ -25,8 +36,9 @@ class Activity extends Phaser.GameObjects.Sprite {
                 }
             }
         });
+        */
 
-        this.body.setSize(range, range);
+        //this.body.setSize(range, range);
         this.astronaut = player;
 
         // place an animated sprite while being used
@@ -43,11 +55,21 @@ class Activity extends Phaser.GameObjects.Sprite {
     }
 
     update(time, delta) {
+        // code for creating overlap into and exit events
+        // https://codepen.io/samme/pen/WaZQOX
+        if (!this.inUse) {
+            let touching = !this.body.touching.none;
+            let wasTouching = !this.body.wasTouching.none;
+            //console.log(touching, wasTouching);
+            if (touching && !wasTouching) this.emit("overlapstart");
+            else if (!touching && wasTouching) this.emit("overlapend");
+        }
+        
         
         if (this.inUse) {
             this.displayText.text = "";
             this.activeUpdate(time, delta);
-        } else if (this.scene.physics.world.overlap(this, this.astronaut)) {
+        } else if (this.scene.physics.world.overlap(this.showTextZone, this.astronaut)) {
             //console.log("overlap");
             this.displayText.text = this.displayName;
         } else {
@@ -76,7 +98,7 @@ class Activity extends Phaser.GameObjects.Sprite {
 
     preInteract(player) {
         // disable body+object, and hide player
-        this.inUse =  true;
+        
         if (this.disablePlayer) {
             player.setVelocity(0, 0);
             this.astronaut.setPosition(this.x + this.animOffset.x, this.y + this.animOffset.y);
@@ -88,6 +110,7 @@ class Activity extends Phaser.GameObjects.Sprite {
             }
         }
         //console.log("interacted");
+        this.inUse =  true;
         this.onInteract(player);
     }
 
