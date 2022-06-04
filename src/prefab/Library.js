@@ -68,7 +68,7 @@ class LibraryScene extends Phaser.Scene {
             });
         }
 
-        this.combo.push(this.keys[randomInt(this.keys.length)]);
+        this.combo.push(randomElem(this.keys));
         this.playerCombo = [];
         this.index = 0;
         this.time.delayedCall(500, () => this.playSequence());

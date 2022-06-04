@@ -4,14 +4,11 @@ class Tutorial extends Phaser.Scene {
         super("Tutorial");
     }
 
-    preload() {
-        //this.load.image('instructions', 'assets/instructions.png'); 
-    }
-
     create() {
         this.cameras.main.setBackgroundColor('#000');
 
-        this.add.tileSprite(game.config.width / 2, game.config.height / 2, 1000, 1000, "starfield").setScrollFactor(0.1).setOrigin(0.5, 0.5);
+        this.starfield = this.add.tileSprite(game.config.width / 2, game.config.height / 2, 1000, 1000, "starfield").setScrollFactor(0.1).setOrigin(0.5, 0.5);
+        this.scrollSpeed = 0.0025;
         //this.add.tileSprite(game.config.width / 2, game.config.height / 2, 250, 125, "instructions").setScrollFactor(0).setOrigin(0.5, 0.5);
         
         controls.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
@@ -87,11 +84,49 @@ class Tutorial extends Phaser.Scene {
         this.activities = this.physics.add.group({runChildUpdate: true});
         const sBegin = map.findObject("objects", obj => obj.name === "Begin");
         this.activities.add(new SampleActivity(this, sBegin.x, sBegin.y, "activity", 0, this.nate));
+
+        const dragSign = map.findObject("objects", obj => obj.name === "DRAG");
+        this.add.bitmapText(dragSign.x, dragSign.y, "pixel_font", "DRAG TO GO",)
+            .setLetterSpacing(1)
+            .setOrigin(0.5, 0.5);
+            
+        const holdSign = map.findObject("objects", obj => obj.name === "HOLD");
+        this.add.bitmapText(holdSign.x, holdSign.y, "pixel_font", "HOLD TO SLOW")
+            .setLetterSpacing(1)
+            .setOrigin(0, 0.5);
         
+        
+        // menu text configuration
+        let menuConfig = {
+            fontFamily: 'Impact',
+            fontSize: '30px',
+            color: '#ffffff',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0,
+        }
+
+        
+
+        // show menu text
+        const topText = map.findObject("objects", obj => obj.name === "Top Text");
+        this.add.text(topText.x, topText.y, 'SPACESHIP ODYSSEY', menuConfig)
+            .setOrigin(0.5);
+            
+
+        menuConfig.fontSize = '15px';
+        const bottomText = map.findObject("objects", obj => obj.name === "Bottom Text");
+        this.add.text(bottomText.x, bottomText.y, 'By Ian, Jason, Chris, Nic', menuConfig)
+            .setOrigin(0.5);
+            
     }
 
 
-    update(delta) {
+    update(time, delta) {
+        this.starfield.tilePositionX += this.scrollSpeed * delta;
        
         if (this.nate.body.velocity.x > 10) {
             this.nate.setFrame(2);

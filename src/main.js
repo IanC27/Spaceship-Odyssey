@@ -20,3 +20,8 @@ let controls = {};
 let playerStatus;
 
 let game = new Phaser.Game(config);
+//game clock
+//48 hours
+game.clock = {
+   minutes: 2880,
+}

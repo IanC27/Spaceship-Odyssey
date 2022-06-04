@@ -8,8 +8,6 @@ class Activity extends Phaser.GameObjects.Sprite {
         this.justDone = false;
 
         this.on("overlapstart", () => {
-            console.log("overlapstart")
-            //console.log(this.inUse,  this.justDone)
             if (!this.inUse && !this.justDone) {
                 if (this.condition()) {
                     this.preInteract(player)
@@ -22,7 +20,6 @@ class Activity extends Phaser.GameObjects.Sprite {
 
         this.on("overlapend", () => {
             this.justDone = false;
-            console.log("overlapend");
         })
 
         /*

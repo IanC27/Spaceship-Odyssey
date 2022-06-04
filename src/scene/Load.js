@@ -72,6 +72,6 @@ class Load extends Phaser.Scene {
 
         }
         this.cache.bitmapFont.add("pixel_font", Phaser.GameObjects.RetroFont.Parse(this, fontConfig));
-        this.scene.start("menuScene");
+        this.scene.start("Tutorial");
     }
 }

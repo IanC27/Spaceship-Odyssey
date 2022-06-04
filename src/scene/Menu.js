@@ -3,11 +3,6 @@ class Menu extends Phaser.Scene {
         super("menuScene");
     }
 
-    preload() {
-        this.load.image('starfield', 'assets/starfield.png');
-        
-    }
-
     create() {
         // title screen graphic
         this.starfield = this.add.tileSprite(0, 0, game.config.width, game.config.height, "starfield").setOrigin(0, 0);
@@ -46,15 +41,11 @@ class Menu extends Phaser.Scene {
             this.scene.start("Tutorial");
         });
 
-        //game clock
-        //48 hours
-        game.clock = {
-            minutes: 2880,
-        }
+        
     }
 
-    update() {
-        this.starfield.tilePositionX -= 0.25;
+    update(time, delta) {
+        this.starfield.tilePositionX -= 0.025 * delta;
       
     }
 }

@@ -90,7 +90,7 @@ class ResearchScene extends Phaser.Scene {
     }
 
     deployKey() {
-        let key = this.keys[randomInt(this.keys.length)];
+        let key = randomElem(this.keys);
         this.keyGroups[key].add(this.add.sprite(game.config.width, game.config.height / 2, key + "Key"));
     }
 
