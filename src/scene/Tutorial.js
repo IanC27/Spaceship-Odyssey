@@ -5,6 +5,7 @@ class Tutorial extends Phaser.Scene {
     }
 
     create() {
+        this.sound.play('theme');
         this.cameras.main.setBackgroundColor('#000');
 
         this.starfield = this.add.tileSprite(game.config.width / 2, game.config.height / 2, 1000, 1000, "starfield").setScrollFactor(0.1).setOrigin(0.5, 0.5);
