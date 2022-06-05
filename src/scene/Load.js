@@ -40,7 +40,8 @@ class Load extends Phaser.Scene {
         this.load.image("EKey", "assets/EKey.png");
 
         this.load.image("ship_tiles", "assets/tilesheet.png");
-        this.load.tilemapTiledJSON("ship_map", "assets/Node2Map.json");
+        this.load.image("bg_tiles", "assets/background.png");
+        this.load.tilemapTiledJSON("ship_map", "assets/Node2MapFinished.json");
         this.load.tilemapTiledJSON("menu_map", "assets/Title.json");
 
         this.load.audio("songNoise", "assets/noiseQ.mp3");

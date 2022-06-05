@@ -20,11 +20,12 @@ class NodeTwo extends Phaser.Scene {
         // create tilemap
         const map = this.add.tilemap("ship_map");
         const tileset = map.addTilesetImage("tilesheet", "ship_tiles");
-        const shipLayer = map.createLayer("Ship", tileset, 0, 0);
+        const backgroundTileSet = map.addTilesetImage("background", "bg_tiles")
+        const shipLayer = map.createLayer("Ship", [tileset, backgroundTileSet], 0, 0);
 
         // tile 0 is the EMPTY tile, meaning tiles actually start at 1
         // tile index is ID + 1
-        shipLayer.setCollision([1]);
+        shipLayer.setCollision([2]);
 
         const playerSpawn = map.findObject("objects", obj => obj.name === "Player Spawn");
 
