@@ -36,13 +36,9 @@ class SleepingBag extends Activity {
         }
         
         this.scene.time.delayedCall(delay, () => {
-            this.text.text = "" // controls to wake up?
-            this.text.alpha = 1;
-            this.text.y = this.y - 20;
             this.scene.awakeTimer.paused = true;
             this.scene.sleepTimer.paused = false;
             this.scene.sleepBorder.setFillStyle(0x00ff00, 1);
-        
         }, this)
         
     }
