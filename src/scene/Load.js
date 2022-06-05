@@ -4,7 +4,6 @@ class Load extends Phaser.Scene {
     }
 
     preload() {
-
         this.load.image("menu", "assets/menu.png")
         // based on this example: https://phaser.io/examples/v3/view/game-objects/bitmaptext/retro-font/retro-text-1#
         this.load.image("pixel_font", "assets/bitmapfont.png");
@@ -58,6 +57,7 @@ class Load extends Phaser.Scene {
         this.load.audio("W_beep", "assets/W.wav");
         this.load.audio("success", "assets/goodnews.mp3");
         this.load.audio("failure", "assets/badnews.mp3");
+        this.load.audio('theme', './assets/darkdreams.mp3');  // tutorial theme
     }
 
     create() {
