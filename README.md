@@ -17,7 +17,11 @@ Sounds by Chris and Ian
 Basic controls are simple! All you need is a mouse or touch.  
 - Drag back to charge up and release to launch the astronaut in that direction.  
 - Tap and hold to slow down.
-- Tap on a station while nearby to start an activity.
+- Go to a station to start an activity.
 - Pay attention to your status meters and your remaining time!
 
-## Design, Development & Details 
+## The Icing
+
+We think this project stands out because of how work went into making the controls simple and intuitive. After Prof. Smith gave some pointers on how we could improve our controls, we put a lot of time into streamlining user input. We went from requiring both keyboard and mouse to mouse/touch only with optional keyboard controls. We also reworked the movement entirely so that players could click and drag anywhere on the screen to move the astronaut. We had to remake one of the minigames and modify the rest, but this control overhaul makes our game fully playable on mobile. 
+
+We also put in a lot of work, including new asset creation, for our combined tutorial/title screen. Before players begin the game and the timer starts counting down, they are given a chance to get used to the controls and movement. They are also introduced to the core mechanic of interacting with "activity stations" through the tutorial activity. We feel that this is a very polished and intuitive way of teaching the player how to play.
