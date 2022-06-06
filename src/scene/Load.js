@@ -24,6 +24,7 @@ class Load extends Phaser.Scene {
         this.load.image("messagehome", "assets/textingBooth.png");
         this.load.image("cycle", "assets/midbike.png");
         this.load.image("library", "assets/bookshelf2.png");
+        this.load.spritesheet("seat", "assets/chair_sheet.png", astroDimensions);
         
         this.load.image("LeftKey", "assets/LeftKey.png");
         this.load.image("RightKey", "assets/RightKey.png");
@@ -42,6 +43,7 @@ class Load extends Phaser.Scene {
         this.load.tilemapTiledJSON("ship_map", "assets/Node2MapFinished.json");
         this.load.tilemapTiledJSON("menu_map", "assets/Title.json");
 
+        // sound fx made in pico-8 and bfxr
         this.load.audio("songNoise", "assets/noiseQ.mp3");
         this.load.audio("goodbleep", "assets/dadeep.wav");
         this.load.audio("ouch", "assets/eeemmp.wav");
@@ -56,7 +58,8 @@ class Load extends Phaser.Scene {
         this.load.audio("W_beep", "assets/W.wav");
         this.load.audio("success", "assets/goodnews.mp3");
         this.load.audio("failure", "assets/badnews.mp3");
-        this.load.audio('theme', './assets/darkdreams.mp3');  // tutorial theme
+        this.load.audio("theme", "./assets/darkdreams.mp3");  // tutorial theme
+        this.load.audio("launch", "assets/launch.wav")
     }
 
     create() {

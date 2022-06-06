@@ -39,7 +39,7 @@ class Tutorial extends Phaser.Scene {
 
         // camera follow
         this.cameras.main.startFollow(this.nate, true, 0.1, 0.1);
-        this.cameras.main.setDeadzone(100, 100);
+        //this.cameras.main.setDeadzone(100, 100);
         
         // flinging controls
         this.pointer = this.input.activePointer;
@@ -80,12 +80,9 @@ class Tutorial extends Phaser.Scene {
 
         })
 
-        // camera follow
-        this.cameras.main.startFollow(this.nate, true, 0.1, 0.1);
-
         this.activities = this.physics.add.group({runChildUpdate: true});
         const sBegin = map.findObject("objects", obj => obj.name === "Begin");
-        this.activities.add(new SampleActivity(this, sBegin.x, sBegin.y, "activity", 0, this.nate));
+        this.activities.add(new SampleActivity(this, sBegin.x, sBegin.y, "seat", 0, this.nate));
 
         const dragSign = map.findObject("objects", obj => obj.name === "DRAG");
         this.add.bitmapText(dragSign.x, dragSign.y, "pixel_font", "DRAG TO GO",)
