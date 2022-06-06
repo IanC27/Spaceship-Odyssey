@@ -20,7 +20,7 @@ Basic controls are simple! All you need is a mouse or touch.
 - Go to a station to start an activity.
 - Pay attention to your status meters and your remaining time!
 
-## Our Aesthetic Goals
+## Experience Goals
 
 The idea behind this game is to emulate the franitc, rushed experience of fitting many things in to a busy schedule. Between work, school, career aspirations and simply taking care of oneself, we all have to make difficult decisions all the time about how we spend our time. Often, we feel obligated to work to the point of exhaustion, only to be unable to do the things we really love or spend time with friends and family. Just like in the game, it is impossible to get it “right” the first time, so it is ok to make mistakes, or choose a different path later on. Luckily, we don’t have to decide how to spend 5 years worth of our time in 24 hours in real life.
 
