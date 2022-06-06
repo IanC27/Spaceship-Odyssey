@@ -1,7 +1,7 @@
 class ExerciseCycle extends Activity {
     constructor(scene, x, y, texture, frame, player, animation) {
         super(scene, x, y, texture, frame, player, animation);
-        this.displayName = "Work out!"
+        this.displayName = "Work out"
         this.animOffset = {x: -2, y: -6  }
     }
 
