@@ -24,6 +24,7 @@ class SampleActivity extends Activity {
             this.word.destroy();
             this.button.destroy();
             this.scene.time.delayedCall(1000, () => {
+                this.scene.music.stop();
                 this.scene.scene.start("NodeTwo");
             })
             

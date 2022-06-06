@@ -1,7 +1,7 @@
 class Research extends Activity {
     constructor(scene, x, y, texture, frame, player, animation) {
         super(scene, x, y, texture, frame, player, animation);
-        this.displayName = "Conduct Research";
+        this.displayName = "Research";
         this.animOffset = {x: 0, y: 10}
     }
 
@@ -30,13 +30,13 @@ class ResearchScene extends Phaser.Scene {
         this.maxCount = 5;
 
         if (playerStatus.stress >= 100) {
-            this.pStress = this.add.text(game.config.width / 2, game.config.height / 2  + 20, "I feel stressed...", { fontSize: '15px', fill: '#000000' })
+            this.pStress = this.add.text(game.config.width / 2, game.config.height / 2  - 40, "I feel stressed...", { fontSize: '15px', fill: '#aa0000', })
                 .setOrigin(0.5, 0.5);
             this.add.tween({
                 targets: this.pStress,
-                duration: 2000,
+                duration: 3000,
                 alpha: 0,
-                y: game.config.height / 2,
+                y: game.config.height / 2 - 60,
                 ease: "Quad.out"
             });
             this.pointReward = 3;
@@ -46,7 +46,7 @@ class ResearchScene extends Phaser.Scene {
             this.pointTextColor = "#00ff00";
         }
 
-        this.pointsText = this.add.text(game.config.width / 2, game.config.height - 10, "+" + this.pointReward.toString(), {fontSize: '15px', fill: this.pointTextColor});
+        this.pointsText = this.add.text(game.config.width / 2 + 20, game.config.height - 10, "+" + this.pointReward.toString(), {fontSize: '15px', fill: this.pointTextColor});
         this.pointsText.setAlpha(0);
         this.pointsText.setOrigin(0.5, 0.5);
         

@@ -4,7 +4,7 @@ class Load extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("menu", "assets/menu.png")
+        
         // based on this example: https://phaser.io/examples/v3/view/game-objects/bitmaptext/retro-font/retro-text-1#
         this.load.image("pixel_font", "assets/bitmapfont.png");
         
@@ -24,8 +24,6 @@ class Load extends Phaser.Scene {
         this.load.image("messagehome", "assets/textingBooth.png");
         this.load.image("cycle", "assets/midbike.png");
         this.load.image("library", "assets/bookshelf2.png");
-        this.load.image("stargaze", "assets/stargaze.png");
-        this.load.image("background", "assets/MessageHomeBackground.png"); 
         
         this.load.image("LeftKey", "assets/LeftKey.png");
         this.load.image("RightKey", "assets/RightKey.png");
@@ -40,7 +38,8 @@ class Load extends Phaser.Scene {
         this.load.image("EKey", "assets/EKey.png");
 
         this.load.image("ship_tiles", "assets/tilesheet.png");
-        this.load.tilemapTiledJSON("ship_map", "assets/Node2Map.json");
+        this.load.image("bg_tiles", "assets/background.png");
+        this.load.tilemapTiledJSON("ship_map", "assets/Node2MapFinished.json");
         this.load.tilemapTiledJSON("menu_map", "assets/Title.json");
 
         this.load.audio("songNoise", "assets/noiseQ.mp3");

@@ -23,7 +23,6 @@ class Activity extends Phaser.GameObjects.Sprite {
             this.justDone = false;
         })
 
-        //this.body.setSize(range, range);
         this.astronaut = player;
 
         // place an animated sprite while being used
@@ -35,7 +34,7 @@ class Activity extends Phaser.GameObjects.Sprite {
         this.canDoTired = false;
         this.inUse = false;
         this.displayName = "Activity";
-        this.displayText = this.scene.add.text(this.x, this.y - textOffset, "", {fontSize: '15px', fill: '#000000'});
+        this.displayText = this.scene.add.text(this.x, this.y - textOffset, "", {fontSize: '15px', fill: '#ffffff'});
         this.displayText.setOrigin(0.5, 0);
     }
 
@@ -55,7 +54,6 @@ class Activity extends Phaser.GameObjects.Sprite {
             this.displayText.text = "";
             this.activeUpdate(time, delta);
         } else if (this.scene.physics.world.overlap(this.showTextZone, this.astronaut)) {
-            //console.log("overlap");
             this.displayText.text = this.displayName;
         } else {
             this.displayText.text = "";
@@ -83,7 +81,6 @@ class Activity extends Phaser.GameObjects.Sprite {
 
     preInteract(player) {
         // disable body+object, and hide player
-        
         if (this.disablePlayer) {
             player.setVelocity(0, 0);
             this.astronaut.setPosition(this.x + this.animOffset.x, this.y + this.animOffset.y);
@@ -94,7 +91,7 @@ class Activity extends Phaser.GameObjects.Sprite {
                 this.activeSprite.play(this.activeAnim);
             }
         }
-        //console.log("interacted");
+
         this.inUse =  true;
         this.onInteract(player);
     }
@@ -110,7 +107,6 @@ class Activity extends Phaser.GameObjects.Sprite {
             this.inUse = false;
         }
         
-        //console.log("end");
         this.end();
     }
 
