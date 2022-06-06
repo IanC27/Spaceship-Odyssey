@@ -4,15 +4,10 @@ class NodeTwo extends Phaser.Scene {
         super("NodeTwo");
     }
 
-    preload() {
-        
- 
-    }
 
     create() {
         this.cameras.main.setBackgroundColor('#000');
         controls.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-        controls.next = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
         controls.quit = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
         // background
@@ -28,10 +23,9 @@ class NodeTwo extends Phaser.Scene {
         shipLayer.setCollision([1]);
 
         const playerSpawn = map.findObject("objects", obj => obj.name === "Player Spawn");
-
         this.nate = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, "astro", 1);
         this.nate.setDepth(1);
-        this.nate.setInteractive({draggable: true});
+        this.nate.setInteractive();
         this.nate.setBounceX(0.8);
         this.nate.setBounceY(0.8);
         this.nate.setMaxVelocity(game.config.height / 2, game.config.height / 2);
@@ -47,14 +41,15 @@ class NodeTwo extends Phaser.Scene {
             research: 0,
             family: 0,
             knowledge: 0,
+            // unused:
+            /*
             inventionProgress: 0,
             inventions: 0,
             spaceWalk: false
+            */
         };
 
-            
         // flinging controls
-
         this.pointer = this.input.activePointer;
         this.flingLine = this.add.line(0, 0, this.nate.x, this.nate.y, this.nate.x, this.nate.y, 0x00ff00);
         this.flingLine.setDepth(1);
@@ -63,10 +58,8 @@ class NodeTwo extends Phaser.Scene {
         this.velocityVector = {x: 0, y: 0};
 
         this.input.on("pointerdown", (pointer) => {
-            
             this.nate.setDrag(100);
             this.mouseMoved = false;
-            
         });
         
         this.input.on("pointermove", (pointer) => {
@@ -74,11 +67,6 @@ class NodeTwo extends Phaser.Scene {
         });
         
         this.input.on("pointerup", (pointer) => {
-            /*
-            let vX = pointer.downX - pointer.upX
-            let vY = pointer.downY - pointer.upY
-            console.log(vX, vY);
-            */
             if (this.mouseMoved) {
                 this.nate.setVelocityX(this.velocityVector.x);
                 this.nate.setVelocityY(this.velocityVector.y);
@@ -90,18 +78,17 @@ class NodeTwo extends Phaser.Scene {
             this.velocityVector.y = 0;
         });
 
-        // in case the player drags outside, max velocity it to edge of screen
+        // in case the player drags outside, max velocity to edge of screen
         this.input.on("pointerupoutside", (pointer) => {
-            /*
-            let endX = Phaser.Math.Clamp(pointer.upX, 0, game.config.width);
-            let endY = Phaser.Math.Clamp(pointer.upY, 0, game.config.height);
-            let vX = pointer.downX - endX;
-            let vY = pointer.downY - endY;
-            console.log(vX, vY);
-            */
-            this.nate.setVelocityX(this.velocityVector.x);
-            this.nate.setVelocityY(this.velocityVector.y);
+            if (this.mouseMoved) {
+                this.nate.setVelocityX(this.velocityVector.x);
+                this.nate.setVelocityY(this.velocityVector.y);
+                this.mouseMoved = false;
+            }
+            this.nate.setDrag(0);
             this.flingLine.setTo(0, 0, 0, 0);
+            this.velocityVector.x = 0;
+            this.velocityVector.y = 0;
 
         })
 
@@ -110,7 +97,6 @@ class NodeTwo extends Phaser.Scene {
         //this.cameras.main.setDeadzone(100, 100);
         
         // activity anims
-
         this.anims.create({
             key: "workAnim",
             frames: this.anims.generateFrameNumbers("work_astro", {start: 0, end: 2, first: 0}),
@@ -132,17 +118,6 @@ class NodeTwo extends Phaser.Scene {
             frameRate: 0.4,
             repeat: -1,
         })
-
-
-        /*
-
-        this.anims.create({
-            key: "messagehomeAnim",
-            frames: this.anims.generateFrameNumbers("messagehome", {start: 0, end: 0, first: 0}),
-            frameRate: 1,
-            repeat: 0
-        })
-        */
 
         // create activities 
         this.activities = this.physics.add.group({runChildUpdate: true});
@@ -202,6 +177,7 @@ class NodeTwo extends Phaser.Scene {
             .setOrigin(1, 0.5);
 
         // DEBUG ZONE
+        /*
         // skip to end debug
         this.input.keyboard.on("keydown-MINUS", () => {
             this.gameOver();
@@ -209,11 +185,13 @@ class NodeTwo extends Phaser.Scene {
         
         // max all bad stuff
         this.input.keyboard.on("keydown-PLUS", () => {
+            playerStatus.energy = 0;
             playerStatus.stress = 100;
+            playerStatus.homeSickness = 100;
             
         })
-
         // END DEBUG ZONE
+        */
 
         // UI ELEMENTS
         // UI config
@@ -228,7 +206,7 @@ class NodeTwo extends Phaser.Scene {
                 bottom: 5,
             },
         }
-        // UI
+        // UI Panel
         this.add.rectangle(0, 0, game.config.width, 30, 0x6b6b6b)
             .setOrigin(0, 0)
             .setScrollFactor(0);;
@@ -238,7 +216,6 @@ class NodeTwo extends Phaser.Scene {
         this.add.rectangle(this.clockPosX, 4, 70, 19, 0xffffff)
             .setOrigin(0, 0)
             .setScrollFactor(0);
-        
         
         this.clockDay = this.add.bitmapText(this.clockPosX + 2, 6, "pixel_font", '');
         this.clockDay.setScrollFactor(0, 0);
@@ -256,7 +233,6 @@ class NodeTwo extends Phaser.Scene {
             .setOrigin(0, 0)
             .setScrollFactor(0);
 
-
         this.clockMin = this.add.bitmapText(this.clockPosX + 47, 6, "pixel_font", '');
         this.clockMin.setScrollFactor(0, 0);
         this.clockMin.setLetterSpacing(1);
@@ -268,6 +244,7 @@ class NodeTwo extends Phaser.Scene {
         this.sleepBorder.setOrigin(0, 0).setScrollFactor(0);
         this.sleepMeter = this.add.rectangle(game.config.width - 105, 5, 100, 5, 0x0000ff).setOrigin(0, 0);
         this.sleepMeter.setScrollFactor(0);
+
         // stress bar
         this.stresstext = this.add.text(132, 16, "Stress: ", {fontSize: '8px', fill: '#800080'}).setOrigin(0.5, 0.5);
         this.stresstext.setScrollFactor(0, 0);
@@ -275,6 +252,7 @@ class NodeTwo extends Phaser.Scene {
         this.stressBorder.setOrigin(0, 0).setScrollFactor(0);
         this.stressMeter = this.add.rectangle(game.config.width - 105, 13, 1, 5, 0x800080).setOrigin(0, 0);
         this.stressMeter.setScrollFactor(0);
+
         // homesickness bar
         this.hstext = this.add.text(118, 24, "Homesickness: ", {fontSize: '8px', fill: '#ff9900'}).setOrigin(0.5, 0.5);
         this.hstext.setScrollFactor(0, 0);
@@ -283,14 +261,14 @@ class NodeTwo extends Phaser.Scene {
         this.hsMeter = this.add.rectangle(game.config.width - 105, 21, 1, 5, 0xff9900).setOrigin(0, 0);
         this.hsMeter.setScrollFactor(0);
         
-        // after 8 hours, lose 100 sleep
+        // Status Timers
         this.awakeTimer = this.time.addEvent({
             delay: 480,
             callback: this.decrSleep,
             callbackScope: this,
             loop: true
         });
-        // refill 100 sleep after 1 hour asleep
+
         this.sleepTimer = this.time.addEvent({
             delay: 60,
             callback: this.incrSleep,
@@ -315,7 +293,6 @@ class NodeTwo extends Phaser.Scene {
             paused: true
         });
 
-        // after 12 hours, gain 100 homesickness
         this.hsTimer = this.time.addEvent({
             delay: 800,
             callback: this.incrHs,
@@ -329,12 +306,18 @@ class NodeTwo extends Phaser.Scene {
         game.clock = {
              minutes: 2880,
         }
-        this.clockInterval = setInterval(myTimer, 100);
+
+        this.gameTimer = this.time.addEvent({
+            delay: 100,
+            callback: myTimer,
+            callbackScope: this,
+            loop: true
+        })
         function myTimer() {
             game.clock.minutes -= 1;
         }
         
-
+        // music
         this.bgm = this.sound.add('songNoise');
         this.bgm.setLoop(true);
         this.bgm.play();
@@ -343,11 +326,11 @@ class NodeTwo extends Phaser.Scene {
 
     update(delta) {
         if (game.clock.minutes <= 0){
-            clearInterval(this.clockInterval);
             this.gameOver();
         }
+
+        // set clock text
         let days = Math.floor(game.clock.minutes / 1440)
-        //console.log(game.clock.minutes % 144);
         let hours = Math.floor((game.clock.minutes % 1440) / 60)
         let minutes = (game.clock.minutes % 60);
         
@@ -355,6 +338,7 @@ class NodeTwo extends Phaser.Scene {
         this.clockHour.text = hours.toString().padStart(2, "0");
         this.clockMin.text = minutes.toString().padStart(2, "0");
 
+        //  have astronaut face the right direction
         if (this.nate.body.velocity.x > 10) {
             this.nate.setFrame(2);
         } else if (this.nate.body.velocity.x < -10) {
@@ -377,6 +361,7 @@ class NodeTwo extends Phaser.Scene {
     }
     
     gameOver() {
+        this.gameTimer.paused = true;
         this.bgm.stop();
         // remember to add all sub-scene keys to this list
         let subScenes = ["ExerciseScene", "LibScene", "MessageScene", "ResearchScene"]
