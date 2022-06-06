@@ -35,7 +35,7 @@ class Activity extends Phaser.GameObjects.Sprite {
         this.canDoTired = false;
         this.inUse = false;
         this.displayName = "Activity";
-        this.displayText = this.scene.add.text(this.x, this.y - textOffset, "", {fontSize: '15px', fill: '#000000'});
+        this.displayText = this.scene.add.text(this.x, this.y - textOffset, "", {fontSize: '15px', fill: '#ffffff'});
         this.displayText.setOrigin(0.5, 0);
     }
 

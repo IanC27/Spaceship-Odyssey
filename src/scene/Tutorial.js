@@ -25,7 +25,7 @@ class Tutorial extends Phaser.Scene {
  
         // tile 0 is the EMPTY tile, meaning tiles actually start at 1
         // tile index is ID + 1
-        shipLayer.setCollision([2]);
+        shipLayer.setCollision([1]);
  
         const playerSpawn = map.findObject("objects", obj => obj.name === "Player Spawn");
 

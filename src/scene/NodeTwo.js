@@ -25,7 +25,7 @@ class NodeTwo extends Phaser.Scene {
 
         // tile 0 is the EMPTY tile, meaning tiles actually start at 1
         // tile index is ID + 1
-        shipLayer.setCollision([2]);
+        shipLayer.setCollision([1]);
 
         const playerSpawn = map.findObject("objects", obj => obj.name === "Player Spawn");
 
@@ -209,9 +209,8 @@ class NodeTwo extends Phaser.Scene {
         
         // max all bad stuff
         this.input.keyboard.on("keydown-PLUS", () => {
-            playerStatus.energy = 0;
             playerStatus.stress = 100;
-            playerStatus.homeSickness = 100;
+            
         })
 
         // END DEBUG ZONE
